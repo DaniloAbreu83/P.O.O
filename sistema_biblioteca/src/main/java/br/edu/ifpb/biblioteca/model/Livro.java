@@ -8,6 +8,12 @@ public class Livro {
     private int ano;
     private int paginas;
 
+    public Livro(String titulo, String autor, int ano) {
+        this.titulo = titulo;
+        this.autor = autor;
+        this.ano = ano;
+    }
+
     public String getIsbn(){
         return isbn;
     }
@@ -54,6 +60,17 @@ public class Livro {
 
     public void setPaginas(int paginas){
         this.paginas = paginas;
+    }
+    @Override
+    public String toString() {
+        return "livro{" +
+                "isbn='" + isbn + '\'' +
+                ", titulo='" + titulo + '\'' +
+                ", autor='" + autor + '\'' +
+                ", editora='" + editora + '\'' +
+                ", ano=" + ano +
+                ", paginas=" + paginas +
+                '}';
     }
 
 }
