@@ -1,13 +1,13 @@
 package br.edu.ifpb.biblioteca.model;
 
-public class usuario {
+public class Usuario {
     private int id;
     private String nome;
     private String tipo;
     private int imprestimosAtivo;
     private boolean bloqueado;
 
-    public usuario( int id, String nome, String tipo, int imprestimosAtivos, boolean bloqueado) {
+    public Usuario( int id, String nome, String tipo, int imprestimosAtivos, boolean bloqueado) {
         this.id = id;
         this.nome = nome;
         this.tipo = tipo;
@@ -37,7 +37,7 @@ public class usuario {
 
     @Override
     public String toString() {
-        return "usuario{" +
+        return "Usuario{" +
         "id=" + id +
         ", nome ='" + nome + '\'' +
         ", tipo='" + tipo + '\'' +

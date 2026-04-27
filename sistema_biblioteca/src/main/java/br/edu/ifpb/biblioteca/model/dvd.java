@@ -1,11 +1,11 @@
 package br.edu.ifpb.biblioteca.model;
 import java.time.LocalDate;
-public class dvd {
+public class Dvd {
     private String diretor;
     private LocalDate duracao;
     private String classificacaoIndicativa;
 
-    public dvd(String diretor, LocalDate duracao, String classificacaoIndicativa) {
+    public Dvd(String diretor, LocalDate duracao, String classificacaoIndicativa) {
         this.diretor = diretor;
         this.duracao = duracao;
         this.classificacaoIndicativa = classificacaoIndicativa;
@@ -35,7 +35,7 @@ public class dvd {
 
     @Override
     public String toString(){
-        return  "dvd'" +
+        return  "Dvd'" +
                 "diretor= '" + diretor + '\'' +
                 ", duracao= '" + duracao + '\'' +
                 ", classificaIndicativa='" + classificacaoIndicativa + '\'' +
