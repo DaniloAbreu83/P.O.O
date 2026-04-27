@@ -5,4 +5,41 @@ public class dvd {
     private LocalDate duracao;
     private String classificacaoIndicativa;
 
+    public dvd(String diretor, LocalDate duracao, String classificacaoIndicativa) {
+        this.diretor = diretor;
+        this.duracao = duracao;
+        this.classificacaoIndicativa = classificacaoIndicativa;
+    }
+
+    public String getDiretor() {
+        return diretor;
+    }
+
+    public LocalDate getDuracao(){
+        return duracao;
+    }
+
+    public String getClassificacaoIndicativa(){
+        return classificacaoIndicativa;
+    }
+
+    public void setDiretor(String diretor){
+        this.diretor = diretor;
+    }
+    public void setDuracao(LocalDate duracao){
+        this.duracao = duracao;
+    }
+    public void setClassificacaoIndicativa(String classificacaoIndicativa){
+        this.classificacaoIndicativa = classificacaoIndicativa;
+    }
+
+    @Override
+    public String toString(){
+        return  "dvd'" +
+                "diretor= '" + diretor + '\'' +
+                ", duracao= '" + duracao + '\'' +
+                ", classificaIndicativa='" + classificacaoIndicativa + '\'' +
+                '}';
+    }
+
 }
