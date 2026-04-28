@@ -1,13 +1,13 @@
 package br.edu.ifpb.biblioteca.model;
-import java.time.LocalDate;
+
 public class Dvd {
     private String diretor;
-    private LocalDate duracao;
+    private int duracaoMinutos;
     private String classificacaoIndicativa;
 
-    public Dvd(String diretor, LocalDate duracao, String classificacaoIndicativa) {
+    public Dvd(String diretor, int duracaoMinutos, String classificacaoIndicativa) {
         this.diretor = diretor;
-        this.duracao = duracao;
+        this.duracaoMinutos = duracaoMinutos;
         this.classificacaoIndicativa = classificacaoIndicativa;
     }
 
@@ -15,8 +15,8 @@ public class Dvd {
         return diretor;
     }
 
-    public LocalDate getDuracao(){
-        return duracao;
+    public int getDuracao(){
+        return duracaoMinutos;
     }
 
     public String getClassificacaoIndicativa(){
@@ -26,8 +26,8 @@ public class Dvd {
     public void setDiretor(String diretor){
         this.diretor = diretor;
     }
-    public void setDuracao(LocalDate duracao){
-        this.duracao = duracao;
+    public void setDuracao(int duracao){
+        this.duracaoMinutos = duracao;
     }
     public void setClassificacaoIndicativa(String classificacaoIndicativa){
         this.classificacaoIndicativa = classificacaoIndicativa;
@@ -35,9 +35,9 @@ public class Dvd {
 
     @Override
     public String toString(){
-        return  "Dvd'" +
+        return  "Dvd{" +
                 "diretor= '" + diretor + '\'' +
-                ", duracao= '" + duracao + '\'' +
+                ", duracaoMinutos= '" + duracaoMinutos + '\'' +
                 ", classificaIndicativa='" + classificacaoIndicativa + '\'' +
                 '}';
     }
