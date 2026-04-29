@@ -13,7 +13,7 @@ public class Main {
         Usuario usuarioteste = new Usuario(1, "Danilo", "ALUNO", 0, false);
 
         // Criar livro
-        Livro livroteste = new Livro("Java Básico", "Autor X", 2020);
+        Livro livroteste = new Livro();
 
         // Adicionar ao sistema
         service.adicionarUsuario(usuarioteste);
