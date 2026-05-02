@@ -17,6 +17,12 @@ public class BibliotecaService {
     // ADICIONAR DADOS
     // -----------------------------
     public void adicionarUsuario(Usuario usuario) {
+        for (Usuario u : usuarios) {
+            if (u.getId() == usuario.getId()) {
+                System.out.println("ID já existe. Usuário não adicionado.");
+                return;
+            }
+        }
         usuarios.add(usuario);
     }
 
@@ -90,6 +96,14 @@ public class BibliotecaService {
             System.out.println("Livro não encontrado");
             return;
         }
+        for (Emprestimo emp: emprestimos) {
+            if (emp.getTituloItem().equalsIgnoreCase(tituloLivro) && emp.getStatus().equals("EM_ABERTO")) {
+                System.out.println("Livro já está emprestado");
+                return;
+            }
+        }
+
+        EmprestimoService emprestimoService = new EmprestimoService();
 
         // 5. Criar empréstimo
         Emprestimo e = new Emprestimo(
@@ -100,6 +114,10 @@ public class BibliotecaService {
                 0,
                 0.0,
                 "EM_ABERTO");
+        boolean sucesso = emprestimoService.realizarEmprestimo(usuario, e);
+        if(sucesso) {
+            emprestimos.add(e);
+        }
 
         // 6. Salvar empréstimo
         emprestimos.add(e);
