@@ -15,5 +15,6 @@ public class Usuario {
     private String tipo;
     private int emprestimosAtivos;
     private boolean bloqueado;
+    private boolean multaPendente;
 
 }

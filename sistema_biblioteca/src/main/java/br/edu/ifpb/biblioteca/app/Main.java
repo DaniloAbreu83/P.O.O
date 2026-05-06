@@ -2,9 +2,9 @@ package br.edu.ifpb.biblioteca.app;
 
 import java.util.Scanner;
 import br.edu.ifpb.biblioteca.model.Usuario;
+import br.edu.ifpb.biblioteca.model.Emprestimo;
 import br.edu.ifpb.biblioteca.model.Livro;
 import br.edu.ifpb.biblioteca.service.BibliotecaService;
-import br.edu.ifpb.biblioteca.service.EmprestimoService;
 
 public class Main {
     public static void main(String[] args) {
@@ -37,16 +37,21 @@ public class Main {
 
                     System.out.print("Tipo (ALUNO/PROFESSOR/FUNCIONARIO): ");
                     String tipo = sc.nextLine();
+                    tipo = tipo.toUpperCase().trim();
 
-                    Usuario usuario = new Usuario(id, nome, tipo, 0, false);
-                    service.adicionarUsuario(usuario);
+                    Usuario usuario = new Usuario(id, nome, tipo, 0, false, false);
+                    boolean sucessoUsuario =service.adicionarUsuario(usuario);
 
-                    System.out.println("Usuário adicionado com sucesso!");
+                    if (sucessoUsuario) {
+                        System.out.println("Usuário adicionado com sucesso!");
+                    } else {
+                        System.out.println("Erro: ID já existe ou usuário é inválido.");
+                    }
                     break;
 
                 case 2:
                     System.out.print("ISBN:");
-                    String isbn = sc.nextLine();
+                    String ISBN = sc.nextLine();
 
                     System.out.print("Titulo: ");
                     String titulo = sc.nextLine();
@@ -65,9 +70,24 @@ public class Main {
                     int paginas = sc.nextInt();
                     sc.nextLine();
 
-                    Livro livro = new Livro(isbn, titulo, autor, editora, ano, paginas);
-                    service.adicionarLivro(livro);
-                    System.out.println("Livro adicionado com sucesso!");
+                    System.out.print("Edição: ");
+                    String edicao = sc.nextLine();
+
+                    System.out.print("Gênero: ");
+                    String genero = sc.nextLine();
+
+                    System.out.print("Sinopse: ");
+                    String sinopse = sc.nextLine();
+
+                    Livro livro = new Livro(ISBN, titulo, autor, editora, ano, paginas, edicao, genero, sinopse, "DISPONIVEL");
+
+                    boolean sucessoLivro = service.adicionarLivro(livro);
+
+                    if (sucessoLivro) {
+                        System.out.println("Livro adicionado com sucesso!");
+                    } else {
+                        System.out.println("Erro: livro já existe ou é inválido.");
+                    }
                     break;
 
                 case 3:
@@ -78,7 +98,12 @@ public class Main {
                     System.out.print("Título do livro: ");
                     String tituloItem = sc.nextLine();
 
-                    service.realizarEmprestimo(idUsuario, tituloItem);
+                    boolean sucessoEmprestimo =service.realizarEmprestimo(idUsuario, tituloItem);
+                    if (sucessoEmprestimo) {
+                        System.out.println("Empréstimo realizado com sucesso!");
+                    }else {
+                        System.out.println("Erro ao realizar emprestimo. O livro encontra-se emprestado.");
+                    }
                     break;
 
                 case 4:
@@ -93,7 +118,13 @@ public class Main {
                     int diasAtraso = sc.nextInt();
                     sc.nextLine();
 
-                    service.registrarDevolucao(idDev, tituloDev, diasAtraso);
+                    Emprestimo emp = service.registrarDevolucao(idDev, tituloDev, diasAtraso);
+                    if (emp != null) {
+                        System.out.println("Devolução realizada com sucesso!");
+                        System.out.println("Multa: R$ " + emp.getMulta());
+                    } else {
+                        System.out.println("Erro ao realizar devolução.");
+                    }
                     break;
 
                 case 5:

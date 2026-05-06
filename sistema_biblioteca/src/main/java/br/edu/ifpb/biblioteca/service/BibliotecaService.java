@@ -16,18 +16,30 @@ public class BibliotecaService {
     // -----------------------------
     // ADICIONAR DADOS
     // -----------------------------
-    public void adicionarUsuario(Usuario usuario) {
+    public boolean adicionarUsuario(Usuario usuario) {
+        if (usuario == null) {
+            return false;
+        }
         for (Usuario u : usuarios) {
             if (u.getId() == usuario.getId()) {
-                System.out.println("ID já existe. Usuário não adicionado.");
-                return;
+                return false;
             }
         }
         usuarios.add(usuario);
+        return true;
     }
 
-    public void adicionarLivro(Livro livro) {
+    public boolean adicionarLivro(Livro livro) {
+        if (livro == null) {
+            return false;
+        }
+        for (Livro l : livros) {
+            if (l.getISBN().equals(livro.getISBN())) {
+                return false;
+            }
+        }
         livros.add(livro);
+        return true;
     }
 
     // -----------------------------
@@ -57,20 +69,18 @@ public class BibliotecaService {
     // -----------------------------
     // REALIZAR EMPRÉSTIMO (UC3)
     // -----------------------------
-    public void realizarEmprestimo(int idUsuario, String tituloLivro) {
+    public boolean realizarEmprestimo(int idUsuario, String tituloLivro) {
 
         // 1. Buscar usuário
         Usuario usuario = buscarUsuarioPorId(idUsuario);
 
         if (usuario == null) {
-            System.out.println("Usuário não encontrado");
-            return;
+            return false;
         }
 
         // 2. Verificar se está bloqueado
-        if (usuario.isBloqueado()) {
-            System.out.println("Usuário está bloqueado");
-            return;
+        if (usuario.isBloqueado() || usuario.isMultaPendente()) {
+            return false;
         }
 
         int limite = 0;
@@ -85,50 +95,52 @@ public class BibliotecaService {
 
         // 3. Verificar limite (simples: 3)
         if (usuario.getEmprestimosAtivos() >= limite) {
-            System.out.println("Limite de empréstimos atingido");
-            return;
+            return false;
         }
 
         // 4. Buscar livro
         Livro livro = buscarLivroPorTitulo(tituloLivro);
 
         if (livro == null) {
-            System.out.println("Livro não encontrado");
-            return;
+            return false;
         }
-        for (Emprestimo emp: emprestimos) {
-            if (emp.getTituloItem().equalsIgnoreCase(tituloLivro) && emp.getStatus().equals("EM_ABERTO")) {
-                System.out.println("Livro já está emprestado");
-                return;
-            }
+        if (!livro.getStatus().equalsIgnoreCase("DISPONIVEL")) {
+            return false;
         }
 
         EmprestimoService emprestimoService = new EmprestimoService();
+
+        int prazo = 0;
+
+        if (usuario.getTipo().equalsIgnoreCase("ALUNO")) {
+            prazo = 7;
+        } else if (usuario.getTipo().equalsIgnoreCase("PROFESSOR")) {
+            prazo = 14;
+        } else if (usuario.getTipo().equalsIgnoreCase("FUNCIONARIO")) {
+            prazo = 10;
+        }
 
         // 5. Criar empréstimo
         Emprestimo e = new Emprestimo(
                 idUsuario,
                 tituloLivro,
                 "Livro",
-                7,
+                prazo,
                 0,
                 0.0,
-                "EM_ABERTO");
+                "EM_ABERTO",
+                "PENDENTE");
         boolean sucesso = emprestimoService.realizarEmprestimo(usuario, e);
-        if(sucesso) {
+        if (sucesso) {
             emprestimos.add(e);
+            livro.setStatus("EMPRESTADO");
+            return true;
+        } else {
+            return false;
         }
-
-        // 6. Salvar empréstimo
-        emprestimos.add(e);
-
-        // 7. Atualizar usuário
-        usuario.setEmprestimosAtivos(usuario.getEmprestimosAtivos() + 1);
-
-        System.out.println("Empréstimo realizado com sucesso!");
     }
 
-    public void registrarDevolucao(int idUsuario, String tituloLivro, int diasAtraso) {
+    public Emprestimo registrarDevolucao(int idUsuario, String tituloLivro, int diasAtraso) {
 
         Usuario usuario = buscarUsuarioPorId(idUsuario);
 
@@ -138,60 +150,70 @@ public class BibliotecaService {
                     e.getTituloItem().equalsIgnoreCase(tituloLivro) &&
                     e.getStatus().equals("EM_ABERTO")) {
 
-                // calcular atraso
-                                
-                double valorMultaPorDia = 0;
+                EmprestimoService emprestimoService = new EmprestimoService();
+                emprestimoService.realizarDevolucao(e, usuario, diasAtraso);
 
-                if (usuario.getTipo().equalsIgnoreCase("ALUNO")) {
-                    valorMultaPorDia = 2.0;
-                } else if (usuario.getTipo().equalsIgnoreCase("PROFESSOR")) {
-                    valorMultaPorDia = 1.0;
-                } else if (usuario.getTipo().equalsIgnoreCase("FUNCIONARIO")) {
-                    valorMultaPorDia = 1.5;
-                }
+                return e;
+            }
+        }
+        return null;
+    }
 
-                double multa = diasAtraso * valorMultaPorDia;
+    public void listarEmprestimosEmAberto() {
+        for (Emprestimo e : emprestimos) {
+            if (e.getStatus().equals("EM_ABERTO")) {
+                System.out.println(e);
+            }
+        }
+    }
 
-                // atualizar empréstimo
-                e.setDiasAtraso(diasAtraso);
-                e.setMulta(multa);
-                e.setStatus("DEVOLVIDO");
+    public void listarEmprestimosEmAtraso() {
+        for (Emprestimo e : emprestimos) {
+            if (e.getDiasAtraso() > 0 && e.getStatus().equals("EM_ABERTO")) {
+                System.out.println(e);
+            }
+        }
+    }
 
-                // atualizar usuário
-                
-                usuario.setEmprestimosAtivos(usuario.getEmprestimosAtivos() - 1);
+    public void listarHistoricoUsuario(int idUsuario) {
+        for (Emprestimo e : emprestimos) {
+            if (e.getIdUsuario() == idUsuario && e.getStatus().equals("DEVOLVIDO")) {
+                System.out.println(e);
+            }
+        }
+    }
 
-                System.out.println("Devolução realizada!");
-                System.out.println("Multa: R$ " + multa);
+    public List<Usuario> buscarUsuarioPorNome(String nome) {
+        List<Usuario> resultado = new ArrayList<>();
 
-                return;
+        for (Usuario u : usuarios) {
+            if (u.getNome().equalsIgnoreCase(nome)) {
+                resultado.add(u);
             }
         }
 
-        System.out.println("Empréstimo não encontrado");
+        return resultado;
     }
-    public void listarEmprestimosEmAberto() {
-    for (Emprestimo e : emprestimos) {
-        if (e.getStatus().equals("EM_ABERTO")) {
-            System.out.println(e);
-        }
-    }
-}
 
-public void listarEmprestimosEmAtraso() {
-    for (Emprestimo e : emprestimos) {
-        if (e.getDiasAtraso() > 0 && e.getStatus().equals("EM_ABERTO")) {
-            System.out.println(e);
+    public Livro buscarLivroPorISBN(String isbn) {
+        for (Livro l : livros) {
+            if (l.getISBN().equalsIgnoreCase(isbn)) {
+                return l;
+            }
         }
+        return null;
     }
-}
 
-public void listarHistoricoUsuario(int idUsuario) {
-    for (Emprestimo e : emprestimos) {
-        if (e.getIdUsuario() == idUsuario) {
-            System.out.println(e);
+    public List<Livro> buscarLivroPorEditora(String editora) {
+        List<Livro> resultado = new ArrayList<>();
+
+        for (Livro l : livros) {
+            if (l.getEditora().equalsIgnoreCase(editora)) {
+                resultado.add(l);
+            }
         }
+
+        return resultado;
     }
-}
 
 }

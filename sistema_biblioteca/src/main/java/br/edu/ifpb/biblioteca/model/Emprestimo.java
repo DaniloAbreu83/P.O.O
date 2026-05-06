@@ -17,6 +17,7 @@ public class Emprestimo {
     private int diasAtraso;
     private double multa;
     private String status;
+    private String statusMulta;
 
 }
 

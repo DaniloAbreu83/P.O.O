@@ -10,7 +10,7 @@ import java.time.LocalDate;
 @AllArgsConstructor
 
 public class Revista {
-    private String isbn;
+    private String ISSN;
     private String titulo;
     private int volume;
     private int numero;
