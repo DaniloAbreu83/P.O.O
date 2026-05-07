@@ -93,7 +93,7 @@ public class BibliotecaService {
             limite = 2;
         }
 
-        // 3. Verificar limite (simples: 3)
+        // 3. Verificar limite de empréstimos
         if (usuario.getEmprestimosAtivos() >= limite) {
             return false;
         }
@@ -108,6 +108,7 @@ public class BibliotecaService {
             return false;
         }
 
+        // 5. Definir przo para o emprestimo
         EmprestimoService emprestimoService = new EmprestimoService();
 
         int prazo = 0;
@@ -130,6 +131,8 @@ public class BibliotecaService {
                 0.0,
                 "EM_ABERTO",
                 "PENDENTE");
+
+        // 6. Realizar empréstimo
         boolean sucesso = emprestimoService.realizarEmprestimo(usuario, e);
         if (sucesso) {
             emprestimos.add(e);
@@ -139,6 +142,8 @@ public class BibliotecaService {
             return false;
         }
     }
+
+    // REGISTRAR DEVOLUÇÃO (UC4)
 
     public Emprestimo registrarDevolucao(int idUsuario, String tituloLivro, int diasAtraso) {
 
@@ -159,6 +164,7 @@ public class BibliotecaService {
         return null;
     }
 
+    // CONSULTAR EMPRESTIMO
     public void listarEmprestimosEmAberto() {
         for (Emprestimo e : emprestimos) {
             if (e.getStatus().equals("EM_ABERTO")) {
@@ -215,5 +221,17 @@ public class BibliotecaService {
 
         return resultado;
     }
+
+    public List<Livro> buscarLivroPorAutor(String autor) {
+    List<Livro> resultado = new ArrayList<>();
+
+    for (Livro l : livros) {
+        if (l.getAutor().equalsIgnoreCase(autor)) {
+            resultado.add(l);
+        }
+    }
+
+    return resultado;
+}
 
 }

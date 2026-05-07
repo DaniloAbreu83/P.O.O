@@ -50,6 +50,8 @@ public class EmprestimoService {
         return true;
     }
 
+    // REALIZAR DEVOLUÇÃO
+
     public void realizarDevolucao(Emprestimo empt, Usuario usuario, int diaAtual) {
 
         int atraso = diaAtual;
