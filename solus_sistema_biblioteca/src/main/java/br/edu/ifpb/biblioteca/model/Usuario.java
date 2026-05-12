@@ -17,4 +17,15 @@ public class Usuario {
     private boolean bloqueado;
     private boolean multaPendente;
 
+    @Override
+    public String toString() {
+        return "Usuario{" +
+                "id=" + id +
+                ", nome='" + nome + '\'' +
+                ", tipo='" + tipo + '\'' +
+                ", emprestimosAtivos=" + emprestimosAtivos +
+                ", bloqueado=" + bloqueado +
+                ", multaPendente=" + multaPendente +
+                '}';
+    }
 }

@@ -19,4 +19,20 @@ public class Livro {
     private String genero;
     private String sinopse;
     private String status;
+
+    @Override
+    public String toString() {
+        return "Livro{" +
+                "ISBN='" + ISBN + '\'' +
+                ", titulo='" + titulo + '\'' +
+                ", autor='" + autor + '\'' +
+                ", editora='" + editora + '\'' +
+                ", ano=" + ano +
+                ", paginas=" + paginas +
+                ", edicao='" + edicao + '\'' +
+                ", genero='" + genero + '\'' +
+                ", sinopse='" + sinopse + '\'' +
+                ", status='" + status + '\'' +
+                '}';
+    }
 }

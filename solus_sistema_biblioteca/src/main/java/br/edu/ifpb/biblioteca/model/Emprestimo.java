@@ -19,6 +19,18 @@ public class Emprestimo {
     private String status;
     private String statusMulta;
 
+
+@Override
+public String toString() {
+    return "Emprestimo{" +
+            "idUsuario=" + idUsuario +
+            ", tituloItem='" + tituloItem + '\'' +
+            ", tipoItem='" + tipoItem + '\'' +
+            ", prazoDias=" + prazoDias +
+            ", diasAtraso=" + diasAtraso +
+            ", multa=" + multa +
+            ", status='" + status + '\'' +
+            ", statusMulta='" + statusMulta + '\'' +
+            '}';
 }
-
-
+}

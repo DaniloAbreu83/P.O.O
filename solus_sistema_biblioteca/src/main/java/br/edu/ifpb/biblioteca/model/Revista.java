@@ -16,5 +16,18 @@ public class Revista {
     private int numero;
     private String editora;
     private LocalDate dataPublicacao;
+    private String status;
+    @Override
+    public String toString() {
+        return "Revista{" +
+                "ISSN='" + ISSN + '\'' +
+                ", titulo='" + titulo + '\'' +
+                ", volume=" + volume +
+                ", numero=" + numero +
+                ", editora='" + editora + '\'' +
+                ", dataPublicacao=" + dataPublicacao +
+                ", status='" + status + '\'' +
+                '}';
+    }
 
 }
