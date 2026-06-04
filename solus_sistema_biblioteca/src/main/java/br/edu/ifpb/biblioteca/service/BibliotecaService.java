@@ -9,6 +9,7 @@ import br.edu.ifpb.biblioteca.model.Revista;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.time.LocalDate;
 
 public class BibliotecaService {
 
@@ -53,7 +54,7 @@ public class BibliotecaService {
             return false;
         }
         for (Cd c : cds) {
-            if (c.getAlbum().equals(cd.getAlbum())) {
+            if (c.getTitulo().equalsIgnoreCase(cd.getTitulo())) {
                 return false;
             }
         }
@@ -66,7 +67,7 @@ public class BibliotecaService {
             return false;
         }
         for (Dvd d : dvds) {
-            if (d.getTituloFilme().equals(dvd.getTituloFilme())) {
+            if (d.getTitulo().equalsIgnoreCase(dvd.getTitulo())) {
                 return false;
             }
         }
@@ -75,16 +76,16 @@ public class BibliotecaService {
     }
 
     public boolean adicionarRevista(Revista revista) {
-        if(revista == null){
+        if (revista == null) {
             return false;
         }
-    
-        for(Revista r:revistas)
+
+        for (Revista r : revistas)
             if (r.getISSN().equals(revista.getISSN())) {
                 return false;
-        }
+            }
         revistas.add(revista);
-            return true;
+        return true;
     }
 
     // -----------------------------
@@ -101,17 +102,17 @@ public class BibliotecaService {
 
     public List<Usuario> buscarUsuario(String nome) {
 
-    List<Usuario> resultado = new ArrayList<>();
+        List<Usuario> resultado = new ArrayList<>();
 
-    for (Usuario u : usuarios) {
+        for (Usuario u : usuarios) {
 
-        if (u.getNome().equalsIgnoreCase(nome)) {
-            resultado.add(u);
+            if (u.getNome().equalsIgnoreCase(nome)) {
+                resultado.add(u);
+            }
         }
-    }
 
-    return resultado;
-}
+        return resultado;
+    }
 
     // -----------------------------
     // BUSCAR LIVRO
@@ -119,50 +120,57 @@ public class BibliotecaService {
     public Livro buscarLivro(String titulo, String ISBN) {
         for (Livro l : livros) {
             if (titulo != null && l.getTitulo().equalsIgnoreCase(titulo)
-                ||
-                (ISBN != null && l.getISBN().equals(ISBN))) {
+                    ||
+                    (ISBN != null && l.getISBN().equals(ISBN))) {
                 return l;
             }
         }
         return null;
     }
 
-    //-----------------------------
+    // -----------------------------
     // BUSCAR CD
     // -----------------------------
-    public Cd buscarCd(String album, String artista){
-    for (Cd cd : cds) {
-        if(album != null && cd.getAlbum().equalsIgnoreCase(album)
-            ||
-        (artista != null && cd.getArtista().equalsIgnoreCase(artista))){
-            return cd;
-        }
-    }
-    return null;
-    }   
+    public Cd buscarCd(String titulo, String autor) {
 
-     //-----------------------------
-    // BUSCAR DVD
-    // -----------------------------
-    public Dvd bucarDvd(String tituloFilme){
-        for (Dvd dvd : dvds){
-            if(dvd.getTituloFilme() == tituloFilme){
-                return dvd;
+        for (Cd cd : cds) {
+
+            if ((titulo != null && cd.getTitulo().equalsIgnoreCase(titulo))
+                    ||
+                    (autor != null && cd.getAutor().equalsIgnoreCase(autor))) {
+
+                return cd;
             }
         }
+
         return null;
     }
 
-     //-----------------------------
+    // -----------------------------
+    // BUSCAR DVD
+    // -----------------------------
+    public Dvd buscarDvd(String titulo) {
+
+        for (Dvd dvd : dvds) {
+
+            if (dvd.getTitulo().equalsIgnoreCase(titulo)) {
+                return dvd;
+            }
+        }
+
+        return null;
+    }
+
+    // -----------------------------
     // BUSCAR REVISTA
     // -----------------------------
     public Revista buscarRevista(String ISSN, String titulo, int volume) {
-        for (Revista revista : revistas){
-            if((ISSN != null && revista.getISSN().equalsIgnoreCase(ISSN))
-                ||
-            (titulo != null && revista.getTitulo().equalsIgnoreCase(titulo))
-                ||
-            (volume > 0 && revista.getVolume() == volume)){
+        for (Revista revista : revistas) {
+            if ((ISSN != null && revista.getISSN().equalsIgnoreCase(ISSN))
+                    ||
+                    (titulo != null && revista.getTitulo().equalsIgnoreCase(titulo))
+                    ||
+                    (volume > 0 && revista.getVolume() == volume)) {
                 return revista;
             }
         }
@@ -186,17 +194,9 @@ public class BibliotecaService {
             return false;
         }
 
-        int limite = 0;
-
-        if (usuario.getTipo().equalsIgnoreCase("ALUNO")) {
-            limite = 3;
-        } else if (usuario.getTipo().equalsIgnoreCase("PROFESSOR")) {
-            limite = 5;
-        } else if (usuario.getTipo().equalsIgnoreCase("FUNCIONARIO")) {
-            limite = 2;
-        }
-
         // 3. Verificar limite de empréstimos
+        int limite = usuario.getLimiteEmprestimos();
+
         if (usuario.getEmprestimosAtivos() >= limite) {
             return false;
         }
@@ -207,45 +207,38 @@ public class BibliotecaService {
         if (livro == null) {
             return false;
         }
+
         if (!livro.getStatus().equalsIgnoreCase("DISPONIVEL")) {
             return false;
         }
 
-        //5.
-
-        // 5. Definir przo para o emprestimo
+        // 5. Definir prazo
         EmprestimoService emprestimoService = new EmprestimoService();
 
-        int prazo = 0;
+        int prazo = usuario.getPrazoEmprestimo();
 
-        if (usuario.getTipo().equalsIgnoreCase("ALUNO")) {
-            prazo = 7;
-        } else if (usuario.getTipo().equalsIgnoreCase("PROFESSOR")) {
-            prazo = 14;
-        } else if (usuario.getTipo().equalsIgnoreCase("FUNCIONARIO")) {
-            prazo = 10;
-        }
+        LocalDate hoje = LocalDate.now();
 
-        // 5. Criar empréstimo
         Emprestimo e = new Emprestimo(
-                idUsuario,
-                tituloLivro,
-                "Livro",
-                prazo,
-                0,
+                emprestimos.size() + 1,
+                usuario,
+                livro.getTitulo(),
+                hoje,
+                hoje.plusDays(prazo),
+                null,
                 0.0,
-                "EM_ABERTO",
-                "PENDENTE");
+                "EM_ABERTO");
 
         // 6. Realizar empréstimo
         boolean sucesso = emprestimoService.realizarEmprestimo(usuario, e);
+
         if (sucesso) {
             emprestimos.add(e);
             livro.setStatus("EMPRESTADO");
             return true;
-        } else {
-            return false;
         }
+
+        return false;
     }
 
     // REGISTRAR DEVOLUÇÃO (UC4)
@@ -256,12 +249,14 @@ public class BibliotecaService {
 
         for (Emprestimo e : emprestimos) {
 
-            if (e.getIdUsuario() == idUsuario &&
+            if (e.getUsuario().getId() == idUsuario &&
                     e.getTituloItem().equalsIgnoreCase(tituloLivro) &&
                     e.getStatus().equals("EM_ABERTO")) {
 
                 EmprestimoService emprestimoService = new EmprestimoService();
-                emprestimoService.realizarDevolucao(e, usuario, diasAtraso);
+                emprestimoService.realizarDevolucao(
+                        e,
+                        usuario);
 
                 return e;
             }
@@ -278,17 +273,19 @@ public class BibliotecaService {
         }
     }
 
-    public void listarEmprestimosEmAtraso() {
+    /*public void listarEmprestimosEmAtraso() {
         for (Emprestimo e : emprestimos) {
             if (e.getDiasAtraso() > 0 && e.getStatus().equals("EM_ABERTO")) {
                 System.out.println(e);
             }
         }
-    }
+    } */
 
     public void listarHistoricoUsuario(int idUsuario) {
         for (Emprestimo e : emprestimos) {
-            if (e.getIdUsuario() == idUsuario && e.getStatus().equals("DEVOLVIDO")) {
+            if (e.getUsuario().getId() == idUsuario
+                    && e.getStatus().equals("DEVOLVIDO")) {
+
                 System.out.println(e);
             }
         }
@@ -319,7 +316,8 @@ public class BibliotecaService {
         List<Livro> resultado = new ArrayList<>();
 
         for (Livro l : livros) {
-            if (l.getEditora().equalsIgnoreCase(editora)) {
+
+            if (l.getEditora().getNome().equalsIgnoreCase(editora)) {
                 resultado.add(l);
             }
         }
@@ -328,15 +326,15 @@ public class BibliotecaService {
     }
 
     public List<Livro> buscarLivroPorAutor(String autor) {
-    List<Livro> resultado = new ArrayList<>();
+        List<Livro> resultado = new ArrayList<>();
 
-    for (Livro l : livros) {
-        if (l.getAutor().equalsIgnoreCase(autor)) {
-            resultado.add(l);
+        for (Livro l : livros) {
+            if (l.getAutor().equalsIgnoreCase(autor)) {
+                resultado.add(l);
+            }
         }
-    }
 
-    return resultado;
-}
+        return resultado;
+    }
 
 }

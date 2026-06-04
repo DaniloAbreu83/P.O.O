@@ -2,9 +2,14 @@ package br.edu.ifpb.biblioteca.menu;
 
 import java.util.Scanner;
 
+import br.edu.ifpb.biblioteca.model.Administrativo;
+import br.edu.ifpb.biblioteca.model.AlunoGraduacao;
 import br.edu.ifpb.biblioteca.model.Cd;
 import br.edu.ifpb.biblioteca.model.Dvd;
+import br.edu.ifpb.biblioteca.model.Editora;
 import br.edu.ifpb.biblioteca.model.Livro;
+import br.edu.ifpb.biblioteca.model.PosGraduacao;
+import br.edu.ifpb.biblioteca.model.Professor;
 import br.edu.ifpb.biblioteca.model.Revista;
 import br.edu.ifpb.biblioteca.model.Usuario;
 import br.edu.ifpb.biblioteca.service.BibliotecaService;
@@ -52,24 +57,12 @@ public class MenuCadastro {
                     System.out.println();
                     System.out.println("\n====MENU CADASTRO====");
                     System.out.println("\n===Tipo de usuário:===");
-                    System.out.println("1. ALUNO");
-                    System.out.println("2. PROFESSOR");
-                    System.out.println("3. FUNCIONARIO");
+                    System.out.println("1. ALUNO GRADUAÇÃO");
+                    System.out.println("2. ALUNO PÓS-GRADUAÇÃO");
+                    System.out.println("3. PROFESSOR");
+                    System.out.println("4. FUNCIONARIO");
 
                     int tipoOpcao = lerInteiro(sc, "Escolha: ");
-
-                    String tipo = "";
-
-                    if (tipoOpcao == 1) {
-                        tipo = "ALUNO";
-                    } else if (tipoOpcao == 2) {
-                        tipo = "PROFESSOR";
-                    } else if (tipoOpcao == 3) {
-                        tipo = "FUNCIONARIO";
-                    } else {
-                        System.out.println("Tipo inválido.");
-                        break;
-                    }
 
                     System.out.println();
 
@@ -78,36 +71,72 @@ public class MenuCadastro {
                     System.out.print("Nome: ");
                     String nome = sc.nextLine();
 
-                    Usuario usuario = new Usuario(
-                            id,
-                            nome,
-                            tipo,
-                            0,
-                            false,
-                            false);
+                    Usuario usuario = null;
 
-                    boolean sucessoUsuario = service.adicionarUsuario(usuario);
+                    if (tipoOpcao == 1) {
 
-                    if (sucessoUsuario) {
-                        System.out.println("Usuário cadastrado com sucesso!");
-                        System.out.println("\nDeseja realizar outro cadastro?");
-                        System.out.println("1. Sim");
-                        System.out.println("2. Não");
-                        System.out.print("Escolha: ");
-                        int opcaoOutroCadastro = lerInteiro(sc, "Escolha: ");
+                        usuario = new AlunoGraduacao(
+                                id,
+                                nome,
+                                0,
+                                false,
+                                false);
 
-                        if (opcaoOutroCadastro == 2) {
-                            opcaoCadastro = 6;
-                        }
+                    } else if (tipoOpcao == 2) {
+
+                        usuario = new PosGraduacao(
+                                id, 
+                                nome, 
+                                0, 
+                                false, 
+                                false);
+
+                    } else if (tipoOpcao == 3) {
+
+                        usuario = new Professor(
+                                id,
+                                nome,
+                                0,
+                                false,
+                                false);
+
+                    } else if (tipoOpcao == 4) {
+
+                        usuario = new Administrativo(
+                                id,
+                                nome,
+                                0,
+                                false,
+                                false);
                     } else {
-                        System.out.println("Erro: ao cadastrar usuário.");
+
+                        System.out.println("Tipo de usuário inválido.");
+                        break;
                     }
+
+                        boolean sucessoUsuario = service.adicionarUsuario(usuario);
+
+                        if (sucessoUsuario) {
+                            System.out.println("Usuário cadastrado com sucesso!");
+                            System.out.println("\nDeseja realizar outro cadastro?");
+                            System.out.println("1. Sim");
+                            System.out.println("2. Não");
+                            System.out.print("Escolha: ");
+                            int opcaoOutroCadastro = lerInteiro(sc, "Escolha: ");
+
+                            if (opcaoOutroCadastro == 2) {
+                                opcaoCadastro = 6;
+                            }
+                        } else {
+                            System.out.println("Erro: ao cadastrar usuário.");
+                        }
                     break;
+                    
 
                 case 2:
                     System.out.println("Cadastrar livro");
 
-                    System.out.print("Titulo: ");
+                    int idLivro = lerInteiro(sc, "ID do livro: ");
                     String titulo = sc.nextLine();
 
                     String ISBN;
@@ -123,8 +152,12 @@ public class MenuCadastro {
                     System.out.print("Autor: ");
                     String autor = sc.nextLine();
 
-                    System.out.print("Editora: ");
-                    String editora = sc.nextLine();
+                    System.out.print("Nome da Editora: ");
+                    String nomeEditora = sc.nextLine();
+                    Editora editora = new Editora(
+                            1,
+                            nomeEditora,
+                            "00000000000000");
 
                     System.out.print("Ano: ");
                     int ano = lerInteiro(sc, "Ano: ");
@@ -144,9 +177,10 @@ public class MenuCadastro {
                     String sinopse = sc.nextLine();
 
                     Livro livro = new Livro(
-                            ISBN,
+                            idLivro,
                             titulo,
                             autor,
+                            ISBN,
                             editora,
                             ano,
                             paginas,
@@ -177,6 +211,11 @@ public class MenuCadastro {
                 case 3:
                     System.out.println("Cadastrar CD");
 
+                    int idCd = lerInteiro(sc, "ID do CD: ");
+
+                    System.out.print("Título do Album: ");
+                    String tituloCd = sc.nextLine();
+
                     System.out.print("Artista: ");
                     String artista = sc.nextLine();
 
@@ -186,14 +225,13 @@ public class MenuCadastro {
                     System.out.print("Lista de Faixas: ");
                     String listaDeFaixa = sc.nextLine();
 
-                    System.out.print("Álbum: ");
-                    String album = sc.nextLine();
-
                     Cd cd = new Cd(
+                            idCd,
+                            tituloCd,
                             artista,
                             generoCd,
                             listaDeFaixa,
-                            album,
+
                             "DISPONIVEL");
                     boolean sucessoCd = service.adicionarCd(cd);
                     if (sucessoCd) {
@@ -217,11 +255,13 @@ public class MenuCadastro {
                 case 4:
                     System.out.println("Cadastrar DVD");
 
-                    System.out.print("Título do Filme: ");
-                    String tituloFilme = sc.nextLine();
+                    int idDvd = lerInteiro(sc, "ID do DVD: ");
+
+                    System.out.print("Título: ");
+                    String tituloDvd = sc.nextLine();
 
                     System.out.print("Diretor: ");
-                    String diretor = sc.nextLine();
+                    String autorDvd = sc.nextLine();
 
                     System.out.print("Duração (minutos): ");
                     int duracao = lerInteiro(sc, "Duração (minutos): ");
@@ -230,8 +270,9 @@ public class MenuCadastro {
                     String classificacao = sc.nextLine();
 
                     Dvd dvd = new Dvd(
-                            tituloFilme,
-                            diretor,
+                            idDvd,
+                            tituloDvd,
+                            autorDvd,
                             duracao,
                             classificacao,
                             "DISPONIVEL");
@@ -256,29 +297,39 @@ public class MenuCadastro {
                 case 5:
                     System.out.println("Cadastrar Revista");
 
+                    int idRevista = lerInteiro(sc, "ID da revista: ");
+
                     System.out.print("ISSN: ");
                     String ISSN = sc.nextLine();
 
                     System.out.print("Título: ");
                     String tituloRevista = sc.nextLine();
 
+                    System.out.print("Autor: ");
+                    String autorRevista = sc.nextLine();
+
                     System.out.print("Volume: ");
                     int volume = lerInteiro(sc, "Volume: ");
-                    sc.nextLine();
 
                     System.out.print("Número: ");
                     int numero = lerInteiro(sc, "Número: ");
-                    sc.nextLine();
 
-                    System.out.print("Editora: ");
-                    String editoraRevista = sc.nextLine();
+                    System.out.print("Nome da Editora: ");
+                    String nomeEditoraRevista = sc.nextLine();
+
+                    Editora editoraRevista = new Editora(
+                            1,
+                            nomeEditoraRevista,
+                            "00000000000000");
 
                     System.out.print("Data de Publicação (AAAA-MM-DD): ");
                     String dataPublicacaoStr = sc.nextLine();
 
                     Revista revista = new Revista(
-                            ISSN,
+                            idRevista,
                             tituloRevista,
+                            autorRevista,
+                            ISSN,
                             volume,
                             numero,
                             editoraRevista,

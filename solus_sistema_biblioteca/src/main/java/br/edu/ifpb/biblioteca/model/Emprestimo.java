@@ -3,6 +3,9 @@ package br.edu.ifpb.biblioteca.model;
 
 import lombok.Data;
 import lombok.NoArgsConstructor;
+
+import java.time.LocalDate;
+
 import lombok.AllArgsConstructor;
 
 @Data
@@ -10,27 +13,34 @@ import lombok.AllArgsConstructor;
 @AllArgsConstructor
 
 public class Emprestimo {
-    private int idUsuario;
+
+    private int id;
+
+    private Usuario usuario;
+
     private String tituloItem;
-    private String tipoItem;
-    private int prazoDias;
-    private int diasAtraso;
+
+    private LocalDate dataEmprestimo;
+
+    private LocalDate dataPrevistaDevolucao;
+
+    private LocalDate dataDevolucao;
+
     private double multa;
+
     private String status;
-    private String statusMulta;
 
 
 @Override
 public String toString() {
     return "Emprestimo{" +
-            "idUsuario=" + idUsuario +
+            "usuario=" + usuario +
             ", tituloItem='" + tituloItem + '\'' +
-            ", tipoItem='" + tipoItem + '\'' +
-            ", prazoDias=" + prazoDias +
-            ", diasAtraso=" + diasAtraso +
+            ", dataEmprestimo=" + dataEmprestimo +
+            ", dataPrevistaDevolucao=" + dataPrevistaDevolucao +
+            ", dataDevolucao=" + dataDevolucao +
             ", multa=" + multa +
             ", status='" + status + '\'' +
-            ", statusMulta='" + statusMulta + '\'' +
             '}';
 }
 }

@@ -1,18 +1,14 @@
 package br.edu.ifpb.biblioteca.model;
 
 import lombok.Data;
-import lombok.NoArgsConstructor;
-import lombok.AllArgsConstructor;
+import lombok.EqualsAndHashCode;
 
 @Data
-@NoArgsConstructor
-@AllArgsConstructor
+@EqualsAndHashCode(callSuper = true)
 
-public class Livro {
+public class Livro extends Item{
     private String ISBN;
-    private String titulo;
-    private String autor;
-    private String editora;
+    private Editora editora;
     private int ano;
     private int paginas;
     private String edicao;
@@ -20,19 +16,17 @@ public class Livro {
     private String sinopse;
     private String status;
 
-    @Override
-    public String toString() {
-        return "Livro{" +
-                "ISBN='" + ISBN + '\'' +
-                ", titulo='" + titulo + '\'' +
-                ", autor='" + autor + '\'' +
-                ", editora='" + editora + '\'' +
-                ", ano=" + ano +
-                ", paginas=" + paginas +
-                ", edicao='" + edicao + '\'' +
-                ", genero='" + genero + '\'' +
-                ", sinopse='" + sinopse + '\'' +
-                ", status='" + status + '\'' +
-                '}';
-    }
+    public Livro( int id, String titulo, String autor, String ISBN, Editora editora,  int ano, int paginas, String edicao, String genero, String sinopse, String status) {
+    super(id, titulo, autor);
+
+    this.ISBN = ISBN;
+    this.editora = editora;
+    this.ano = ano;
+    this.paginas = paginas;
+    this.edicao = edicao;
+    this.genero = genero;
+    this.sinopse = sinopse;
+    this.status = status;
+}
+    
 }

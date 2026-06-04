@@ -2,83 +2,59 @@ package br.edu.ifpb.biblioteca.service;
 
 import br.edu.ifpb.biblioteca.model.Emprestimo;
 import br.edu.ifpb.biblioteca.model.Usuario;
+import java.time.LocalDate;
+import java.time.temporal.ChronoUnit;
 
 public class EmprestimoService {
-    public boolean realizarEmprestimo(Usuario usuario, Emprestimo emp) {
+public boolean realizarEmprestimo(Usuario usuario, Emprestimo emp) {
 
-        // 1. BLOQUEIO POR MULTA / ATRASO
-        if (usuario.isBloqueado() || usuario.isMultaPendente()) {
-            System.out.println("Erro: usuário possui pendências.");
-            return false;
-        }
-
-        // 2. VERIFICAR LIMITE DE EMPRÉSTIMOS
-        int limite = 0;
-
-        if ("ALUNO".equals(usuario.getTipo())) {
-            limite = 3;
-        } else if ("PROFESSOR".equals(usuario.getTipo()) || "POS".equals(usuario.getTipo())) {
-            limite = 5;
-        } else if ("FUNCIONARIO".equals(usuario.getTipo())) {
-            limite = 2;
-        }
-
-        if (usuario.getEmprestimosAtivos() >= limite) {
-            System.out.println("Erro: limite de empréstimos atingido.");
-            return false;
-        }
-
-        // 3. DEFINIR PRAZO
-        int prazo = 0;
-
-        if ("ALUNO".equals(usuario.getTipo())) {
-            prazo = 7;
-        } else if ("PROFESSOR".equals(usuario.getTipo()) || "POS".equals(usuario.getTipo())) {
-            prazo = 14;
-        } else if ("FUNCIONARIO".equals(usuario.getTipo())) {
-            prazo = 10;
-        }
-
-        emp.setPrazoDias(prazo);
-
-        // 4. ATUALIZAR STATUS
-        emp.setStatus("EM_ABERTO");
-
-        // 5. ATUALIZAR USUÁRIO
-        usuario.setEmprestimosAtivos(usuario.getEmprestimosAtivos() + 1);
-
-        return true;
+    if (usuario.isBloqueado() || usuario.isMultaPendente()) {
+        System.out.println("Erro: usuário possui pendências.");
+        return false;
     }
+
+    if (usuario.getEmprestimosAtivos() >= usuario.getLimiteEmprestimos()) {
+        System.out.println("Erro: limite de empréstimos atingido.");
+        return false;
+    }
+
+    emp.setStatus("EM_ABERTO");
+
+    usuario.setEmprestimosAtivos(
+            usuario.getEmprestimosAtivos() + 1);
+
+    return true;
+}
 
     // REALIZAR DEVOLUÇÃO
 
-    public void realizarDevolucao(Emprestimo empt, Usuario usuario, int diaAtual) {
+    public void realizarDevolucao(Emprestimo emp, Usuario usuario) {
 
-        int atraso = diaAtual;
-        empt.setDiasAtraso(atraso);
+    LocalDate hoje = LocalDate.now();
 
-        double valorMulta = 0;
+    emp.setDataDevolucao(hoje);
 
-        if ("ALUNO".equals(usuario.getTipo())) {
-            valorMulta = atraso * 2.0;
-        } else if ("PROFESSOR".equals(usuario.getTipo()) || "POS".equals(usuario.getTipo())) {
-            valorMulta = atraso * 1.0;
-        } else if ("FUNCIONARIO".equals(usuario.getTipo())) {
-            valorMulta = atraso * 1.5;
-        }
-        empt.setMulta(valorMulta);
-        if (valorMulta > 0) {
-            empt.setStatusMulta("PENDENTE");
-            usuario.setMultaPendente(true);
-            usuario.setBloqueado(true);
-        } else {
-            empt.setStatusMulta("PAGA");
-        }
+    long diasAtraso = ChronoUnit.DAYS.between(
+            emp.getDataPrevistaDevolucao(),
+            hoje);
 
-        empt.setStatus("DEVOLVIDO");
-
-        usuario.setEmprestimosAtivos(usuario.getEmprestimosAtivos() - 1);
-
+    if (diasAtraso < 0) {
+        diasAtraso = 0;
     }
+
+    double multa = diasAtraso * usuario.getMultaDiaria();
+
+    emp.setMulta(multa);
+
+    if (multa > 0) {
+        usuario.setMultaPendente(true);
+        usuario.setBloqueado(true);
+    }
+
+    emp.setStatus("DEVOLVIDO");
+
+    usuario.setEmprestimosAtivos(
+            usuario.getEmprestimosAtivos() - 1);
+}
 
 }

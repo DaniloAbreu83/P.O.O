@@ -3,26 +3,44 @@ package br.edu.ifpb.biblioteca.model;
 
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import lombok.AllArgsConstructor;
+
 
 @Data
 @NoArgsConstructor
-@AllArgsConstructor
 
-public class Usuario {
+
+public abstract class Usuario {
     private int id;
     private String nome;
-    private String tipo;
     private int emprestimosAtivos;
     private boolean bloqueado;
     private boolean multaPendente;
+
+     public Usuario(
+            int id,
+            String nome,
+            int emprestimosAtivos,
+            boolean bloqueado,
+            boolean multaPendente) {
+
+        this.id = id;
+        this.nome = nome;
+        this.emprestimosAtivos = emprestimosAtivos;
+        this.bloqueado = bloqueado;
+        this.multaPendente = multaPendente;
+    }
+
+    public abstract int getLimiteEmprestimos();
+
+    public abstract double getMultaDiaria();
+
+    public abstract int getPrazoEmprestimo();
 
     @Override
     public String toString() {
         return "Usuario{" +
                 "id=" + id +
                 ", nome='" + nome + '\'' +
-                ", tipo='" + tipo + '\'' +
                 ", emprestimosAtivos=" + emprestimosAtivos +
                 ", bloqueado=" + bloqueado +
                 ", multaPendente=" + multaPendente +

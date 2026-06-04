@@ -1,28 +1,35 @@
 package br.edu.ifpb.biblioteca.model;
 
 import lombok.Data;
-import lombok.NoArgsConstructor;
-import lombok.AllArgsConstructor;
+import lombok.EqualsAndHashCode;
+
 
 @Data
-@NoArgsConstructor
-@AllArgsConstructor
+@EqualsAndHashCode(callSuper = true)
 
-public class Dvd {
-    private String tituloFilme;
-    private String diretor;
+public class Dvd extends Item{
+       
     private int duracaoMinutos;
     private String classificacaoIndicativa;
     private String status;
 
-    @Override
-    public String toString() {
-        return "Dvd{" +
-                "tituloFilme='" + tituloFilme + '\'' +
-                ", diretor='" + diretor + '\'' +
-                ", duracaoMinutos=" + duracaoMinutos +
-                ", classificacaoIndicativa='" + classificacaoIndicativa + '\'' +
-                ", status='" + status + '\'' +
-                '}';
+    public Dvd(int id, String titulo, String autor, int duracaoMinutos, String classificacaoIndicativa, String status) {
+        super(id, titulo, autor);
+        
+        this.duracaoMinutos = duracaoMinutos;
+        this.classificacaoIndicativa = classificacaoIndicativa;
+        this.status = status;
     }
+
+    @Override
+public String toString() {
+    return "Dvd{" +
+            "id=" + getId() +
+            ", titulo='" + getTitulo() + '\'' +
+            ", autor='" + getAutor() + '\'' +
+            ", duracao=" + duracaoMinutos +
+            ", classificacao='" + classificacaoIndicativa + '\'' +
+            ", status='" + status + '\'' +
+            '}';
+}
 }
