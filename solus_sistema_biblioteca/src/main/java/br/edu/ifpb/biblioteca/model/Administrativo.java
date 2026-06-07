@@ -19,7 +19,7 @@ public class Administrativo extends Usuario {
 
     @Override
     public int getPrazoEmprestimo() {
-        return 7;
+        return 10;
     }
 
     @Override

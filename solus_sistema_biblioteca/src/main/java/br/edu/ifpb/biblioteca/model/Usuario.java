@@ -38,12 +38,12 @@ public abstract class Usuario {
 
     @Override
     public String toString() {
-        return "Usuario{" +
-                "id=" + id +
-                ", nome='" + nome + '\'' +
-                ", emprestimosAtivos=" + emprestimosAtivos +
-                ", bloqueado=" + bloqueado +
-                ", multaPendente=" + multaPendente +
-                '}';
+        return "\n-----------------------------" +
+                 "\nID: " + id +
+                "\nNome: " + nome +
+                "\nEmpréstimos Ativos: " + emprestimosAtivos +
+                "\nBloqueado: " + bloqueado +
+                "\nMulta Pendente: " + multaPendente +
+                "\n-----------------------------";
     }
 }

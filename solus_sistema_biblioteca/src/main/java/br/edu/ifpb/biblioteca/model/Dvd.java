@@ -23,13 +23,13 @@ public class Dvd extends Item{
 
     @Override
 public String toString() {
-    return "Dvd{" +
-            "id=" + getId() +
-            ", titulo='" + getTitulo() + '\'' +
-            ", autor='" + getAutor() + '\'' +
-            ", duracao=" + duracaoMinutos +
-            ", classificacao='" + classificacaoIndicativa + '\'' +
-            ", status='" + status + '\'' +
-            '}';
+    return "\n-----------------------------" +
+             "\nID: " + getId() +
+            "\nTítulo: " + getTitulo() +
+            "\nAutor: " + getAutor() +
+            "\nDuração: " + duracaoMinutos + " minutos" +
+            "\nClassificação Indicativa: " + classificacaoIndicativa +
+            "\nStatus: " + status +
+            "\n-----------------------------";
 }
 }

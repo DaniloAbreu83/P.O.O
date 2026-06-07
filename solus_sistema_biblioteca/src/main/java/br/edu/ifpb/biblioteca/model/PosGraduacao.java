@@ -19,7 +19,7 @@ public class PosGraduacao extends Usuario {
 
     @Override
     public int getPrazoEmprestimo() {
-        return 7;
+        return 14;
     }
 
     @Override

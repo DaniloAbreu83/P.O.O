@@ -39,17 +39,17 @@ public class Revista extends Item implements Emprestavel {
 
     @Override
     public String toString() {
-        return "Revista{" +
-                "id=" + getId() +
-                ", titulo='" + getTitulo() + '\'' +
-                ", autor='" + getAutor() + '\'' +
-                ", ISSN='" + ISSN + '\'' +
-                ", volume=" + volume +
-                ", numero=" + numero +
-                ", editora='" + editora.getCnpj() + '\'' +
-                ", dataPublicacao=" + dataPublicacao +
-                ", status='" + status + '\'' +
-                '}';
+        return "\n-----------------------------" +
+                 "\nID: " + getId() +
+                "\nTítulo: " + getTitulo() +
+                "\nAutor: " + getAutor() +
+                "\nISSN: " + ISSN +
+                "\nVolume: " + volume +
+                "\nNúmero: " + numero +
+                "\nEditora: " + editora.getCnpj() +
+                "\nData de Publicação: " + dataPublicacao +
+                "\nStatus: " + status +
+                "\n-----------------------------";
     }
 
 }

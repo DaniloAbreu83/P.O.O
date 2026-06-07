@@ -46,11 +46,12 @@ public class Cd extends Item {
  }
     @Override
     public String toString() {
-        return "Cd{" +
-                "genero='" + genero + '\'' +
-                ", listaDeFaixa='" + listaDeFaixa + '\'' +
-                ", status='" + status + '\'' +
-                '}';
+        return "\n-----------------------------" +
+                "\nGenero: " + genero +
+                "\nLista de Faixa: " + listaDeFaixa +
+                "\nStatus: " + status +
+                "\n-----------------------------";
+                
     }
 
 }

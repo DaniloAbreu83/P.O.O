@@ -3,8 +3,10 @@ package br.edu.ifpb.biblioteca.service;
 import br.edu.ifpb.biblioteca.model.Usuario;
 import br.edu.ifpb.biblioteca.model.Livro;
 import br.edu.ifpb.biblioteca.model.Emprestimo;
+import br.edu.ifpb.biblioteca.model.Jogo;
 import br.edu.ifpb.biblioteca.model.Cd;
 import br.edu.ifpb.biblioteca.model.Dvd;
+import br.edu.ifpb.biblioteca.model.Editora;
 import br.edu.ifpb.biblioteca.model.Revista;
 
 import java.util.ArrayList;
@@ -19,6 +21,8 @@ public class BibliotecaService {
     private List<Cd> cds = new ArrayList<>();
     private List<Dvd> dvds = new ArrayList<>();
     private List<Revista> revistas = new ArrayList<>();
+    private List<Editora> editoras = new ArrayList<>();
+    private List<Jogo> jogos = new ArrayList<>();
 
     // -----------------------------
     // ADICIONAR DADOS
@@ -63,14 +67,18 @@ public class BibliotecaService {
     }
 
     public boolean adicionarDvd(Dvd dvd) {
+
         if (dvd == null) {
             return false;
         }
+
         for (Dvd d : dvds) {
+
             if (d.getTitulo().equalsIgnoreCase(dvd.getTitulo())) {
                 return false;
             }
         }
+
         dvds.add(dvd);
         return true;
     }
@@ -88,6 +96,42 @@ public class BibliotecaService {
         return true;
     }
 
+    public boolean adicionarEditora(Editora editora) {
+
+        if (editora == null) {
+            return false;
+        }
+
+        for (Editora e : editoras) {
+
+            if (e.getCnpj().equals(editora.getCnpj())) {
+                return false;
+            }
+        }
+
+        editoras.add(editora);
+
+        return true;
+    }
+
+    public boolean adicionarJogo(Jogo jogo) {
+
+        if (jogo == null) {
+            return false;
+        }
+
+        for (Jogo j : jogos) {
+
+            if (j.getId() == jogo.getId()) {
+                return false;
+            }
+        }
+
+        jogos.add(jogo);
+
+        return true;
+    }
+
     // -----------------------------
     // BUSCAR USUÁRIO
     // -----------------------------
@@ -100,14 +144,53 @@ public class BibliotecaService {
         return null;
     }
 
-    public List<Usuario> buscarUsuario(String nome) {
+    // -----------------------------
+    // BUSCAR LIVRO
+    // -----------------------------
+    public List<Livro> buscarLivroPorEditora(String nomeEditora) {
 
-        List<Usuario> resultado = new ArrayList<>();
+        List<Livro> resultado = new ArrayList<>();
 
-        for (Usuario u : usuarios) {
+        for (Livro l : livros) {
 
-            if (u.getNome().equalsIgnoreCase(nome)) {
-                resultado.add(u);
+            if (l.getEditora()
+                    .getNome()
+                    .equalsIgnoreCase(nomeEditora)) {
+
+                resultado.add(l);
+            }
+        }
+
+        return resultado;
+    }
+
+    public Livro buscarLivroPorISBN(String isbn) {
+        for (Livro l : livros) {
+            if (l.getISBN().equalsIgnoreCase(isbn)) {
+                return l;
+            }
+        }
+        return null;
+    }
+
+    public Livro buscarLivroPorTitulo(String titulo) {
+
+        for (Livro l : livros) {
+
+            if (l.getTitulo().equalsIgnoreCase(titulo)) {
+                return l;
+            }
+        }
+
+        return null;
+    }
+
+    public List<Livro> buscarLivroPorAutor(String autor) {
+        List<Livro> resultado = new ArrayList<>();
+
+        for (Livro l : livros) {
+            if (l.getAutor().equalsIgnoreCase(autor)) {
+                resultado.add(l);
             }
         }
 
@@ -115,35 +198,32 @@ public class BibliotecaService {
     }
 
     // -----------------------------
-    // BUSCAR LIVRO
-    // -----------------------------
-    public Livro buscarLivro(String titulo, String ISBN) {
-        for (Livro l : livros) {
-            if (titulo != null && l.getTitulo().equalsIgnoreCase(titulo)
-                    ||
-                    (ISBN != null && l.getISBN().equals(ISBN))) {
-                return l;
-            }
-        }
-        return null;
-    }
-
-    // -----------------------------
     // BUSCAR CD
     // -----------------------------
-    public Cd buscarCd(String titulo, String autor) {
+    public Cd buscarCdPorTitulo(String titulo) {
 
         for (Cd cd : cds) {
 
-            if ((titulo != null && cd.getTitulo().equalsIgnoreCase(titulo))
-                    ||
-                    (autor != null && cd.getAutor().equalsIgnoreCase(autor))) {
-
+            if (cd.getTitulo().equalsIgnoreCase(titulo)) {
                 return cd;
             }
         }
 
         return null;
+    }
+
+    public List<Cd> buscarCdPorAutor(String autor) {
+
+        List<Cd> resultado = new ArrayList<>();
+
+        for (Cd cd : cds) {
+
+            if (cd.getAutor().equalsIgnoreCase(autor)) {
+                resultado.add(cd);
+            }
+        }
+
+        return resultado;
     }
 
     // -----------------------------
@@ -161,19 +241,83 @@ public class BibliotecaService {
         return null;
     }
 
+    // ------------------------------
+    // BUSCAR EDITORA
+    // ------------------------------
+    public Editora buscarEditoraPorId(int id) {
+
+        for (Editora e : editoras) {
+
+            if (e.getId() == id) {
+                return e;
+            }
+        }
+
+        return null;
+    }
+
+    public Editora buscarEditoraPorNome(String nome) {
+
+        for (Editora e : editoras) {
+
+            if (e.getNome().equalsIgnoreCase(nome)) {
+                return e;
+            }
+        }
+
+        return null;
+    }
+
     // -----------------------------
     // BUSCAR REVISTA
     // -----------------------------
-    public Revista buscarRevista(String ISSN, String titulo, int volume) {
+    public Revista buscarRevistaPorISSN(String issn) {
+
         for (Revista revista : revistas) {
-            if ((ISSN != null && revista.getISSN().equalsIgnoreCase(ISSN))
-                    ||
-                    (titulo != null && revista.getTitulo().equalsIgnoreCase(titulo))
-                    ||
-                    (volume > 0 && revista.getVolume() == volume)) {
+
+            if (revista.getISSN().equalsIgnoreCase(issn)) {
                 return revista;
             }
         }
+
+        return null;
+    }
+
+    public Revista buscarRevistaPorTitulo(String titulo) {
+
+        for (Revista revista : revistas) {
+
+            if (revista.getTitulo().equalsIgnoreCase(titulo)) {
+                return revista;
+            }
+        }
+
+        return null;
+    }
+
+    public List<Revista> buscarRevistaPorVolume(int volume) {
+
+        List<Revista> resultado = new ArrayList<>();
+
+        for (Revista revista : revistas) {
+
+            if (revista.getVolume() == volume) {
+                resultado.add(revista);
+            }
+        }
+
+        return resultado;
+    }
+
+    public Jogo buscarJogoPorId(int id) {
+
+        for (Jogo j : jogos) {
+
+            if (j.getId() == id) {
+                return j;
+            }
+        }
+
         return null;
     }
 
@@ -200,9 +344,14 @@ public class BibliotecaService {
         if (usuario.getEmprestimosAtivos() >= limite) {
             return false;
         }
-
         // 4. Buscar livro
-        Livro livro = buscarLivro(tituloLivro, ISBN);
+        Livro livro = null;
+
+        if (ISBN != null && !ISBN.isBlank()) {
+            livro = buscarLivroPorISBN(ISBN);
+        } else {
+            livro = buscarLivroPorTitulo(tituloLivro);
+        }
 
         if (livro == null) {
             return false;
@@ -243,24 +392,38 @@ public class BibliotecaService {
 
     // REGISTRAR DEVOLUÇÃO (UC4)
 
-    public Emprestimo registrarDevolucao(int idUsuario, String tituloLivro, String ISBN, int diasAtraso) {
+    public Emprestimo registrarDevolucao(
+            int idUsuario,
+            String tituloLivro) {
 
         Usuario usuario = buscarUsuario(idUsuario);
 
+        if (usuario == null) {
+            return null;
+        }
+
         for (Emprestimo e : emprestimos) {
 
-            if (e.getUsuario().getId() == idUsuario &&
-                    e.getTituloItem().equalsIgnoreCase(tituloLivro) &&
-                    e.getStatus().equals("EM_ABERTO")) {
+            if (e.getUsuario().getId() == idUsuario
+                    && e.getTituloItem().equalsIgnoreCase(tituloLivro)
+                    && e.getStatus().equals("EM_ABERTO")) {
 
                 EmprestimoService emprestimoService = new EmprestimoService();
+
                 emprestimoService.realizarDevolucao(
                         e,
                         usuario);
+                Livro livro = buscarLivroPorTitulo(
+                        e.getTituloItem());
+
+                if (livro != null) {
+                    livro.setStatus("DISPONIVEL");
+                }
 
                 return e;
             }
         }
+
         return null;
     }
 
@@ -272,14 +435,6 @@ public class BibliotecaService {
             }
         }
     }
-
-    /*public void listarEmprestimosEmAtraso() {
-        for (Emprestimo e : emprestimos) {
-            if (e.getDiasAtraso() > 0 && e.getStatus().equals("EM_ABERTO")) {
-                System.out.println(e);
-            }
-        }
-    } */
 
     public void listarHistoricoUsuario(int idUsuario) {
         for (Emprestimo e : emprestimos) {
@@ -303,38 +458,36 @@ public class BibliotecaService {
         return resultado;
     }
 
-    public Livro buscarLivroPorISBN(String isbn) {
-        for (Livro l : livros) {
-            if (l.getISBN().equalsIgnoreCase(isbn)) {
-                return l;
-            }
-        }
-        return null;
+    public List<Usuario> listarUsuarios() {
+        return usuarios;
     }
 
-    public List<Livro> buscarLivroPorEditora(String editora) {
-        List<Livro> resultado = new ArrayList<>();
-
-        for (Livro l : livros) {
-
-            if (l.getEditora().getNome().equalsIgnoreCase(editora)) {
-                resultado.add(l);
-            }
-        }
-
-        return resultado;
+    public List<Livro> listarLivros() {
+        return livros;
     }
 
-    public List<Livro> buscarLivroPorAutor(String autor) {
-        List<Livro> resultado = new ArrayList<>();
+    public List<Cd> listarCds() {
+        return cds;
+    }
 
-        for (Livro l : livros) {
-            if (l.getAutor().equalsIgnoreCase(autor)) {
-                resultado.add(l);
-            }
-        }
+    public List<Dvd> listarDvds() {
+        return dvds;
+    }
 
-        return resultado;
+    public List<Revista> listarRevistas() {
+        return revistas;
+    }
+
+    public List<Emprestimo> listarEmprestimos() {
+        return emprestimos;
+    }
+
+    public List<Editora> listarEditoras() {
+        return editoras;
+    }
+
+    public List<Jogo> listarJogos() {
+        return jogos;
     }
 
 }

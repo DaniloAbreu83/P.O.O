@@ -20,10 +20,10 @@ public class Editora {
 
     @Override
     public String toString() {
-        return "Editora{" +
-                "id=" + id +
-                ", nome='" + nome + '\'' +
-                ", cnpj='" + cnpj + '\'' +
-                '}';
+        return "\n-----------------------------" +
+                "\nID: " + id +
+                "\nNome: " + nome +
+                "\nCNPJ: " + cnpj +
+                "\n-----------------------------";
     }
 }

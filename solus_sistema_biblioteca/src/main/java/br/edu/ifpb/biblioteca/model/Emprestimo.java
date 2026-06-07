@@ -33,14 +33,15 @@ public class Emprestimo {
 
 @Override
 public String toString() {
-    return "Emprestimo{" +
-            "usuario=" + usuario +
-            ", tituloItem='" + tituloItem + '\'' +
-            ", dataEmprestimo=" + dataEmprestimo +
-            ", dataPrevistaDevolucao=" + dataPrevistaDevolucao +
-            ", dataDevolucao=" + dataDevolucao +
-            ", multa=" + multa +
-            ", status='" + status + '\'' +
-            '}';
+    return "\n-----------------------------" +
+            "\nID: " + id +
+            "\nUsuário: " + usuario.getNome() +
+            "\nTítulo: " + tituloItem +
+            "\nData Empréstimo: " + dataEmprestimo +
+            "\nData Prevista: " + dataPrevistaDevolucao +
+            "\nData Devolução: " + dataDevolucao +
+            "\nMulta: R$ " + multa +
+            "\nStatus: " + status +
+            "\n-----------------------------";         
 }
 }
