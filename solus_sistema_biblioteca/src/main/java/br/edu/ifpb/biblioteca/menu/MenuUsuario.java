@@ -7,18 +7,20 @@ import br.edu.ifpb.biblioteca.model.AlunoGraduacao;
 import br.edu.ifpb.biblioteca.model.PosGraduacao;
 import br.edu.ifpb.biblioteca.model.Professor;
 import br.edu.ifpb.biblioteca.service.BibliotecaService;
+import br.edu.ifpb.biblioteca.controller.UsuarioController;
 
 public class MenuUsuario {
     public static void menuUsuario(
             Scanner sc,
             BibliotecaService service) {
+        UsuarioController usuarioController = new UsuarioController(service);
 
         int opcao = 0;
 
         while (opcao != 5) {
 
             CabecalhoMenu.exibir("CADASTRO > USUÁRIO");
-            
+
             System.out.println("1. Aluno Graduação");
             System.out.println("2. Pós-Graduação");
             System.out.println("3. Professor");
@@ -46,7 +48,7 @@ public class MenuUsuario {
                             false,
                             false);
 
-                    boolean sucesso = service.adicionarUsuario(usuario);
+                    boolean sucesso = usuarioController.adicionarUsuario(usuario);
 
                     if (sucesso) {
                         System.out.println("Aluno cadastrado com sucesso!");
@@ -72,7 +74,7 @@ public class MenuUsuario {
                             false,
                             false);
 
-                    boolean sucessoPos = service.adicionarUsuario(usuarioPos);
+                    boolean sucessoPos = usuarioController.adicionarUsuario(usuarioPos);
 
                     if (sucessoPos) {
                         System.out.println("Pós-graduando cadastrado com sucesso!");
@@ -98,7 +100,7 @@ public class MenuUsuario {
                             false,
                             false);
 
-                    boolean sucessoProfessor = service.adicionarUsuario(professor);
+                    boolean sucessoProfessor = usuarioController.adicionarUsuario(professor);
 
                     if (sucessoProfessor) {
                         System.out.println("Professor cadastrado com sucesso!");
@@ -123,7 +125,7 @@ public class MenuUsuario {
                             false,
                             false);
 
-                    boolean sucessoAdm = service.adicionarUsuario(administrativo);
+                    boolean sucessoAdm = usuarioController.adicionarUsuario(administrativo);
 
                     if (sucessoAdm) {
                         System.out.println("Administrativo cadastrado com sucesso!");

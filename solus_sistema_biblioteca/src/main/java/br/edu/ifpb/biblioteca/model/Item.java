@@ -7,7 +7,7 @@ import lombok.Data;
 @Data
 @AllArgsConstructor
 
-public class Item {
+public abstract class Item {
 
     private int id;
     private String titulo;

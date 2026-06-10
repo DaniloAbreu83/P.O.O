@@ -2,6 +2,7 @@ package br.edu.ifpb.biblioteca.menu;
 
 import java.util.Scanner;
 
+import br.edu.ifpb.biblioteca.controller.EditoraController;
 import br.edu.ifpb.biblioteca.model.Editora;
 import br.edu.ifpb.biblioteca.service.BibliotecaService;
 
@@ -10,13 +11,14 @@ public class MenuEditora {
     public static void menuEditora(
             Scanner sc,
             BibliotecaService service) {
+        EditoraController editoraController = new EditoraController(service);
 
         int opcao = 0;
 
         while (opcao != 4) {
 
-           CabecalhoMenu.exibir("CADASTRO > EDITORA");
-           
+            CabecalhoMenu.exibir("CADASTRO > EDITORA");
+
             System.out.println("1. Cadastrar Editora");
             System.out.println("2. Buscar Editora");
             System.out.println("3. Listar Editoras");
@@ -47,8 +49,7 @@ public class MenuEditora {
                             nome,
                             cnpj);
 
-                    boolean sucesso =
-                            service.adicionarEditora(editora);
+                    boolean sucesso = editoraController.adicionarEditora(editora);
 
                     if (sucesso) {
 
@@ -67,13 +68,11 @@ public class MenuEditora {
 
                     System.out.println("\n=== BUSCAR EDITORA ===");
 
-                    int idBusca =
-                            MenuCadastro.lerInteiro(
-                                    sc,
-                                    "ID da editora: ");
+                    int idBusca = MenuCadastro.lerInteiro(
+                            sc,
+                            "ID da editora: ");
 
-                    Editora encontrada =
-                            service.buscarEditoraPorId(idBusca);
+                    Editora encontrada = editoraController.buscarEditoraPorId(idBusca);
 
                     if (encontrada != null) {
 
@@ -92,15 +91,14 @@ public class MenuEditora {
                     System.out.println(
                             "\n=== EDITORAS CADASTRADAS ===");
 
-                    if (service.listarEditoras().isEmpty()) {
+                    if (editoraController.listarEditoras().isEmpty()) {
 
                         System.out.println(
                                 "Nenhuma editora cadastrada.");
 
                     } else {
 
-                        for (Editora e :
-                                service.listarEditoras()) {
+                        for (Editora e : editoraController.listarEditoras()) {
 
                             System.out.println(e);
                         }
