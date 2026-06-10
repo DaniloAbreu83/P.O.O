@@ -46,7 +46,7 @@ public class Revista extends Item implements Emprestavel {
                 "\nISSN: " + ISSN +
                 "\nVolume: " + volume +
                 "\nNúmero: " + numero +
-                "\nEditora: " + editora.getCnpj() +
+                "\nEditora: " + editora.getNome() +
                 "\nData de Publicação: " + dataPublicacao +
                 "\nStatus: " + status +
                 "\n-----------------------------";

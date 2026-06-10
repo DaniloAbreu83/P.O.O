@@ -7,6 +7,7 @@ import br.edu.ifpb.biblioteca.menu.CabecalhoMenu;
 import br.edu.ifpb.biblioteca.menu.MenuCadastro;
 import br.edu.ifpb.biblioteca.menu.MenuConsulta;
 import br.edu.ifpb.biblioteca.menu.MenuEmprestimo;
+import br.edu.ifpb.biblioteca.menu.MenuVenda;
 import br.edu.ifpb.biblioteca.util.DadosIniciais;
 
 public class Main {
@@ -38,14 +39,15 @@ public class Main {
 
         int opcao = 0;
 
-        while (opcao != 4) {
+        while (opcao != 5) {
             CabecalhoMenu.exibir("MENU PRINCIPAL");
             
             System.out.println("\n======= Solus ========");
             System.out.println("1. Cadastro");
             System.out.println("2. Consulta");
             System.out.println("3. Emprestimo");
-            System.out.println("4. Sair");
+            System.out.println("4. Venda");
+            System.out.println("5. Sair");
 
             opcao = lerInteiro(sc, "Escolha: ");
 
@@ -64,9 +66,15 @@ public class Main {
                 case 3:
                     MenuEmprestimo.menuEmprestimo(sc, service);
                     break;
+
                 case 4:
+                    MenuVenda.menuVenda(sc, service);
+                    break;
+
+                case 5:
                     System.out.println("Sair...");
                     break;
+
                 default:
                     System.out.println("Opção inválida. Por favor, tente novamente.");
             }

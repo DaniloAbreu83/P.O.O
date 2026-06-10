@@ -1,6 +1,7 @@
 package br.edu.ifpb.biblioteca.service;
 
 import br.edu.ifpb.biblioteca.model.Usuario;
+import br.edu.ifpb.biblioteca.model.Venda;
 import br.edu.ifpb.biblioteca.model.Livro;
 import br.edu.ifpb.biblioteca.model.Emprestimo;
 import br.edu.ifpb.biblioteca.model.Jogo;
@@ -23,6 +24,7 @@ public class BibliotecaService {
     private List<Revista> revistas = new ArrayList<>();
     private List<Editora> editoras = new ArrayList<>();
     private List<Jogo> jogos = new ArrayList<>();
+    private List<Venda> vendas = new ArrayList<>();
 
     // -----------------------------
     // ADICIONAR DADOS
@@ -309,6 +311,10 @@ public class BibliotecaService {
         return resultado;
     }
 
+    // -----------------------------
+    // BUSCAR JOGO
+    // -----------------------------
+
     public Jogo buscarJogoPorId(int id) {
 
         for (Jogo j : jogos) {
@@ -319,6 +325,36 @@ public class BibliotecaService {
         }
 
         return null;
+    }
+
+    // -----------------------------
+    // VENDAS DE JOGOS (UC11)
+    // -----------------------------
+    
+    public boolean realizarVendaJogo(int idJogo) {
+
+        Jogo jogo = buscarJogoPorId(idJogo);
+
+        if (jogo == null) {
+            return false;
+        }
+
+        if (!jogo.getStatus().equalsIgnoreCase("DISPONIVEL")) {
+            return false;
+        }
+
+        Venda venda = new Venda(
+                vendas.size() + 1,
+                jogo,
+                jogo.getPreco(),
+                LocalDate.now()
+            );
+
+        vendas.add(venda);
+
+        jogo.setStatus("VENDIDO");
+
+        return true;
     }
 
     // -----------------------------
@@ -488,6 +524,10 @@ public class BibliotecaService {
 
     public List<Jogo> listarJogos() {
         return jogos;
+    }
+
+    public List<Venda> listarVendas() {
+        return vendas;
     }
 
 }

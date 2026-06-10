@@ -1,13 +1,10 @@
 package br.edu.ifpb.biblioteca.model;
 
-
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-
 @Data
 @NoArgsConstructor
-
 
 public abstract class Usuario {
     private int id;
@@ -16,7 +13,7 @@ public abstract class Usuario {
     private boolean bloqueado;
     private boolean multaPendente;
 
-     public Usuario(
+    public Usuario(
             int id,
             String nome,
             int emprestimosAtivos,
@@ -39,8 +36,9 @@ public abstract class Usuario {
     @Override
     public String toString() {
         return "\n-----------------------------" +
-                 "\nID: " + id +
+                "\nID: " + id +
                 "\nNome: " + nome +
+                "\nTipo: " + getClass().getSimpleName() +
                 "\nEmpréstimos Ativos: " + emprestimosAtivos +
                 "\nBloqueado: " + bloqueado +
                 "\nMulta Pendente: " + multaPendente +
