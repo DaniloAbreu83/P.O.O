@@ -28,4 +28,8 @@ public class RevistaController {
     public List<Revista> listarRevistas() {
         return service.listarRevistas();
     }
+
+    public List<Revista> buscarRevistaPorVolume(int volume) {
+        return service.buscarRevistaPorVolume(volume);
+    }
 }

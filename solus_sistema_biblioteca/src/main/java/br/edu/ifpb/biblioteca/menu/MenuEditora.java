@@ -8,9 +8,7 @@ import br.edu.ifpb.biblioteca.service.BibliotecaService;
 
 public class MenuEditora {
 
-    public static void menuEditora(
-            Scanner sc,
-            BibliotecaService service) {
+    public static void menuEditora( Scanner sc, BibliotecaService service) {
         EditoraController editoraController = new EditoraController(service);
 
         int opcao = 0;
@@ -24,9 +22,7 @@ public class MenuEditora {
             System.out.println("3. Listar Editoras");
             System.out.println("4. Voltar");
 
-            opcao = MenuCadastro.lerInteiro(
-                    sc,
-                    "Escolha: ");
+            opcao = MenuCadastro.lerInteiro( sc, "Escolha: ");
 
             switch (opcao) {
 
@@ -44,22 +40,17 @@ public class MenuEditora {
                     System.out.print("CNPJ: ");
                     String cnpj = sc.nextLine();
 
-                    Editora editora = new Editora(
-                            id,
-                            nome,
-                            cnpj);
+                    Editora editora = new Editora(id, nome, cnpj);
 
                     boolean sucesso = editoraController.adicionarEditora(editora);
 
                     if (sucesso) {
 
-                        System.out.println(
-                                "Editora cadastrada com sucesso!");
+                        System.out.println("Editora cadastrada com sucesso!");
 
                     } else {
 
-                        System.out.println(
-                                "Erro: CNPJ já cadastrado.");
+                        System.out.println("Erro: CNPJ já cadastrado.");
                     }
 
                     break;
@@ -68,9 +59,7 @@ public class MenuEditora {
 
                     System.out.println("\n=== BUSCAR EDITORA ===");
 
-                    int idBusca = MenuCadastro.lerInteiro(
-                            sc,
-                            "ID da editora: ");
+                    int idBusca = MenuCadastro.lerInteiro(sc, "ID da editora: ");
 
                     Editora encontrada = editoraController.buscarEditoraPorId(idBusca);
 
@@ -80,21 +69,18 @@ public class MenuEditora {
 
                     } else {
 
-                        System.out.println(
-                                "Editora não encontrada.");
+                        System.out.println("Editora não encontrada.");
                     }
 
                     break;
 
                 case 3:
 
-                    System.out.println(
-                            "\n=== EDITORAS CADASTRADAS ===");
+                    System.out.println("\n=== EDITORAS CADASTRADAS ===");
 
                     if (editoraController.listarEditoras().isEmpty()) {
 
-                        System.out.println(
-                                "Nenhuma editora cadastrada.");
+                        System.out.println("Nenhuma editora cadastrada.");
 
                     } else {
 
@@ -113,8 +99,7 @@ public class MenuEditora {
 
                 default:
 
-                    System.out.println(
-                            "Opção inválida.");
+                    System.out.println("Opção inválida.");
             }
         }
     }

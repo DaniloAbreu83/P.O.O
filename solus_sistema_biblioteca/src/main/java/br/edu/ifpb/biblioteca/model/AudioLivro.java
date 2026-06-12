@@ -39,7 +39,8 @@ public class AudioLivro extends Livro implements Emprestavel {
 
         this.duracaoMinutos = duracaoMinutos;
     }
-     @Override
+
+    @Override
     public boolean emprestar() {
         return true;
     }
@@ -47,5 +48,22 @@ public class AudioLivro extends Livro implements Emprestavel {
     @Override
     public boolean devolver() {
         return true;
+    }
+
+    @Override
+    public String toString() {
+
+        return "\n-----------------------------" +
+                "\nID: " + getId() +
+                "\nTítulo: " + getTitulo() +
+                "\nAutor: " + getAutor() +
+                "\nISBN: " + getISBN() +
+                "\nEditora: " + getEditora().getNome() +
+                "\nAno: " + getAno() +
+                "\nDuração: " + duracaoMinutos + " minutos" +
+                "\nEdição: " + getEdicao() +
+                "\nGênero: " + getGenero() +
+                "\nStatus: " + getStatus() +
+                "\n-----------------------------";
     }
 }

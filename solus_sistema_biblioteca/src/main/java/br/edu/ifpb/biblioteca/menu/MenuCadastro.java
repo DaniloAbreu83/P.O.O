@@ -25,8 +25,7 @@ public class MenuCadastro {
 
             } else {
 
-                System.out.println(
-                        "Digite apenas números.");
+                System.out.println( "Digite apenas números.");
 
                 sc.nextLine();
             }
@@ -54,39 +53,31 @@ public class MenuCadastro {
 
                 case 1:
 
-                    MenuUsuario.menuUsuario(
-                            sc,
-                            service);
+                    MenuUsuario.menuUsuario( sc, service);
 
                     break;
 
                 case 2:
 
-                    MenuAcervo.menuAcervo(
-                            sc,
-                            service);
+                    MenuAcervo.menuAcervo( sc, service);
 
                     break;
 
                 case 3:
 
-                    MenuEditora.menuEditora(
-                            sc,
-                            service);
+                    MenuEditora.menuEditora( sc, service);
 
                     break;
 
                 case 4:
 
-                    System.out.println(
-                            "Voltando...");
+                    System.out.println( "Voltando...");
 
                     break;
 
                 default:
 
-                    System.out.println(
-                            "Opção inválida.");
+                    System.out.println( "Opção inválida.");
 
                     break;
             }

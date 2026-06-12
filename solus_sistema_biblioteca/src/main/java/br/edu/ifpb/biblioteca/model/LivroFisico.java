@@ -4,7 +4,6 @@ import lombok.Data;
 import lombok.EqualsAndHashCode;
 import br.edu.ifpb.biblioteca.interfaces.Emprestavel;
 
-
 @Data
 @EqualsAndHashCode(callSuper = true)
 
@@ -36,7 +35,8 @@ public class LivroFisico extends Livro implements Emprestavel {
                 sinopse,
                 status);
     }
-     @Override
+
+    @Override
     public boolean emprestar() {
         return true;
     }
@@ -44,5 +44,22 @@ public class LivroFisico extends Livro implements Emprestavel {
     @Override
     public boolean devolver() {
         return true;
+    }
+
+    @Override
+    public String toString() {
+
+        return "\n-----------------------------" +
+                "\nID: " + getId() +
+                "\nTítulo: " + getTitulo() +
+                "\nAutor: " + getAutor() +
+                "\nISBN: " + getISBN() +
+                "\nEditora: " + getEditora().getNome() +
+                "\nAno: " + getAno() +
+                "\nPáginas: " + getPaginas() +
+                "\nEdição: " + getEdicao() +
+                "\nGênero: " + getGenero() +
+                "\nStatus: " + getStatus() +
+                "\n-----------------------------";
     }
 }

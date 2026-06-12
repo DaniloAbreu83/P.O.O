@@ -23,9 +23,7 @@ public class MenuConsultaAcervo {
             System.out.println("5. Jogos");
             System.out.println("6. Voltar");
 
-            opcao = MenuCadastro.lerInteiro(
-                    sc,
-                    "Escolha: ");
+            opcao = MenuCadastro.lerInteiro( sc, "Escolha: ");
 
             switch (opcao) {
 
@@ -51,9 +49,7 @@ public class MenuConsultaAcervo {
                     break;
 
                 case 5:
-                    MenuConsultaJogo.menuConsultaJogo(
-                            sc,
-                            service);
+                    MenuConsultaJogo.menuConsultaJogo( sc, service);
 
                     break;
 

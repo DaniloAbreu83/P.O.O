@@ -330,7 +330,7 @@ public class BibliotecaService {
     // -----------------------------
     // VENDAS DE JOGOS (UC11)
     // -----------------------------
-    
+
     public boolean realizarVendaJogo(int idJogo) {
 
         Jogo jogo = buscarJogoPorId(idJogo);
@@ -347,8 +347,7 @@ public class BibliotecaService {
                 vendas.size() + 1,
                 jogo,
                 jogo.getPreco(),
-                LocalDate.now()
-            );
+                LocalDate.now());
 
         vendas.add(venda);
 
@@ -473,12 +472,21 @@ public class BibliotecaService {
     }
 
     public void listarHistoricoUsuario(int idUsuario) {
+
+        boolean encontrou = false;
+
         for (Emprestimo e : emprestimos) {
-            if (e.getUsuario().getId() == idUsuario
-                    && e.getStatus().equals("DEVOLVIDO")) {
+
+            if (e.getUsuario().getId() == idUsuario) {
 
                 System.out.println(e);
+                encontrou = true;
             }
+        }
+
+        if (!encontrou) {
+
+            System.out.println("Nenhum empréstimo encontrado para este usuário.");
         }
     }
 

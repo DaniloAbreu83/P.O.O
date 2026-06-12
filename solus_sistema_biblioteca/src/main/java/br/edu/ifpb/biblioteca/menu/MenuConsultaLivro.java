@@ -4,19 +4,20 @@ import java.util.Scanner;
 
 import br.edu.ifpb.biblioteca.model.Livro;
 import br.edu.ifpb.biblioteca.service.BibliotecaService;
+import br.edu.ifpb.biblioteca.controller.LivroController;
 
 public class MenuConsultaLivro {
 
-    public static void menuConsultaLivro(
-            Scanner sc,
-            BibliotecaService service) {
+    public static void menuConsultaLivro( Scanner sc, BibliotecaService service) {
+
+        LivroController livroController = new LivroController(service);
 
         int opcao = 0;
 
         while (opcao != 6) {
 
             CabecalhoMenu.exibir("CONSULTA > LIVROS");
-            
+
             System.out.println("1. Listar Livros");
             System.out.println("2. Buscar por Título");
             System.out.println("3. Buscar por Autor");
@@ -24,22 +25,19 @@ public class MenuConsultaLivro {
             System.out.println("5. Buscar por Editora");
             System.out.println("6. Voltar");
 
-            opcao = MenuCadastro.lerInteiro(
-                    sc,
-                    "Escolha: ");
+            opcao = MenuCadastro.lerInteiro( sc, "Escolha: ");
 
             switch (opcao) {
 
                 case 1:
 
-                    if (service.listarLivros().isEmpty()) {
+                    if (livroController.listarLivros().isEmpty()) {
 
-                        System.out.println(
-                                "Nenhum livro cadastrado.");
+                        System.out.println( "Nenhum livro cadastrado.");
 
                     } else {
 
-                        for (Livro livro : service.listarLivros()) {
+                        for (Livro livro : livroController.listarLivros()) {
 
                             System.out.println(livro);
                         }
@@ -49,35 +47,30 @@ public class MenuConsultaLivro {
 
                 case 2:
 
-                    System.out.print(
-                            "Título do livro: ");
+                    System.out.print( "Título do livro: ");
 
                     String titulo = sc.nextLine();
 
-                    Livro livroTitulo = service.buscarLivroPorTitulo(
-                            titulo);
+                    Livro livroTitulo = livroController.buscarLivroPorTitulo( titulo);
 
                     if (livroTitulo == null) {
 
-                        System.out.println(
-                                "Livro não encontrado.");
+                        System.out.println( "Livro não encontrado.");
 
                     } else {
 
-                        System.out.println(
-                                livroTitulo);
+                        System.out.println(livroTitulo);
                     }
 
                     break;
 
                 case 3:
 
-                    System.out.print(
-                            "Autor: ");
+                    System.out.print( "Autor: ");
 
                     String autor = sc.nextLine();
 
-                    var livrosAutor = service.buscarLivroPorAutor(
+                    var livrosAutor = livroController.buscarLivroPorAutor(
                             autor);
 
                     if (livrosAutor.isEmpty()) {
@@ -89,8 +82,7 @@ public class MenuConsultaLivro {
 
                         for (Livro livro : livrosAutor) {
 
-                            System.out.println(
-                                    livro);
+                            System.out.println( livro);
                         }
                     }
 
@@ -98,48 +90,41 @@ public class MenuConsultaLivro {
 
                 case 4:
 
-                    System.out.print(
-                            "ISBN: ");
+                    System.out.print( "ISBN: ");
 
                     String isbn = sc.nextLine();
 
-                    Livro livroISBN = service.buscarLivroPorISBN(
+                    Livro livroISBN = livroController.buscarLivroPorISBN(
                             isbn);
 
                     if (livroISBN == null) {
 
-                        System.out.println(
-                                "Livro não encontrado.");
+                        System.out.println( "Livro não encontrado.");
 
                     } else {
 
-                        System.out.println(
-                                livroISBN);
+                        System.out.println( livroISBN);
                     }
 
                     break;
 
                 case 5:
 
-                    System.out.print(
-                            "Nome da editora: ");
+                    System.out.print( "Nome da editora: ");
 
                     String editora = sc.nextLine();
 
-                    var livrosEditora = service.buscarLivroPorEditora(
-                            editora);
+                    var livrosEditora = livroController.buscarLivroPorEditora( editora);
 
                     if (livrosEditora.isEmpty()) {
 
-                        System.out.println(
-                                "Nenhum livro encontrado.");
+                        System.out.println( "Nenhum livro encontrado.");
 
                     } else {
 
                         for (Livro livro : livrosEditora) {
 
-                            System.out.println(
-                                    livro);
+                            System.out.println( livro);
                         }
                     }
 
@@ -147,14 +132,12 @@ public class MenuConsultaLivro {
 
                 case 6:
 
-                    System.out.println(
-                            "Voltando...");
+                    System.out.println( "Voltando...");
                     break;
 
                 default:
 
-                    System.out.println(
-                            "Opção inválida.");
+                    System.out.println( "Opção inválida.");
             }
         }
     }

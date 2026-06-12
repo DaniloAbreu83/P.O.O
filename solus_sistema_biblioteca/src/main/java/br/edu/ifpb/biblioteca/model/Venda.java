@@ -22,7 +22,7 @@ public String toString() {
     return "\n-----------------------------" +
            "\nID Venda: " + id +
            "\nJogo: " + jogo.getNome() +
-           "\nValor: R$ " + valorVenda +
+           "\nValor: R$ %.2f".formatted(valorVenda) +
            "\nData: " + dataVenda +
            "\n-----------------------------";
 }

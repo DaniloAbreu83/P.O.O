@@ -7,9 +7,7 @@ import br.edu.ifpb.biblioteca.service.BibliotecaService;
 
 public class MenuEmprestimo {
 
-    public static void menuEmprestimo(
-            Scanner sc,
-            BibliotecaService service) {
+    public static void menuEmprestimo( Scanner sc, BibliotecaService service) {
 
         int opcao = 0;
 
@@ -37,10 +35,7 @@ public class MenuEmprestimo {
                     System.out.print("ISBN: ");
                     String isbn = sc.nextLine();
 
-                    boolean sucesso = service.realizarEmprestimo(
-                            idUsuario,
-                            tituloLivro,
-                            isbn);
+                    boolean sucesso = service.realizarEmprestimo( idUsuario, tituloLivro, isbn);
 
                     if (sucesso) {
                         System.out.println("Empréstimo realizado com sucesso!");
@@ -49,19 +44,16 @@ public class MenuEmprestimo {
                     }
 
                     break;
+
                 case 2:
                     System.out.println("\n=== REGISTRAR DEVOLUÇÃO ===");
 
-                    int idUsuarioDev = MenuCadastro.lerInteiro(
-                            sc,
-                            "ID do usuário: ");
+                    int idUsuarioDev = MenuCadastro.lerInteiro( sc, "ID do usuário: ");
 
                     System.out.print("Título do livro: ");
                     String tituloDev = sc.nextLine();
 
-                    Emprestimo emprestimo = service.registrarDevolucao(
-                            idUsuarioDev,
-                            tituloDev);
+                    Emprestimo emprestimo = service.registrarDevolucao( idUsuarioDev, tituloDev);
 
                     if (emprestimo != null) {
 
@@ -69,15 +61,12 @@ public class MenuEmprestimo {
 
                         if (emprestimo.getMulta() > 0) {
 
-                            System.out.println(
-                                    "Multa gerada: R$ "
-                                            + emprestimo.getMulta());
+                            System.out.println("Multa gerada: R$ " + emprestimo.getMulta());
                         }
 
                     } else {
 
-                        System.out.println(
-                                "Empréstimo não encontrado.");
+                        System.out.println("Empréstimo não encontrado.");
                     }
 
                     break;
@@ -85,9 +74,7 @@ public class MenuEmprestimo {
                 case 3:
                     System.out.println("\n=== HISTÓRICO DO USUÁRIO ===");
 
-                    int idHistorico = MenuCadastro.lerInteiro(
-                            sc,
-                            "ID do usuário: ");
+                    int idHistorico = MenuCadastro.lerInteiro( sc, "ID do usuário: ");
 
                     service.listarHistoricoUsuario(idHistorico);
 

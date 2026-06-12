@@ -41,4 +41,17 @@ public class Jogo implements Emprestavel, Vendavel {
     public boolean vender() {
         return true;
     }
+
+    @Override
+    public String toString() {
+
+        return "\n-----------------------------" +
+                "\nID: " + id +
+                "\nNome: " + nome +
+                "\nTipo: " + tipoJogo +
+                "\nQuantidade de Peças: " + quantidadePecas +
+                "\nPreço: R$ " + preco +
+                "\nStatus: " + status +
+                "\n-----------------------------";
+    }
 }

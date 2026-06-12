@@ -4,13 +4,13 @@ import java.util.Scanner;
 
 import br.edu.ifpb.biblioteca.model.Dvd;
 import br.edu.ifpb.biblioteca.service.BibliotecaService;
+import br.edu.ifpb.biblioteca.controller.DvdController;
 
 public class MenuConsultaDvd {
 
     public static void menuConsultaDvd(
-            Scanner sc,
-            BibliotecaService service) {
-
+            Scanner sc, BibliotecaService service) {
+        DvdController dvdController = new DvdController(service);
         int opcao = 0;
 
         while (opcao != 3) {
@@ -29,14 +29,13 @@ public class MenuConsultaDvd {
 
                 case 1:
 
-                    if (service.listarDvds().isEmpty()) {
+                    if (dvdController.listarDvds().isEmpty()) {
 
-                        System.out.println(
-                                "Nenhum DVD cadastrado.");
+                        System.out.println( "Nenhum DVD cadastrado.");
 
                     } else {
 
-                        for (Dvd dvd : service.listarDvds()) {
+                        for (Dvd dvd : dvdController.listarDvds()) {
 
                             System.out.println(dvd);
                         }
@@ -46,37 +45,31 @@ public class MenuConsultaDvd {
 
                 case 2:
 
-                    System.out.print(
-                            "Título do DVD: ");
+                    System.out.print( "Título do DVD: ");
 
                     String titulo = sc.nextLine();
 
-                    Dvd dvd = service.buscarDvd(
-                            titulo);
+                    Dvd dvd = dvdController.buscarDvdPorTitulo( titulo);
 
                     if (dvd == null) {
 
-                        System.out.println(
-                                "DVD não encontrado.");
+                        System.out.println( "DVD não encontrado.");
 
                     } else {
 
-                        System.out.println(
-                                dvd);
+                        System.out.println( dvd);
                     }
 
                     break;
 
                 case 3:
 
-                    System.out.println(
-                            "Voltando...");
+                    System.out.println( "Voltando...");
                     break;
 
                 default:
 
-                    System.out.println(
-                            "Opção inválida.");
+                    System.out.println( "Opção inválida.");
             }
         }
     }

@@ -30,8 +30,7 @@ public class MenuConsultaEditora {
 
                     if (service.listarEditoras().isEmpty()) {
 
-                        System.out.println(
-                                "Nenhuma editora cadastrada.");
+                        System.out.println( "Nenhuma editora cadastrada.");
 
                     } else {
 

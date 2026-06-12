@@ -11,26 +11,64 @@ public class MenuConsultaJogo {
             Scanner sc,
             BibliotecaService service) {
 
-        System.out.println(
-                "\n=== CONSULTA DE JOGOS ===");
+        int opcao = 0;
 
-        int id = MenuCadastro.lerInteiro(
-                sc,
-                "ID do jogo: ");
+        while (opcao != 3) {
 
-        Jogo jogo = service.buscarJogoPorId(id);
+            CabecalhoMenu.exibir("CONSULTA > JOGOS");
 
-        if (jogo != null) {
+            System.out.println("1. Listar Jogos");
+            System.out.println("2. Buscar por ID");
+            System.out.println("3. Voltar");
 
-            System.out.println(
-                    "\nJogo encontrado:");
+            opcao = MenuCadastro.lerInteiro( sc, "Escolha: ");
 
-            System.out.println(jogo);
+            switch (opcao) {
 
-        } else {
+                case 1:
 
-            System.out.println(
-                    "Jogo não encontrado.");
+                    if (service.listarJogos().isEmpty()) {
+
+                        System.out.println( "Nenhum jogo cadastrado.");
+
+                    } else {
+
+                        for (Jogo jogo : service.listarJogos()) {
+
+                            System.out.println(jogo);
+                        }
+                    }
+
+                    break;
+
+                case 2:
+
+                    int id = MenuCadastro.lerInteiro( sc, "ID do jogo: ");
+
+                    Jogo jogo = service.buscarJogoPorId(id);
+
+                    if (jogo != null) {
+
+                        System.out.println( "\nJogo encontrado:");
+
+                        System.out.println(jogo);
+
+                    } else {
+
+                        System.out.println( "Jogo não encontrado.");
+                    }
+
+                    break;
+
+                case 3:
+
+                    System.out.println(  "Voltando...");
+                    break;
+
+                default:
+
+                    System.out.println( "Opção inválida.");
+            }
         }
     }
 }

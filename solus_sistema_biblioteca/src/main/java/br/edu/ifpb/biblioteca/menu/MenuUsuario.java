@@ -10,9 +10,7 @@ import br.edu.ifpb.biblioteca.service.BibliotecaService;
 import br.edu.ifpb.biblioteca.controller.UsuarioController;
 
 public class MenuUsuario {
-    public static void menuUsuario(
-            Scanner sc,
-            BibliotecaService service) {
+    public static void menuUsuario( Scanner sc, BibliotecaService service) {
         UsuarioController usuarioController = new UsuarioController(service);
 
         int opcao = 0;
@@ -27,16 +25,12 @@ public class MenuUsuario {
             System.out.println("4. Administrativo");
             System.out.println("5. Voltar");
 
-            opcao = MenuCadastro.lerInteiro(
-                    sc,
-                    "Escolha: ");
+            opcao = MenuCadastro.lerInteiro( sc, "Escolha: ");
 
             switch (opcao) {
                 case 1:
                     // código do aluno
-                    int id = MenuCadastro.lerInteiro(
-                            sc,
-                            "ID: ");
+                    int id = MenuCadastro.lerInteiro( sc,  "ID: ");
 
                     System.out.print("Nome: ");
                     String nome = sc.nextLine();
@@ -60,9 +54,7 @@ public class MenuUsuario {
 
                 case 2:
                     // código da pós
-                    int idPos = MenuCadastro.lerInteiro(
-                            sc,
-                            "ID: ");
+                    int idPos = MenuCadastro.lerInteiro( sc, "ID: ");
 
                     System.out.print("Nome: ");
                     String nomePos = sc.nextLine();
@@ -86,9 +78,7 @@ public class MenuUsuario {
 
                 case 3:
                     // código do professor
-                    int idProfessor = MenuCadastro.lerInteiro(
-                            sc,
-                            "ID: ");
+                    int idProfessor = MenuCadastro.lerInteiro( sc, "ID: ");
 
                     System.out.print("Nome: ");
                     String nomeProfessor = sc.nextLine();
@@ -111,9 +101,7 @@ public class MenuUsuario {
 
                 case 4:
                     // código do administrativo
-                    int idAdm = MenuCadastro.lerInteiro(
-                            sc,
-                            "ID: ");
+                    int idAdm = MenuCadastro.lerInteiro( sc, "ID: ");
 
                     System.out.print("Nome: ");
                     String nomeAdm = sc.nextLine();

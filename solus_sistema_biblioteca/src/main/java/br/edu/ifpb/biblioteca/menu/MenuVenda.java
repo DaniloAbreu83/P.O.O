@@ -6,9 +6,7 @@ import br.edu.ifpb.biblioteca.service.BibliotecaService;
 
 public class MenuVenda {
 
-    public static void menuVenda(
-            Scanner sc,
-            BibliotecaService service) {
+    public static void menuVenda( Scanner sc, BibliotecaService service) {
 
         int opcao = 0;
 
@@ -20,46 +18,36 @@ public class MenuVenda {
             System.out.println("2. Consultar Vendas");
             System.out.println("3. Voltar");
 
-            opcao = MenuCadastro.lerInteiro(
-                    sc,
-                    "Escolha: ");
+            opcao = MenuCadastro.lerInteiro( sc, "Escolha: ");
 
             switch (opcao) {
 
                 case 1:
 
-                    System.out.println(
-                            "\n=== VENDA DE JOGO ===");
+                    System.out.println( "\n=== VENDA DE JOGO ===");
 
-                    int idJogo = MenuCadastro.lerInteiro(
-                            sc,
-                            "ID do jogo: ");
+                    int idJogo = MenuCadastro.lerInteiro( sc, "ID do jogo: ");
 
-                    boolean sucesso = service.realizarVendaJogo(
-                            idJogo);
+                    boolean sucesso = service.realizarVendaJogo(idJogo);
 
                     if (sucesso) {
 
-                        System.out.println(
-                                "Venda realizada com sucesso!");
+                        System.out.println("Venda realizada com sucesso!");
 
                     } else {
 
-                        System.out.println(
-                                "Não foi possível realizar a venda.");
+                        System.out.println("Não foi possível realizar a venda.");
                     }
 
                     break;
 
                 case 2:
 
-                    System.out.println(
-                            "\n=== HISTÓRICO DE VENDAS ===");
+                    System.out.println("\n=== HISTÓRICO DE VENDAS ===");
 
                     if (service.listarVendas().isEmpty()) {
 
-                        System.out.println(
-                                "Nenhuma venda registrada.");
+                        System.out.println("Nenhuma venda registrada.");
 
                     } else {
 

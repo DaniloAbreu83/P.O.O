@@ -30,8 +30,7 @@ public class MenuConsultaEmprestimo {
 
                     if (service.listarEmprestimos().isEmpty()) {
 
-                        System.out.println(
-                                "Nenhum empréstimo registrado.");
+                        System.out.println( "Nenhum empréstimo registrado.");
 
                     } else {
 
