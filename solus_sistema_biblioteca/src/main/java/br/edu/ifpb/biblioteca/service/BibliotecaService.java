@@ -12,6 +12,7 @@ import br.edu.ifpb.biblioteca.model.Revista;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.text.Normalizer;
 import java.time.LocalDate;
 
 public class BibliotecaService {
@@ -25,6 +26,18 @@ public class BibliotecaService {
     private List<Editora> editoras = new ArrayList<>();
     private List<Jogo> jogos = new ArrayList<>();
     private List<Venda> vendas = new ArrayList<>();
+
+    private String normalizarTexto(String texto) {
+
+        if (texto == null) {
+            return "";
+        }
+
+        return Normalizer.normalize(texto, Normalizer.Form.NFD)
+                .replaceAll("\\p{M}", "")
+                .toLowerCase()
+                .trim();
+    }
 
     // -----------------------------
     // ADICIONAR DADOS
@@ -327,6 +340,18 @@ public class BibliotecaService {
         return null;
     }
 
+    public Jogo buscarJogoPorNome(String nome) {
+
+        for (Jogo jogo : jogos) {
+
+            if (jogo.getNome().equalsIgnoreCase(nome)) {
+                return jogo;
+            }
+        }
+
+        return null;
+    }
+
     // -----------------------------
     // VENDAS DE JOGOS (UC11)
     // -----------------------------
@@ -425,6 +450,132 @@ public class BibliotecaService {
         return false;
     }
 
+    public boolean realizarEmprestimoRevista(
+            int idUsuario,
+            String tituloRevista) {
+
+        Usuario usuario = buscarUsuario(idUsuario);
+
+        if (usuario == null) {
+            return false;
+        }
+
+        if (usuario.isBloqueado() ||
+                usuario.isMultaPendente()) {
+
+            return false;
+        }
+
+        if (usuario.getEmprestimosAtivos() >= usuario.getLimiteEmprestimos()) {
+
+            return false;
+        }
+
+        Revista revista = buscarRevistaPorTitulo(tituloRevista);
+
+        if (revista == null) {
+            return false;
+        }
+
+        if (!revista.getStatus()
+                .equalsIgnoreCase("DISPONIVEL")) {
+
+            return false;
+        }
+
+        LocalDate hoje = LocalDate.now();
+
+        Emprestimo e = new Emprestimo(
+                emprestimos.size() + 1,
+                usuario,
+                revista.getTitulo(),
+                hoje,
+                hoje.plusDays(usuario.getPrazoEmprestimo()),
+                null,
+                0.0,
+                "EM_ABERTO");
+
+        EmprestimoService emprestimoService = new EmprestimoService();
+
+        boolean sucesso = emprestimoService.realizarEmprestimo(
+                usuario,
+                e);
+
+        if (sucesso) {
+
+            emprestimos.add(e);
+
+            revista.setStatus("EMPRESTADO");
+
+            return true;
+        }
+
+        return false;
+    }
+
+    public boolean realizarEmprestimoJogo(
+            int idUsuario,
+            int idJogo) {
+
+        Usuario usuario = buscarUsuario(idUsuario);
+
+        if (usuario == null) {
+            return false;
+        }
+
+        if (usuario.isBloqueado() ||
+                usuario.isMultaPendente()) {
+
+            return false;
+        }
+
+        if (usuario.getEmprestimosAtivos() >= usuario.getLimiteEmprestimos()) {
+
+            return false;
+        }
+
+        Jogo jogo = buscarJogoPorId(idJogo);
+
+        if (jogo == null) {
+            return false;
+        }
+
+        if (!jogo.getStatus()
+                .equalsIgnoreCase("DISPONIVEL")) {
+
+            return false;
+        }
+
+        LocalDate hoje = LocalDate.now();
+
+        Emprestimo e = new Emprestimo(
+                emprestimos.size() + 1,
+                usuario,
+                jogo.getNome(),
+                hoje,
+                hoje.plusDays(usuario.getPrazoEmprestimo()),
+                null,
+                0.0,
+                "EM_ABERTO");
+
+        EmprestimoService emprestimoService = new EmprestimoService();
+
+        boolean sucesso = emprestimoService.realizarEmprestimo(
+                usuario,
+                e);
+
+        if (sucesso) {
+
+            emprestimos.add(e);
+
+            jogo.setStatus("EMPRESTADO");
+
+            return true;
+        }
+
+        return false;
+    }
+
     // REGISTRAR DEVOLUÇÃO (UC4)
 
     public Emprestimo registrarDevolucao(
@@ -438,9 +589,10 @@ public class BibliotecaService {
         }
 
         for (Emprestimo e : emprestimos) {
-
+           
             if (e.getUsuario().getId() == idUsuario
-                    && e.getTituloItem().equalsIgnoreCase(tituloLivro)
+                    && normalizarTexto(e.getTituloItem())
+                            .equals(normalizarTexto(tituloLivro))
                     && e.getStatus().equals("EM_ABERTO")) {
 
                 EmprestimoService emprestimoService = new EmprestimoService();
@@ -452,7 +604,28 @@ public class BibliotecaService {
                         e.getTituloItem());
 
                 if (livro != null) {
+
                     livro.setStatus("DISPONIVEL");
+
+                } else {
+
+                    Revista revista = buscarRevistaPorTitulo(
+                            e.getTituloItem());
+
+                    if (revista != null) {
+
+                        revista.setStatus("DISPONIVEL");
+
+                    } else {
+
+                        Jogo jogo = buscarJogoPorNome(
+                                e.getTituloItem());
+
+                        if (jogo != null) {
+
+                            jogo.setStatus("DISPONIVEL");
+                        }
+                    }
                 }
 
                 return e;

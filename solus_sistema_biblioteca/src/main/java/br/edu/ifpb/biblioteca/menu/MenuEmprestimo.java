@@ -7,13 +7,13 @@ import br.edu.ifpb.biblioteca.service.BibliotecaService;
 
 public class MenuEmprestimo {
 
-    public static void menuEmprestimo( Scanner sc, BibliotecaService service) {
+    public static void menuEmprestimo(Scanner sc, BibliotecaService service) {
 
         int opcao = 0;
 
         while (opcao != 4) {
             CabecalhoMenu.exibir("EMPRÉSTIMO");
-            
+
             System.out.println("\n=== MENU EMPRÉSTIMO ===");
             System.out.println("1. Realizar Empréstimo");
             System.out.println("2. Registrar Devolução");
@@ -25,22 +25,79 @@ public class MenuEmprestimo {
             switch (opcao) {
 
                 case 1:
+
                     System.out.println("\n=== REALIZAR EMPRÉSTIMO ===");
 
-                    int idUsuario = MenuCadastro.lerInteiro(sc, "ID do usuário: ");
+                    int idUsuario = MenuCadastro.lerInteiro(
+                            sc,
+                            "ID do usuário: ");
 
-                    System.out.print("Título do livro: ");
-                    String tituloLivro = sc.nextLine();
+                    System.out.println("Tipo do item:");
+                    System.out.println("1. Livro");
+                    System.out.println("2. Revista");
+                    System.out.println("3. Jogo");
 
-                    System.out.print("ISBN: ");
-                    String isbn = sc.nextLine();
+                    int tipoItem = MenuCadastro.lerInteiro(
+                            sc,
+                            "Escolha: ");
 
-                    boolean sucesso = service.realizarEmprestimo( idUsuario, tituloLivro, isbn);
+                    boolean sucesso = false;
+
+                    switch (tipoItem) {
+
+                        case 1:
+
+                            System.out.print("Título do livro: ");
+                            String tituloLivro = sc.nextLine();
+
+                            System.out.print("ISBN: ");
+                            String isbn = sc.nextLine();
+
+                            sucesso = service.realizarEmprestimo(
+                                    idUsuario,
+                                    tituloLivro,
+                                    isbn);
+
+                            break;
+
+                        case 2:
+
+                            System.out.print("Título da revista: ");
+                            String tituloRevista = sc.nextLine();
+
+                            sucesso = service.realizarEmprestimoRevista(
+                                    idUsuario,
+                                    tituloRevista);
+
+                            break;
+
+                        case 3:
+
+                            int idJogo = MenuCadastro.lerInteiro(
+                                    sc,
+                                    "ID do jogo: ");
+
+                            sucesso = service.realizarEmprestimoJogo(
+                                    idUsuario,
+                                    idJogo);
+
+                            break;
+
+                        default:
+
+                            System.out.println("Tipo inválido.");
+                            break;
+                    }
 
                     if (sucesso) {
-                        System.out.println("Empréstimo realizado com sucesso!");
+
+                        System.out.println(
+                                "Empréstimo realizado com sucesso!");
+
                     } else {
-                        System.out.println("Não foi possível realizar o empréstimo.");
+
+                        System.out.println(
+                                "Não foi possível realizar o empréstimo.");
                     }
 
                     break;
@@ -48,12 +105,12 @@ public class MenuEmprestimo {
                 case 2:
                     System.out.println("\n=== REGISTRAR DEVOLUÇÃO ===");
 
-                    int idUsuarioDev = MenuCadastro.lerInteiro( sc, "ID do usuário: ");
+                    int idUsuarioDev = MenuCadastro.lerInteiro(sc, "ID do usuário: ");
 
-                    System.out.print("Título do livro: ");
+                    System.out.print("Título do item: ");
                     String tituloDev = sc.nextLine();
 
-                    Emprestimo emprestimo = service.registrarDevolucao( idUsuarioDev, tituloDev);
+                    Emprestimo emprestimo = service.registrarDevolucao(idUsuarioDev, tituloDev);
 
                     if (emprestimo != null) {
 
@@ -74,7 +131,7 @@ public class MenuEmprestimo {
                 case 3:
                     System.out.println("\n=== HISTÓRICO DO USUÁRIO ===");
 
-                    int idHistorico = MenuCadastro.lerInteiro( sc, "ID do usuário: ");
+                    int idHistorico = MenuCadastro.lerInteiro(sc, "ID do usuário: ");
 
                     service.listarHistoricoUsuario(idHistorico);
 
