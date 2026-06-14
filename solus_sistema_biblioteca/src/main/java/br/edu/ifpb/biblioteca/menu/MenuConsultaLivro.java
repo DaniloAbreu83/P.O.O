@@ -5,6 +5,7 @@ import java.util.Scanner;
 import br.edu.ifpb.biblioteca.model.Livro;
 import br.edu.ifpb.biblioteca.service.BibliotecaService;
 import br.edu.ifpb.biblioteca.controller.LivroController;
+import br.edu.ifpb.biblioteca.util.Cores;
 
 public class MenuConsultaLivro {
 
@@ -33,7 +34,7 @@ public class MenuConsultaLivro {
 
                     if (livroController.listarLivros().isEmpty()) {
 
-                        System.out.println( "Nenhum livro cadastrado.");
+                        Cores.info("Nenhum livro cadastrado.");
 
                     } else {
 
@@ -55,10 +56,11 @@ public class MenuConsultaLivro {
 
                     if (livroTitulo == null) {
 
-                        System.out.println( "Livro não encontrado.");
+                        Cores.erro("Livro não encontrado.");
 
                     } else {
 
+                        Cores.info("Livro encontrado:");
                         System.out.println(livroTitulo);
                     }
 
@@ -75,8 +77,7 @@ public class MenuConsultaLivro {
 
                     if (livrosAutor.isEmpty()) {
 
-                        System.out.println(
-                                "Nenhum livro encontrado.");
+                        Cores.info("Nenhum livro encontrado.");
 
                     } else {
 
@@ -99,7 +100,7 @@ public class MenuConsultaLivro {
 
                     if (livroISBN == null) {
 
-                        System.out.println( "Livro não encontrado.");
+                        Cores.erro("Livro não encontrado.");
 
                     } else {
 
@@ -118,7 +119,7 @@ public class MenuConsultaLivro {
 
                     if (livrosEditora.isEmpty()) {
 
-                        System.out.println( "Nenhum livro encontrado.");
+                        Cores.info("Nenhum livro encontrado.");
 
                     } else {
 
@@ -132,12 +133,12 @@ public class MenuConsultaLivro {
 
                 case 6:
 
-                    System.out.println( "Voltando...");
+                    Cores.info("Voltando...");
                     break;
 
                 default:
 
-                    System.out.println( "Opção inválida.");
+                    Cores.erro("Opção inválida.");
             }
         }
     }

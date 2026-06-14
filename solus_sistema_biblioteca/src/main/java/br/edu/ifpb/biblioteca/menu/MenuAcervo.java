@@ -17,6 +17,7 @@ import br.edu.ifpb.biblioteca.model.Livro;
 import br.edu.ifpb.biblioteca.model.LivroFisico;
 import br.edu.ifpb.biblioteca.model.Revista;
 import br.edu.ifpb.biblioteca.service.BibliotecaService;
+import br.edu.ifpb.biblioteca.util.Cores;
 
 public class MenuAcervo {
 
@@ -71,7 +72,7 @@ public class MenuAcervo {
                                                         break;
                                                 }
 
-                                                System.out.println("ISBN deve conter apenas números.");
+                                                Cores.info("ISBN deve conter apenas números.");
                                         }
 
                                         System.out.print("Autor: ");
@@ -85,7 +86,7 @@ public class MenuAcervo {
 
                                         if (editora == null) {
 
-                                                System.out.println("Editora não encontrada.");
+                                                Cores.info("Editora não encontrada.");
 
                                                 break;
                                         }
@@ -141,17 +142,17 @@ public class MenuAcervo {
 
                                         } else {
 
-                                                System.out.println("Tipo inválido.");
+                                                Cores.erro("Tipo inválido.");
                                                 break;
                                         }
 
                                         if (livroController.adicionarLivro(livro)) {
 
-                                                System.out.println("Livro cadastrado com sucesso!");
+                                                Cores.sucesso("Livro cadastrado com sucesso!");
 
                                         } else {
 
-                                                System.out.println("Erro ao cadastrar livro.");
+                                                Cores.erro("Erro ao cadastrar livro.");
                                         }
 
                                         break;
@@ -184,11 +185,11 @@ public class MenuAcervo {
 
                                         if (cdController.adicionarCd(cd)) {
 
-                                                System.out.println("CD cadastrado com sucesso!");
+                                                Cores.sucesso("CD cadastrado com sucesso!");
 
                                         } else {
 
-                                                System.out.println("Erro ao cadastrar CD.");
+                                                Cores.erro("Erro ao cadastrar CD.");
                                         }
 
                                         break;
@@ -222,11 +223,11 @@ public class MenuAcervo {
 
                                         if (dvdController.adicionarDvd(dvd)) {
 
-                                                System.out.println("DVD cadastrado com sucesso!");
+                                                Cores.sucesso("DVD cadastrado com sucesso!");
 
                                         } else {
 
-                                                System.out.println("Erro ao cadastrar DVD.");
+                                                Cores.erro("Erro ao cadastrar DVD.");
                                         }
 
                                         break;
@@ -256,7 +257,7 @@ public class MenuAcervo {
 
                                         if (editoraRevista == null) {
 
-                                                System.out.println( "Editora não encontrada.");
+                                                Cores.info( "Editora não encontrada.");
 
                                                 break;
                                         }
@@ -279,11 +280,11 @@ public class MenuAcervo {
 
                                         if (revistaController.adicionarRevista(revista)) {
 
-                                                System.out.println( "Revista cadastrada com sucesso!");
+                                                Cores.sucesso( "Revista cadastrada com sucesso!");
 
                                         } else {
 
-                                                System.out.println( "Erro ao cadastrar revista.");
+                                                Cores.erro( "Erro ao cadastrar revista.");
                                         }
 
                                         break;
@@ -334,23 +335,23 @@ public class MenuAcervo {
 
                                         if (jogoController.adicionarJogo(jogo)) {
 
-                                                System.out.println( "Jogo cadastrado com sucesso!");
+                                                Cores.sucesso( "Jogo cadastrado com sucesso!");
 
                                         } else {
 
-                                                System.out.println( "Erro ao cadastrar jogo.");
+                                                Cores.erro( "Erro ao cadastrar jogo.");
                                         }
 
                                         break;
 
                                 case 6:
 
-                                        System.out.println("Voltando...");
+                                        Cores.info("Voltando...");
                                         break;
 
                                 default:
 
-                                        System.out.println("Opção inválida.");
+                                        Cores.erro("Opção inválida.");
                         }
                 }
         }

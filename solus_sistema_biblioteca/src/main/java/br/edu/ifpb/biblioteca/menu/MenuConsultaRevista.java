@@ -5,6 +5,7 @@ import java.util.Scanner;
 import br.edu.ifpb.biblioteca.controller.RevistaController;
 import br.edu.ifpb.biblioteca.model.Revista;
 import br.edu.ifpb.biblioteca.service.BibliotecaService;
+import br.edu.ifpb.biblioteca.util.Cores;
 
 public class MenuConsultaRevista {
 
@@ -31,7 +32,7 @@ public class MenuConsultaRevista {
 
                     if (revistaController.listarRevistas().isEmpty()) {
 
-                        System.out.println( "Nenhuma revista cadastrada.");
+                        Cores.info("Nenhuma revista cadastrada.");
 
                     } else {
 
@@ -53,7 +54,7 @@ public class MenuConsultaRevista {
 
                     if (revistaTitulo == null) {
 
-                        System.out.println( "Revista não encontrada.");
+                        Cores.erro("Revista não encontrada.");
 
                     } else {
 
@@ -72,7 +73,7 @@ public class MenuConsultaRevista {
 
                     if (revistaIssn == null) {
 
-                        System.out.println( "Revista não encontrada.");
+                        Cores.erro("Revista não encontrada.");
 
                     } else {
 
@@ -89,7 +90,7 @@ public class MenuConsultaRevista {
 
                     if (revistas.isEmpty()) {
 
-                        System.out.println( "Nenhuma revista encontrada.");
+                        Cores.info("Nenhuma revista encontrada.");
 
                     } else {
 
@@ -103,12 +104,12 @@ public class MenuConsultaRevista {
 
                 case 5:
 
-                    System.out.println("Voltando...");
+                    Cores.info("Voltando...");
                     break;
 
                 default:
 
-                    System.out.println( "Opção inválida.");
+                    Cores.erro("Opção inválida.");
             }
         }
     }

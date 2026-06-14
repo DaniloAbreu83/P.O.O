@@ -1,7 +1,7 @@
 package br.edu.ifpb.biblioteca.menu;
 
 import java.util.Scanner;
-
+import br.edu.ifpb.biblioteca.util.Cores;
 import br.edu.ifpb.biblioteca.model.Emprestimo;
 import br.edu.ifpb.biblioteca.service.BibliotecaService;
 
@@ -91,15 +91,14 @@ public class MenuEmprestimo {
 
                     if (sucesso) {
 
-                        System.out.println(
-                                "Empréstimo realizado com sucesso!");
+                        Cores.sucesso("Empréstimo realizado com sucesso!");
 
                     } else {
 
-                        System.out.println(
-                                "Não foi possível realizar o empréstimo.");
+                        Cores.erro("Não foi possível realizar o empréstimo.");
+                        Cores.erro("item indisponível, tente outro item.");
                     }
-
+                    MenuCadastro.pausar(sc);
                     break;
 
                 case 2:
@@ -114,16 +113,17 @@ public class MenuEmprestimo {
 
                     if (emprestimo != null) {
 
-                        System.out.println("Devolução registrada com sucesso!");
+                        Cores.sucesso("Devolução registrada com sucesso!");
 
                         if (emprestimo.getMulta() > 0) {
 
-                            System.out.println("Multa gerada: R$ " + emprestimo.getMulta());
+                            Cores.info("Multa gerada: R$ " + emprestimo.getMulta());
                         }
 
                     } else {
 
-                        System.out.println("Empréstimo não encontrado.");
+                        Cores.erro("Empréstimo não encontrado.");
+                        Cores.info("Por favor, verifique os dados e tente novamente.");
                     }
 
                     break;
@@ -138,11 +138,12 @@ public class MenuEmprestimo {
                     break;
 
                 case 4:
-                    System.out.println("Voltando...");
+                    Cores.info("Voltando...");
                     break;
 
                 default:
-                    System.out.println("Opção inválida.");
+                    Cores.erro("Opção inválida.");
+                    Cores.info("Por favor, escolha uma opção de 1 a 4.");
             }
         }
     }

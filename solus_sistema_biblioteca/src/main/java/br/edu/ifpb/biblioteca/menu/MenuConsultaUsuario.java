@@ -4,6 +4,7 @@ import java.util.Scanner;
 
 import br.edu.ifpb.biblioteca.service.BibliotecaService;
 import br.edu.ifpb.biblioteca.controller.UsuarioController;
+import br.edu.ifpb.biblioteca.util.Cores;
 
 public class MenuConsultaUsuario {
 
@@ -28,7 +29,7 @@ public class MenuConsultaUsuario {
 
                     if (usuarioController.listarUsuarios().isEmpty()) {
 
-                        System.out.println("Nenhum usuário cadastrado.");
+                        Cores.info("Nenhum usuário cadastrado.");
 
                     } else {
 
@@ -49,7 +50,7 @@ public class MenuConsultaUsuario {
 
                     if (usuarios.isEmpty()) {
 
-                        System.out.println("Nenhum usuário encontrado.");
+                        Cores.info("Nenhum usuário encontrado.");
 
                     } else {
 
@@ -63,12 +64,12 @@ public class MenuConsultaUsuario {
 
                 case 3:
 
-                    System.out.println("Voltando...");
+                    Cores.info("Voltando...");
                     break;
 
                 default:
 
-                    System.out.println("Opção inválida.");
+                    Cores.erro("Opção inválida.");
             }
         }
     }

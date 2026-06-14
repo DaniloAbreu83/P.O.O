@@ -5,6 +5,7 @@ import java.util.Scanner;
 import br.edu.ifpb.biblioteca.controller.EditoraController;
 import br.edu.ifpb.biblioteca.model.Editora;
 import br.edu.ifpb.biblioteca.service.BibliotecaService;
+import br.edu.ifpb.biblioteca.util.Cores;
 
 public class MenuEditora {
 
@@ -46,11 +47,11 @@ public class MenuEditora {
 
                     if (sucesso) {
 
-                        System.out.println("Editora cadastrada com sucesso!");
+                        Cores.sucesso("Editora cadastrada com sucesso!");
 
                     } else {
 
-                        System.out.println("Erro: CNPJ já cadastrado.");
+                        Cores.erro("Erro: CNPJ já cadastrado.");
                     }
 
                     break;
@@ -69,7 +70,7 @@ public class MenuEditora {
 
                     } else {
 
-                        System.out.println("Editora não encontrada.");
+                        Cores.info("Editora não encontrada.");
                     }
 
                     break;
@@ -80,7 +81,7 @@ public class MenuEditora {
 
                     if (editoraController.listarEditoras().isEmpty()) {
 
-                        System.out.println("Nenhuma editora cadastrada.");
+                        Cores.info("Nenhuma editora cadastrada.");
 
                     } else {
 
@@ -94,12 +95,12 @@ public class MenuEditora {
 
                 case 4:
 
-                    System.out.println("Voltando...");
+                    Cores.info("Voltando...");
                     break;
 
                 default:
 
-                    System.out.println("Opção inválida.");
+                    Cores.erro("Opção inválida.");
             }
         }
     }

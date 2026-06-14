@@ -4,6 +4,7 @@ import java.util.Scanner;
 
 import br.edu.ifpb.biblioteca.model.Jogo;
 import br.edu.ifpb.biblioteca.service.BibliotecaService;
+import br.edu.ifpb.biblioteca.util.Cores;
 
 public class MenuConsultaJogo {
 
@@ -29,7 +30,7 @@ public class MenuConsultaJogo {
 
                     if (service.listarJogos().isEmpty()) {
 
-                        System.out.println( "Nenhum jogo cadastrado.");
+                        Cores.info("Nenhum jogo cadastrado.");
 
                     } else {
 
@@ -49,25 +50,24 @@ public class MenuConsultaJogo {
 
                     if (jogo != null) {
 
-                        System.out.println( "\nJogo encontrado:");
-
+                        Cores.info("Jogo encontrado:");
                         System.out.println(jogo);
 
                     } else {
 
-                        System.out.println( "Jogo não encontrado.");
+                        Cores.erro("Jogo não encontrado.");
                     }
 
                     break;
 
                 case 3:
 
-                    System.out.println(  "Voltando...");
+                    Cores.info("Voltando...");
                     break;
 
                 default:
 
-                    System.out.println( "Opção inválida.");
+                    Cores.erro("Opção inválida.");
             }
         }
     }

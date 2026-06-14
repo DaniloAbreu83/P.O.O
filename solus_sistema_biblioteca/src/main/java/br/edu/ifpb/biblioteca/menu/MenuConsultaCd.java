@@ -5,6 +5,7 @@ import java.util.Scanner;
 import br.edu.ifpb.biblioteca.model.Cd;
 import br.edu.ifpb.biblioteca.service.BibliotecaService;
 import br.edu.ifpb.biblioteca.controller.CdController;
+import br.edu.ifpb.biblioteca.util.Cores;
 
 public class MenuConsultaCd {
 
@@ -33,7 +34,7 @@ public class MenuConsultaCd {
 
                     if (cdController.listarCds().isEmpty()) {
 
-                        System.out.println( "Nenhum CD cadastrado.");
+                        Cores.info("Nenhum CD cadastrado.");
 
                     } else {
 
@@ -55,7 +56,7 @@ public class MenuConsultaCd {
 
                     if (cdTitulo == null) {
 
-                        System.out.println( "CD não encontrado.");
+                        Cores.info("CD não encontrado.");
 
                     } else {
 
@@ -74,7 +75,7 @@ public class MenuConsultaCd {
 
                     if (cds.isEmpty()) {
 
-                        System.out.println( "Nenhum CD encontrado.");
+                        Cores.info("Nenhum CD encontrado.");
 
                     } else {
 
@@ -88,12 +89,12 @@ public class MenuConsultaCd {
 
                 case 4:
 
-                    System.out.println( "Voltando...");
+                    Cores.info("Voltando...");
                     break;
 
                 default:
 
-                    System.out.println( "Opção inválida.");
+                    Cores.erro("Opção inválida.");
             }
         }
     }

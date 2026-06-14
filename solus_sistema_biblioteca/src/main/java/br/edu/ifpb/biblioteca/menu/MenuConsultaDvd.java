@@ -5,6 +5,7 @@ import java.util.Scanner;
 import br.edu.ifpb.biblioteca.model.Dvd;
 import br.edu.ifpb.biblioteca.service.BibliotecaService;
 import br.edu.ifpb.biblioteca.controller.DvdController;
+import br.edu.ifpb.biblioteca.util.Cores;
 
 public class MenuConsultaDvd {
 
@@ -31,7 +32,7 @@ public class MenuConsultaDvd {
 
                     if (dvdController.listarDvds().isEmpty()) {
 
-                        System.out.println( "Nenhum DVD cadastrado.");
+                        Cores.info("Nenhum DVD cadastrado.");
 
                     } else {
 
@@ -53,7 +54,7 @@ public class MenuConsultaDvd {
 
                     if (dvd == null) {
 
-                        System.out.println( "DVD não encontrado.");
+                        Cores.info("DVD não encontrado.");
 
                     } else {
 
@@ -64,12 +65,12 @@ public class MenuConsultaDvd {
 
                 case 3:
 
-                    System.out.println( "Voltando...");
+                    Cores.info("Voltando...");
                     break;
 
                 default:
 
-                    System.out.println( "Opção inválida.");
+                    Cores.erro("Opção inválida.");
             }
         }
     }

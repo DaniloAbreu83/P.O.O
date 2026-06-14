@@ -3,10 +3,11 @@ package br.edu.ifpb.biblioteca.menu;
 import java.util.Scanner;
 
 import br.edu.ifpb.biblioteca.service.BibliotecaService;
+import br.edu.ifpb.biblioteca.util.Cores;
 
 public class MenuVenda {
 
-    public static void menuVenda( Scanner sc, BibliotecaService service) {
+    public static void menuVenda(Scanner sc, BibliotecaService service) {
 
         int opcao = 0;
 
@@ -18,25 +19,25 @@ public class MenuVenda {
             System.out.println("2. Consultar Vendas");
             System.out.println("3. Voltar");
 
-            opcao = MenuCadastro.lerInteiro( sc, "Escolha: ");
+            opcao = MenuCadastro.lerInteiro(sc, "Escolha: ");
 
             switch (opcao) {
 
                 case 1:
 
-                    System.out.println( "\n=== VENDA DE JOGO ===");
+                    System.out.println("\n=== VENDA DE JOGO ===");
 
-                    int idJogo = MenuCadastro.lerInteiro( sc, "ID do jogo: ");
+                    int idJogo = MenuCadastro.lerInteiro(sc, "ID do jogo: ");
 
                     boolean sucesso = service.realizarVendaJogo(idJogo);
 
                     if (sucesso) {
 
-                        System.out.println("Venda realizada com sucesso!");
+                        Cores.sucesso("Venda realizada com sucesso!");
 
                     } else {
 
-                        System.out.println("Não foi possível realizar a venda.");
+                        Cores.erro( "Não foi possível realizar a venda.");
                     }
 
                     break;
@@ -47,7 +48,7 @@ public class MenuVenda {
 
                     if (service.listarVendas().isEmpty()) {
 
-                        System.out.println("Nenhuma venda registrada.");
+                        Cores.aviso("Nenhuma venda registrada.");
 
                     } else {
 
@@ -61,12 +62,12 @@ public class MenuVenda {
 
                 case 3:
 
-                    System.out.println("Voltando...");
+                    Cores.info("Voltando...");
                     break;
 
                 default:
 
-                    System.out.println("Opção inválida.");
+                    Cores.erro("Opção inválida.");
             }
         }
     }

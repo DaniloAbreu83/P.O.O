@@ -8,6 +8,7 @@ import br.edu.ifpb.biblioteca.model.PosGraduacao;
 import br.edu.ifpb.biblioteca.model.Professor;
 import br.edu.ifpb.biblioteca.service.BibliotecaService;
 import br.edu.ifpb.biblioteca.controller.UsuarioController;
+import br.edu.ifpb.biblioteca.util.Cores;
 
 public class MenuUsuario {
     public static void menuUsuario( Scanner sc, BibliotecaService service) {
@@ -45,9 +46,10 @@ public class MenuUsuario {
                     boolean sucesso = usuarioController.adicionarUsuario(usuario);
 
                     if (sucesso) {
-                        System.out.println("Aluno cadastrado com sucesso!");
+                        Cores.sucesso("Aluno cadastrado com sucesso!");
                     } else {
-                        System.out.println("Erro ao cadastrar aluno.");
+                        Cores.erro("Erro ao cadastrar aluno.");
+                        Cores.info("Usuario ja cadastrado");
                     }
 
                     break;
@@ -69,9 +71,10 @@ public class MenuUsuario {
                     boolean sucessoPos = usuarioController.adicionarUsuario(usuarioPos);
 
                     if (sucessoPos) {
-                        System.out.println("Pós-graduando cadastrado com sucesso!");
+                        Cores.sucesso("Pós-graduando cadastrado com sucesso!");
                     } else {
-                        System.out.println("Erro ao cadastrar usuário.");
+                        Cores.erro("Erro ao cadastrar usuário.");
+                        Cores.info("Usuario ja cadastrado");
                     }
 
                     break;
@@ -93,9 +96,10 @@ public class MenuUsuario {
                     boolean sucessoProfessor = usuarioController.adicionarUsuario(professor);
 
                     if (sucessoProfessor) {
-                        System.out.println("Professor cadastrado com sucesso!");
+                        Cores.sucesso("Professor cadastrado com sucesso!");
                     } else {
-                        System.out.println("Erro ao cadastrar usuário.");
+                        Cores.erro("Erro ao cadastrar usuário.");
+                        Cores.info("Usuario ja cadastrado");
                     }
                     break;
 
@@ -116,18 +120,20 @@ public class MenuUsuario {
                     boolean sucessoAdm = usuarioController.adicionarUsuario(administrativo);
 
                     if (sucessoAdm) {
-                        System.out.println("Administrativo cadastrado com sucesso!");
+                        Cores.sucesso("Administrativo cadastrado com sucesso!");
                     } else {
-                        System.out.println("Erro: ID já cadastrado.");
+                        Cores.erro("Erro ao cadastrar usuário.");
+                        Cores.info("Usuario ja cadastrado");
                     }
                     break;
 
                 case 5:
-                    System.out.println("Voltando...");
+                    Cores.info("Voltando...");
                     break;
 
                 default:
-                    System.out.println("Opção inválida.");
+                    Cores.erro("Opção inválida.");
+                    Cores.info("Digite apenas números entre 1 e 5.");
                     break;
             }
         }

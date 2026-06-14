@@ -1,7 +1,7 @@
 package br.edu.ifpb.biblioteca.menu;
 
 import java.util.Scanner;
-
+import br.edu.ifpb.biblioteca.util.Cores;
 import br.edu.ifpb.biblioteca.service.BibliotecaService;
 
 public class MenuConsultaEmprestimo {
@@ -30,7 +30,7 @@ public class MenuConsultaEmprestimo {
 
                     if (service.listarEmprestimos().isEmpty()) {
 
-                        System.out.println( "Nenhum empréstimo registrado.");
+                        Cores.info("Nenhum empréstimo registrado.");
 
                     } else {
 
@@ -44,12 +44,12 @@ public class MenuConsultaEmprestimo {
 
                 case 2:
 
-                    System.out.println("Voltando...");
+                    Cores.info("Voltando...");
                     break;
 
                 default:
 
-                    System.out.println("Opção inválida.");
+                    Cores.erro("Opção inválida.");
             }
         }
     }

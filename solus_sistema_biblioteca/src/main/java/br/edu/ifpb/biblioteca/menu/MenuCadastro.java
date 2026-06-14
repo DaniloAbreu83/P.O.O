@@ -3,6 +3,7 @@ package br.edu.ifpb.biblioteca.menu;
 import java.util.Scanner;
 
 import br.edu.ifpb.biblioteca.service.BibliotecaService;
+import br.edu.ifpb.biblioteca.util.Cores;
 
 public class MenuCadastro {
 
@@ -25,7 +26,7 @@ public class MenuCadastro {
 
             } else {
 
-                System.out.println( "Digite apenas números.");
+                System.out.println("Digite apenas números.");
 
                 sc.nextLine();
             }
@@ -41,7 +42,7 @@ public class MenuCadastro {
         while (opcaoCadastro != 4) {
 
             CabecalhoMenu.exibir("CADASTRO");
-            
+
             System.out.println("1. Usuários");
             System.out.println("2. Acervo");
             System.out.println("3. Editoras");
@@ -53,34 +54,41 @@ public class MenuCadastro {
 
                 case 1:
 
-                    MenuUsuario.menuUsuario( sc, service);
+                    MenuUsuario.menuUsuario(sc, service);
 
                     break;
 
                 case 2:
 
-                    MenuAcervo.menuAcervo( sc, service);
+                    MenuAcervo.menuAcervo(sc, service);
 
                     break;
 
                 case 3:
 
-                    MenuEditora.menuEditora( sc, service);
+                    MenuEditora.menuEditora(sc, service);
 
                     break;
 
                 case 4:
 
-                    System.out.println( "Voltando...");
+                    Cores.info("Voltando...");
 
                     break;
 
                 default:
 
-                    System.out.println( "Opção inválida.");
+                    Cores.erro("Opção inválida.");
 
                     break;
             }
         }
+    }
+
+    public static void pausar(Scanner sc) {
+
+        System.out.println();
+        System.out.print("Pressione ENTER para continuar...");
+        sc.nextLine();
     }
 }

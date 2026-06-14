@@ -3,6 +3,7 @@ package br.edu.ifpb.biblioteca.menu;
 import java.util.Scanner;
 
 import br.edu.ifpb.biblioteca.service.BibliotecaService;
+import br.edu.ifpb.biblioteca.util.Cores;
 
 public class MenuConsulta {
 
@@ -43,11 +44,11 @@ public class MenuConsulta {
                     break;
 
                 case 5:
-                    System.out.println("Voltando...");
+                    Cores.info("Voltando...");
                     break;
 
                 default:
-                    System.out.println("Opção inválida.");
+                    Cores.erro("Opção inválida.");
             }
         }
     }

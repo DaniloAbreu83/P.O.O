@@ -1,7 +1,7 @@
 package br.edu.ifpb.biblioteca.menu;
 
 import java.util.Scanner;
-
+import br.edu.ifpb.biblioteca.util.Cores;
 import br.edu.ifpb.biblioteca.service.BibliotecaService;
 
 public class MenuConsultaEditora {
@@ -30,7 +30,7 @@ public class MenuConsultaEditora {
 
                     if (service.listarEditoras().isEmpty()) {
 
-                        System.out.println( "Nenhuma editora cadastrada.");
+                        Cores.info("Nenhuma editora cadastrada.");
 
                     } else {
 
@@ -44,12 +44,12 @@ public class MenuConsultaEditora {
 
                 case 2:
 
-                    System.out.println("Voltando...");
+                    Cores.info("Voltando...");
                     break;
 
                 default:
 
-                    System.out.println("Opção inválida.");
+                    Cores.erro("Opção inválida.");
             }
         }
     }
