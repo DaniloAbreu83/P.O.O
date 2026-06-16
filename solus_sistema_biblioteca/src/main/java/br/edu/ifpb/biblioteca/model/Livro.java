@@ -1,5 +1,6 @@
 package br.edu.ifpb.biblioteca.model;
 
+import br.edu.ifpb.biblioteca.util.Cores;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
@@ -43,7 +44,7 @@ public class Livro extends Item {
                 "\nPáginas: " + paginas +
                 "\nEdição: " + edicao +
                 "\nGênero: " + genero +
-                "\nStatus: " + status +
+                "\nStatus: " + Cores.status(status) +
                 "\n-----------------------------";
     }
 

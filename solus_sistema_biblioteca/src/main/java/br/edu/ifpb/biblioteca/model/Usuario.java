@@ -1,5 +1,6 @@
 package br.edu.ifpb.biblioteca.model;
 
+import br.edu.ifpb.biblioteca.util.Cores;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -38,10 +39,10 @@ public abstract class Usuario {
         return "\n-----------------------------" +
                 "\nID: " + id +
                 "\nNome: " + nome +
-                "\nTipo: " + getClass().getSimpleName() +
+                "\nTipo: " + Cores.CIANO + getClass().getSimpleName() + Cores.RESET +
                 "\nEmpréstimos Ativos: " + emprestimosAtivos +
-                "\nBloqueado: " + (bloqueado ? "SIM" : "NÃO") +
-                "\nMulta Pendente: " + (multaPendente ? "SIM" : "NÃO") +
+                "\nBloqueado: " + (bloqueado ? Cores.VERMELHO + "SIM" + Cores.RESET : Cores.VERDE + "NÃO" + Cores.RESET) +
+                "\nMulta Pendente: " + (multaPendente ? Cores.VERMELHO + "SIM" + Cores.RESET : Cores.VERDE + "NÃO" + Cores.RESET) +
                 "\n-----------------------------";
     }
 }

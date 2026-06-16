@@ -88,7 +88,7 @@ public class MenuCadastro {
     public static void pausar(Scanner sc) {
 
         System.out.println();
-        System.out.print("Pressione ENTER para continuar...");
+        System.out.print( Cores.CIANO + "[ENTER] Pressione ENTER para continuar..." + Cores.RESET);
         sc.nextLine();
     }
 }
