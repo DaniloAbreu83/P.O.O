@@ -1,5 +1,7 @@
 package br.edu.ifpb.biblioteca.model;
 
+import br.edu.ifpb.biblioteca.util.Cores;
+
 public class Cd extends Item {
 
    private String genero;
@@ -53,7 +55,7 @@ public class Cd extends Item {
             "\nAutor: " + getAutor() +
             "\nGênero: " + genero +
             "\nLista de Faixas: " + listaDeFaixa +
-            "\nStatus: " + status +
+            "\nStatus: " + Cores.status(status) +
             "\n-----------------------------";
    }
 

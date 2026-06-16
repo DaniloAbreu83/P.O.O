@@ -39,7 +39,7 @@ public class MenuConsultaJogo {
                             System.out.println(jogo);
                         }
                     }
-
+                        MenuCadastro.pausar(sc);
                     break;
 
                 case 2:
@@ -57,9 +57,9 @@ public class MenuConsultaJogo {
 
                         Cores.erro("Jogo não encontrado.");
                     }
-
+                        MenuCadastro.pausar(sc);
                     break;
-
+                        
                 case 3:
 
                     Cores.info("Voltando...");

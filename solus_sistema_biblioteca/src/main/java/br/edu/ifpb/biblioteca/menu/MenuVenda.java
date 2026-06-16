@@ -39,7 +39,7 @@ public class MenuVenda {
 
                         Cores.erro( "Não foi possível realizar a venda.");
                     }
-
+                    MenuCadastro.pausar(sc);
                     break;
 
                 case 2:
@@ -57,7 +57,7 @@ public class MenuVenda {
                             System.out.println(venda);
                         }
                     }
-
+                    MenuCadastro.pausar(sc);
                     break;
 
                 case 3:

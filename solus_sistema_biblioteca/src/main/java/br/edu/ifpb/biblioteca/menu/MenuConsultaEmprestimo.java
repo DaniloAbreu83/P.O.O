@@ -39,7 +39,7 @@ public class MenuConsultaEmprestimo {
                             System.out.println(emprestimo);
                         }
                     }
-
+                        MenuCadastro.pausar(sc);
                     break;
 
                 case 2:

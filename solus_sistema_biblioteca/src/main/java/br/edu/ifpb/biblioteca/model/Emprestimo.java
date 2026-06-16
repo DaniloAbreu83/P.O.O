@@ -1,6 +1,6 @@
 package br.edu.ifpb.biblioteca.model;
 
-
+import br.edu.ifpb.biblioteca.util.Cores;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -40,8 +40,8 @@ public String toString() {
             "\nData Empréstimo: " + dataEmprestimo +
             "\nData Prevista: " + dataPrevistaDevolucao +
             "\nData Devolução: " + dataDevolucao +
-            "\nMulta: R$ " + multa +
-            "\nStatus: " + status +
+            "\nMulta: R$ %.2f".formatted(multa) +
+            "\nStatus: " + Cores.status(status) +
             "\n-----------------------------";         
 }
 }

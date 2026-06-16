@@ -3,6 +3,8 @@ package br.edu.ifpb.biblioteca.model;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import br.edu.ifpb.biblioteca.interfaces.Emprestavel;
+import br.edu.ifpb.biblioteca.util.Cores;
+
 import java.time.LocalDate;
 
 @Data
@@ -48,7 +50,7 @@ public class Revista extends Item implements Emprestavel {
                 "\nNúmero: " + numero +
                 "\nEditora: " + editora.getNome() +
                 "\nData de Publicação: " + dataPublicacao +
-                "\nStatus: " + status +
+                "\nStatus: " + Cores.status(status)+
                 "\n-----------------------------";
     }
 

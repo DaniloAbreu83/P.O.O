@@ -41,7 +41,7 @@ public class MenuConsultaDvd {
                             System.out.println(dvd);
                         }
                     }
-
+                        MenuCadastro.pausar(sc);
                     break;
 
                 case 2:
@@ -60,7 +60,7 @@ public class MenuConsultaDvd {
 
                         System.out.println( dvd);
                     }
-
+                        MenuCadastro.pausar(sc);
                     break;
 
                 case 3:

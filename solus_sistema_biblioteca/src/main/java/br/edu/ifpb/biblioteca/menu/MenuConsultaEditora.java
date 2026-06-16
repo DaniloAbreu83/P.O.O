@@ -39,7 +39,7 @@ public class MenuConsultaEditora {
                             System.out.println(editora);
                         }
                     }
-
+                        MenuCadastro.pausar(sc);
                     break;
 
                 case 2:

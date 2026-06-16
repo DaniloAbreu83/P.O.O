@@ -1,5 +1,6 @@
 package br.edu.ifpb.biblioteca.model;
 
+import br.edu.ifpb.biblioteca.util.Cores;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
@@ -29,7 +30,7 @@ public String toString() {
             "\nAutor: " + getAutor() +
             "\nDuração: " + duracaoMinutos + " minutos" +
             "\nClassificação Indicativa: " + classificacaoIndicativa +
-            "\nStatus: " + status +
+            "\nStatus: " +Cores.status(status)+
             "\n-----------------------------";
 }
 }

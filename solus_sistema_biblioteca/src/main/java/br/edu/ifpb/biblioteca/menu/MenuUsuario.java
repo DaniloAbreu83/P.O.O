@@ -51,7 +51,7 @@ public class MenuUsuario {
                         Cores.erro("Erro ao cadastrar aluno.");
                         Cores.info("Usuario ja cadastrado");
                     }
-
+                    MenuCadastro.pausar(sc);
                     break;
 
                 case 2:
@@ -76,6 +76,7 @@ public class MenuUsuario {
                         Cores.erro("Erro ao cadastrar usuário.");
                         Cores.info("Usuario ja cadastrado");
                     }
+                        MenuCadastro.pausar(sc);
 
                     break;
 
@@ -101,6 +102,7 @@ public class MenuUsuario {
                         Cores.erro("Erro ao cadastrar usuário.");
                         Cores.info("Usuario ja cadastrado");
                     }
+                    MenuCadastro.pausar(sc);
                     break;
 
                 case 4:
@@ -125,6 +127,7 @@ public class MenuUsuario {
                         Cores.erro("Erro ao cadastrar usuário.");
                         Cores.info("Usuario ja cadastrado");
                     }
+                    MenuCadastro.pausar(sc);
                     break;
 
                 case 5:

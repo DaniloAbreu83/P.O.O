@@ -14,35 +14,56 @@ public class Cores {
 
         System.out.println(
                 VERDE +
-                "[SUCESSO] " +
-                mensagem +
-                RESET);
+                        "[SUCESSO] " +
+                        mensagem +
+                        RESET);
     }
 
     public static void erro(String mensagem) {
 
         System.out.println(
                 VERMELHO +
-                "[ERRO] " +
-                mensagem +
-                RESET);
+                        "[ERRO] " +
+                        mensagem +
+                        RESET);
     }
 
     public static void aviso(String mensagem) {
 
         System.out.println(
                 AMARELO +
-                "[AVISO] " +
-                mensagem +
-                RESET);
+                        "[AVISO] " +
+                        mensagem +
+                        RESET);
     }
 
     public static void info(String mensagem) {
 
         System.out.println(
                 AZUL +
-                "[INFO] " +
-                mensagem +
-                RESET);
+                        "[INFO] " +
+                        mensagem +
+                        RESET);
+    }
+
+    public static String status(String status) {
+
+        switch (status.toUpperCase()) {
+
+            case "DISPONIVEL":
+                return VERDE + status + RESET;
+
+            case "EMPRESTADO":
+                return AMARELO + status + RESET;
+
+            case "DEVOLVIDO":
+                return AZUL + status + RESET;
+
+            case "BLOQUEADO":
+                return VERMELHO + status + RESET;
+
+            default:
+                return status;
+        }
     }
 }

@@ -38,7 +38,7 @@ public class MenuConsultaUsuario {
                             System.out.println(usuario);
                         }
                     }
-
+                    MenuCadastro.pausar(sc);
                     break;
 
                 case 2:
@@ -59,7 +59,7 @@ public class MenuConsultaUsuario {
                             System.out.println(usuario);
                         }
                     }
-
+                    MenuCadastro.pausar(sc);
                     break;
 
                 case 3:

@@ -9,7 +9,7 @@ import br.edu.ifpb.biblioteca.util.Cores;
 
 public class MenuEditora {
 
-    public static void menuEditora( Scanner sc, BibliotecaService service) {
+    public static void menuEditora(Scanner sc, BibliotecaService service) {
         EditoraController editoraController = new EditoraController(service);
 
         int opcao = 0;
@@ -23,7 +23,7 @@ public class MenuEditora {
             System.out.println("3. Listar Editoras");
             System.out.println("4. Voltar");
 
-            opcao = MenuCadastro.lerInteiro( sc, "Escolha: ");
+            opcao = MenuCadastro.lerInteiro(sc, "Escolha: ");
 
             switch (opcao) {
 
@@ -53,7 +53,7 @@ public class MenuEditora {
 
                         Cores.erro("Erro: CNPJ já cadastrado.");
                     }
-
+                    MenuCadastro.pausar(sc);
                     break;
 
                 case 2:
@@ -72,7 +72,7 @@ public class MenuEditora {
 
                         Cores.info("Editora não encontrada.");
                     }
-
+                    MenuCadastro.pausar(sc);
                     break;
 
                 case 3:
@@ -90,7 +90,7 @@ public class MenuEditora {
                             System.out.println(e);
                         }
                     }
-
+                        MenuCadastro.pausar(sc);
                     break;
 
                 case 4:

@@ -40,8 +40,8 @@ public abstract class Usuario {
                 "\nNome: " + nome +
                 "\nTipo: " + getClass().getSimpleName() +
                 "\nEmpréstimos Ativos: " + emprestimosAtivos +
-                "\nBloqueado: " + bloqueado +
-                "\nMulta Pendente: " + multaPendente +
+                "\nBloqueado: " + (bloqueado ? "SIM" : "NÃO") +
+                "\nMulta Pendente: " + (multaPendente ? "SIM" : "NÃO") +
                 "\n-----------------------------";
     }
 }

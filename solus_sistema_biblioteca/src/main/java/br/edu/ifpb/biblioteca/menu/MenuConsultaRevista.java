@@ -9,7 +9,7 @@ import br.edu.ifpb.biblioteca.util.Cores;
 
 public class MenuConsultaRevista {
 
-    public static void menuConsultaRevista( Scanner sc, BibliotecaService service) {
+    public static void menuConsultaRevista(Scanner sc, BibliotecaService service) {
         RevistaController revistaController = new RevistaController(service);
 
         int opcao = 0;
@@ -24,7 +24,7 @@ public class MenuConsultaRevista {
             System.out.println("4. Buscar por Volume");
             System.out.println("5. Voltar");
 
-            opcao = MenuCadastro.lerInteiro( sc, "Escolha: ");
+            opcao = MenuCadastro.lerInteiro(sc, "Escolha: ");
 
             switch (opcao) {
 
@@ -41,16 +41,16 @@ public class MenuConsultaRevista {
                             System.out.println(revista);
                         }
                     }
-
+                    MenuCadastro.pausar(sc);
                     break;
 
                 case 2:
 
-                    System.out.print( "Título da revista: ");
+                    System.out.print("Título da revista: ");
 
                     String titulo = sc.nextLine();
 
-                    Revista revistaTitulo = revistaController.buscarRevistaPorTitulo( titulo);
+                    Revista revistaTitulo = revistaController.buscarRevistaPorTitulo(titulo);
 
                     if (revistaTitulo == null) {
 
@@ -58,18 +58,18 @@ public class MenuConsultaRevista {
 
                     } else {
 
-                        System.out.println( revistaTitulo);
+                        System.out.println(revistaTitulo);
                     }
-
+                    MenuCadastro.pausar(sc);
                     break;
 
                 case 3:
 
-                    System.out.print( "ISSN: ");
+                    System.out.print("ISSN: ");
 
                     String issn = sc.nextLine();
 
-                    Revista revistaIssn = revistaController.buscarRevistaPorISSN( issn);
+                    Revista revistaIssn = revistaController.buscarRevistaPorISSN(issn);
 
                     if (revistaIssn == null) {
 
@@ -77,14 +77,14 @@ public class MenuConsultaRevista {
 
                     } else {
 
-                        System.out.println( revistaIssn);
+                        System.out.println(revistaIssn);
                     }
-
+                    MenuCadastro.pausar(sc);
                     break;
 
                 case 4:
 
-                    int volume = MenuCadastro.lerInteiro( sc, "Volume: ");
+                    int volume = MenuCadastro.lerInteiro(sc, "Volume: ");
 
                     var revistas = revistaController.buscarRevistaPorVolume(volume);
 
@@ -96,10 +96,11 @@ public class MenuConsultaRevista {
 
                         for (Revista revista : revistas) {
 
-                            System.out.println( revista);
+                            System.out.println(revista);
                         }
                     }
 
+                    MenuCadastro.pausar(sc);
                     break;
 
                 case 5:

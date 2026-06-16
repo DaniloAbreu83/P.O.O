@@ -43,7 +43,7 @@ public class MenuConsultaCd {
                             System.out.println(cd);
                         }
                     }
-
+                    MenuCadastro.pausar(sc);
                     break;
 
                 case 2:
@@ -62,7 +62,7 @@ public class MenuConsultaCd {
 
                         System.out.println( cdTitulo);
                     }
-
+                        MenuCadastro.pausar(sc);
                     break;
 
                 case 3:
@@ -84,7 +84,7 @@ public class MenuConsultaCd {
                             System.out.println(cd);
                         }
                     }
-
+                        MenuCadastro.pausar(sc);
                     break;
 
                 case 4:

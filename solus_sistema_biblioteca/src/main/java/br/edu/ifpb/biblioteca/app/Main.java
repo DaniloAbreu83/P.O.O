@@ -39,7 +39,7 @@ public class Main {
 
         int opcao = 0;
 
-        while (opcao != 5) {
+        while (opcao != 5 ) {
             CabecalhoMenu.exibir("MENU PRINCIPAL");
             
             System.out.println("\n======= Solus ========");

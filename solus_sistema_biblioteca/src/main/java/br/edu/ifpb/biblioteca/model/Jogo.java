@@ -2,6 +2,7 @@ package br.edu.ifpb.biblioteca.model;
 
 import br.edu.ifpb.biblioteca.interfaces.Emprestavel;
 import br.edu.ifpb.biblioteca.interfaces.Vendavel;
+import br.edu.ifpb.biblioteca.util.Cores;
 
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -50,8 +51,8 @@ public class Jogo implements Emprestavel, Vendavel {
                 "\nNome: " + nome +
                 "\nTipo: " + tipoJogo +
                 "\nQuantidade de Peças: " + quantidadePecas +
-                "\nPreço: R$ " + preco +
-                "\nStatus: " + status +
+                "\nPreço: R$ %.2f".formatted(preco) +
+                "\nStatus: " + Cores.status(status) +
                 "\n-----------------------------";
     }
 }

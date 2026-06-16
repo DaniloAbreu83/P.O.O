@@ -286,7 +286,7 @@ public class MenuAcervo {
 
                                                 Cores.erro( "Erro ao cadastrar revista.");
                                         }
-
+                                        MenuCadastro.pausar(sc);
                                         break;
 
                                 case 5:

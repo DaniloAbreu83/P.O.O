@@ -77,15 +77,13 @@ public class MenuEmprestimo {
                                     sc,
                                     "ID do jogo: ");
 
-                            sucesso = service.realizarEmprestimoJogo(
-                                    idUsuario,
-                                    idJogo);
+                            sucesso = service.realizarEmprestimoJogo(idUsuario, idJogo);
 
                             break;
 
                         default:
 
-                            System.out.println("Tipo inválido.");
+                            Cores.erro("Tipo inválido.");
                             break;
                     }
 
@@ -125,7 +123,7 @@ public class MenuEmprestimo {
                         Cores.erro("Empréstimo não encontrado.");
                         Cores.info("Por favor, verifique os dados e tente novamente.");
                     }
-
+                    MenuCadastro.pausar(sc);
                     break;
 
                 case 3:

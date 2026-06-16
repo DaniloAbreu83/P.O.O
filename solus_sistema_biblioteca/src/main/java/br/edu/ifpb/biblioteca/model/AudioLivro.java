@@ -3,6 +3,7 @@ package br.edu.ifpb.biblioteca.model;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import br.edu.ifpb.biblioteca.interfaces.Emprestavel;
+import br.edu.ifpb.biblioteca.util.Cores;
 
 @Data
 @EqualsAndHashCode(callSuper = true)
@@ -63,7 +64,7 @@ public class AudioLivro extends Livro implements Emprestavel {
                 "\nDuração: " + duracaoMinutos + " minutos" +
                 "\nEdição: " + getEdicao() +
                 "\nGênero: " + getGenero() +
-                "\nStatus: " + getStatus() +
+                "\nStatus: " + Cores.status(getStatus()) +
                 "\n-----------------------------";
     }
 }

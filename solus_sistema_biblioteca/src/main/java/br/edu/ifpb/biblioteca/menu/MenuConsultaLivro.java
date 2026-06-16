@@ -43,7 +43,7 @@ public class MenuConsultaLivro {
                             System.out.println(livro);
                         }
                     }
-
+                    MenuCadastro.pausar(sc);
                     break;
 
                 case 2:
@@ -64,6 +64,7 @@ public class MenuConsultaLivro {
                         System.out.println(livroTitulo);
                     }
 
+                    MenuCadastro.pausar(sc);
                     break;
 
                 case 3:
@@ -87,6 +88,7 @@ public class MenuConsultaLivro {
                         }
                     }
 
+                    MenuCadastro.pausar(sc);
                     break;
 
                 case 4:
@@ -107,6 +109,7 @@ public class MenuConsultaLivro {
                         System.out.println( livroISBN);
                     }
 
+                    MenuCadastro.pausar(sc);
                     break;
 
                 case 5:
@@ -129,6 +132,7 @@ public class MenuConsultaLivro {
                         }
                     }
 
+                    MenuCadastro.pausar(sc);
                     break;
 
                 case 6:
