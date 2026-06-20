@@ -42,9 +42,7 @@ public class MenuConsultaUsuario {
                     break;
 
                 case 2:
-                    System.out.print("Nome do usuário: ");
-
-                    String nome = sc.nextLine();
+                    String nome = MenuCadastro.lerTexto( sc, "Nome: ");
 
                     var usuarios = usuarioController.buscarUsuarioPorNome(nome);
 

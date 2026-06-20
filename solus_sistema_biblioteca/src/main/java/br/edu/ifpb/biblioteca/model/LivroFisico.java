@@ -3,6 +3,7 @@ package br.edu.ifpb.biblioteca.model;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import br.edu.ifpb.biblioteca.interfaces.Emprestavel;
+import br.edu.ifpb.biblioteca.util.Cores;
 
 @Data
 @EqualsAndHashCode(callSuper = true)
@@ -59,7 +60,7 @@ public class LivroFisico extends Livro implements Emprestavel {
                 "\nPáginas: " + getPaginas() +
                 "\nEdição: " + getEdicao() +
                 "\nGênero: " + getGenero() +
-                "\nStatus: " + getStatus() +
+                "\nStatus: " + Cores.status(getStatus()) +
                 "\n-----------------------------";
     }
 }

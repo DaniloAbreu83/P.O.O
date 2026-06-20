@@ -35,8 +35,7 @@ public class MenuEditora {
                             sc,
                             "ID: ");
 
-                    System.out.print("Nome: ");
-                    String nome = sc.nextLine();
+                    String nome = MenuCadastro.lerTexto(sc, "Nome: ");
 
                     System.out.print("CNPJ: ");
                     String cnpj = sc.nextLine();
@@ -90,7 +89,7 @@ public class MenuEditora {
                             System.out.println(e);
                         }
                     }
-                        MenuCadastro.pausar(sc);
+                    MenuCadastro.pausar(sc);
                     break;
 
                 case 4:

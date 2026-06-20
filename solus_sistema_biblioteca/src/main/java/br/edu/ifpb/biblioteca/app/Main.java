@@ -1,6 +1,5 @@
 package br.edu.ifpb.biblioteca.app;
 
-
 import java.util.Scanner;
 import br.edu.ifpb.biblioteca.service.BibliotecaService;
 import br.edu.ifpb.biblioteca.menu.CabecalhoMenu;
@@ -8,7 +7,9 @@ import br.edu.ifpb.biblioteca.menu.MenuCadastro;
 import br.edu.ifpb.biblioteca.menu.MenuConsulta;
 import br.edu.ifpb.biblioteca.menu.MenuEmprestimo;
 import br.edu.ifpb.biblioteca.menu.MenuVenda;
+import br.edu.ifpb.biblioteca.util.Cores;
 import br.edu.ifpb.biblioteca.util.DadosIniciais;
+import br.edu.ifpb.biblioteca.util.InterfaceUtils;
 
 public class Main {
 
@@ -39,9 +40,10 @@ public class Main {
 
         int opcao = 0;
 
-        while (opcao != 5 ) {
+        while (opcao != 5) {
             CabecalhoMenu.exibir("MENU PRINCIPAL");
-            
+
+            InterfaceUtils.exibirResumo(service);
             System.out.println("\n======= Solus ========");
             System.out.println("1. Cadastro");
             System.out.println("2. Consulta");
@@ -83,4 +85,3 @@ public class Main {
     }
 
 }
-

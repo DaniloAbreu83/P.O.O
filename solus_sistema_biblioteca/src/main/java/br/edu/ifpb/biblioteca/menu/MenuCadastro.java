@@ -33,6 +33,17 @@ public class MenuCadastro {
         }
     }
 
+    public static String lerTexto(
+            Scanner sc,
+            String mensagem) {
+
+        System.out.print(mensagem);
+
+        return sc.nextLine()
+                .trim()
+                .toUpperCase();
+    }
+
     public static void menuCadastro(
             Scanner sc,
             BibliotecaService service) {
@@ -88,7 +99,7 @@ public class MenuCadastro {
     public static void pausar(Scanner sc) {
 
         System.out.println();
-        System.out.print( Cores.CIANO + "[ENTER] Pressione ENTER para continuar..." + Cores.RESET);
+        System.out.print(Cores.CIANO + "[ENTER] Pressione ENTER para continuar..." + Cores.RESET);
         sc.nextLine();
     }
 }

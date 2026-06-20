@@ -460,14 +460,11 @@ public class BibliotecaService {
             return false;
         }
 
-        if (usuario.isBloqueado() ||
-                usuario.isMultaPendente()) {
-
+        if (usuario.isBloqueado() || usuario.isMultaPendente()) {
             return false;
         }
 
         if (usuario.getEmprestimosAtivos() >= usuario.getLimiteEmprestimos()) {
-
             return false;
         }
 
@@ -477,9 +474,7 @@ public class BibliotecaService {
             return false;
         }
 
-        if (!revista.getStatus()
-                .equalsIgnoreCase("DISPONIVEL")) {
-
+        if (!revista.getStatus().equalsIgnoreCase("DISPONIVEL")) {
             return false;
         }
 
@@ -497,25 +492,18 @@ public class BibliotecaService {
 
         EmprestimoService emprestimoService = new EmprestimoService();
 
-        boolean sucesso = emprestimoService.realizarEmprestimo(
-                usuario,
-                e);
+        boolean sucesso = emprestimoService.realizarEmprestimo(usuario, e);
 
         if (sucesso) {
-
             emprestimos.add(e);
-
             revista.setStatus("EMPRESTADO");
-
             return true;
         }
 
         return false;
     }
 
-    public boolean realizarEmprestimoJogo(
-            int idUsuario,
-            int idJogo) {
+    public boolean realizarEmprestimoJogo(int idUsuario, int idJogo) {
 
         Usuario usuario = buscarUsuario(idUsuario);
 
@@ -523,14 +511,11 @@ public class BibliotecaService {
             return false;
         }
 
-        if (usuario.isBloqueado() ||
-                usuario.isMultaPendente()) {
-
+        if (usuario.isBloqueado() || usuario.isMultaPendente()) {
             return false;
         }
 
         if (usuario.getEmprestimosAtivos() >= usuario.getLimiteEmprestimos()) {
-
             return false;
         }
 
@@ -540,9 +525,7 @@ public class BibliotecaService {
             return false;
         }
 
-        if (!jogo.getStatus()
-                .equalsIgnoreCase("DISPONIVEL")) {
-
+        if (!jogo.getStatus().equalsIgnoreCase("DISPONIVEL")) {
             return false;
         }
 
@@ -560,16 +543,11 @@ public class BibliotecaService {
 
         EmprestimoService emprestimoService = new EmprestimoService();
 
-        boolean sucesso = emprestimoService.realizarEmprestimo(
-                usuario,
-                e);
+        boolean sucesso = emprestimoService.realizarEmprestimo(usuario, e);
 
         if (sucesso) {
-
             emprestimos.add(e);
-
             jogo.setStatus("EMPRESTADO");
-
             return true;
         }
 
@@ -589,7 +567,7 @@ public class BibliotecaService {
         }
 
         for (Emprestimo e : emprestimos) {
-           
+
             if (e.getUsuario().getId() == idUsuario
                     && normalizarTexto(e.getTituloItem())
                             .equals(normalizarTexto(tituloLivro))
@@ -597,9 +575,7 @@ public class BibliotecaService {
 
                 EmprestimoService emprestimoService = new EmprestimoService();
 
-                emprestimoService.realizarDevolucao(
-                        e,
-                        usuario);
+                emprestimoService.realizarDevolucao(e, usuario);
                 Livro livro = buscarLivroPorTitulo(
                         e.getTituloItem());
 
@@ -674,6 +650,74 @@ public class BibliotecaService {
 
         return resultado;
     }
+
+    // ======================================================
+    // DASHBOARD / ESTATÍSTICAS
+    // ======================================================
+
+    public int getTotalUsuarios() {
+        return usuarios.size();
+    }
+
+    public int getTotalEmprestimosEmAberto() {
+
+        int total = 0;
+
+        for (Emprestimo e : emprestimos) {
+
+            if (e.getStatus().equalsIgnoreCase("EM_ABERTO")) {
+                total++;
+            }
+        }
+
+        return total;
+    }
+
+    public int getTotalItensDisponiveis() {
+
+        int total = 0;
+
+        for (Livro livro : livros) {
+
+            if (livro.getStatus().equalsIgnoreCase("DISPONIVEL")) {
+                total++;
+            }
+        }
+
+        for (Cd cd : cds) {
+
+            if (cd.getStatus().equalsIgnoreCase("DISPONIVEL")) {
+                total++;
+            }
+        }
+
+        for (Dvd dvd : dvds) {
+
+            if (dvd.getStatus().equalsIgnoreCase("DISPONIVEL")) {
+                total++;
+            }
+        }
+
+        for (Revista revista : revistas) {
+
+            if (revista.getStatus().equalsIgnoreCase("DISPONIVEL")) {
+                total++;
+            }
+        }
+
+        for (Jogo jogo : jogos) {
+
+            if (jogo.getStatus().equalsIgnoreCase("DISPONIVEL")) {
+                total++;
+            }
+        }
+
+        return total;
+    }
+
+    // ======================================================
+    // LISTAGENS GERAIS
+    // ======================================================
 
     public List<Usuario> listarUsuarios() {
         return usuarios;
