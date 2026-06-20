@@ -21,6 +21,10 @@ public class EditoraController {
         return service.buscarEditoraPorId(id);
     }
 
+    public Editora buscarEditoraPorNome(String nome) {
+        return service.buscarEditoraPorNome(nome);
+    }
+
     public List<Editora> listarEditoras() {
         return service.listarEditoras();
     }

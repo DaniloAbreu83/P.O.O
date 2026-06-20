@@ -12,38 +12,22 @@ public class Cores {
 
     public static void sucesso(String mensagem) {
 
-        System.out.println(
-                VERDE +
-                        "[SUCESSO] " +
-                        mensagem +
-                        RESET);
+        System.out.println( VERDE + "[SUCESSO] " + mensagem + RESET);
     }
 
     public static void erro(String mensagem) {
 
-        System.out.println(
-                VERMELHO +
-                        "[ERRO] " +
-                        mensagem +
-                        RESET);
+        System.out.println( VERMELHO + "[ERRO] " + mensagem + RESET);
     }
 
     public static void aviso(String mensagem) {
 
-        System.out.println(
-                AMARELO +
-                        "[AVISO] " +
-                        mensagem +
-                        RESET);
+        System.out.println( AMARELO + "[AVISO] " + mensagem + RESET);
     }
 
     public static void info(String mensagem) {
 
-        System.out.println(
-                AZUL +
-                        "[INFO] " +
-                        mensagem +
-                        RESET);
+        System.out.println( AZUL + "[INFO] " + mensagem + RESET);
     }
 
     public static String status(String status) {

@@ -9,6 +9,7 @@ import br.edu.ifpb.biblioteca.model.Cd;
 import br.edu.ifpb.biblioteca.model.Dvd;
 import br.edu.ifpb.biblioteca.model.Editora;
 import br.edu.ifpb.biblioteca.model.Revista;
+import br.edu.ifpb.biblioteca.service.EditoraService;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -17,13 +18,13 @@ import java.time.LocalDate;
 
 public class BibliotecaService {
 
-    private List<Usuario> usuarios = new ArrayList<>();
+    private UsuarioService usuarioService = new UsuarioService();
     private List<Livro> livros = new ArrayList<>();
     private List<Emprestimo> emprestimos = new ArrayList<>();
     private List<Cd> cds = new ArrayList<>();
     private List<Dvd> dvds = new ArrayList<>();
     private List<Revista> revistas = new ArrayList<>();
-    private List<Editora> editoras = new ArrayList<>();
+    private EditoraService editoraService = new EditoraService();
     private List<Jogo> jogos = new ArrayList<>();
     private List<Venda> vendas = new ArrayList<>();
 
@@ -43,16 +44,7 @@ public class BibliotecaService {
     // ADICIONAR DADOS
     // -----------------------------
     public boolean adicionarUsuario(Usuario usuario) {
-        if (usuario == null) {
-            return false;
-        }
-        for (Usuario u : usuarios) {
-            if (u.getId() == usuario.getId()) {
-                return false;
-            }
-        }
-        usuarios.add(usuario);
-        return true;
+        return usuarioService.adicionarUsuario(usuario);
     }
 
     public boolean adicionarLivro(Livro livro) {
@@ -112,21 +104,7 @@ public class BibliotecaService {
     }
 
     public boolean adicionarEditora(Editora editora) {
-
-        if (editora == null) {
-            return false;
-        }
-
-        for (Editora e : editoras) {
-
-            if (e.getCnpj().equals(editora.getCnpj())) {
-                return false;
-            }
-        }
-
-        editoras.add(editora);
-
-        return true;
+        return editoraService.adicionarEditora(editora);
     }
 
     public boolean adicionarJogo(Jogo jogo) {
@@ -151,12 +129,11 @@ public class BibliotecaService {
     // BUSCAR USUÁRIO
     // -----------------------------
     public Usuario buscarUsuario(int id) {
-        for (Usuario u : usuarios) {
-            if (u.getId() == id) {
-                return u;
-            }
-        }
-        return null;
+        return usuarioService.buscarUsuario(id);
+    }
+
+    public List<Usuario> buscarUsuarioPorNome(String nome) {
+        return usuarioService.buscarUsuarioPorNome(nome);
     }
 
     // -----------------------------
@@ -260,27 +237,11 @@ public class BibliotecaService {
     // BUSCAR EDITORA
     // ------------------------------
     public Editora buscarEditoraPorId(int id) {
-
-        for (Editora e : editoras) {
-
-            if (e.getId() == id) {
-                return e;
-            }
-        }
-
-        return null;
+        return editoraService.buscarEditoraPorId(id);
     }
 
     public Editora buscarEditoraPorNome(String nome) {
-
-        for (Editora e : editoras) {
-
-            if (e.getNome().equalsIgnoreCase(nome)) {
-                return e;
-            }
-        }
-
-        return null;
+        return editoraService.buscarEditoraPorNome(nome);
     }
 
     // -----------------------------
@@ -639,24 +600,12 @@ public class BibliotecaService {
         }
     }
 
-    public List<Usuario> buscarUsuarioPorNome(String nome) {
-        List<Usuario> resultado = new ArrayList<>();
-
-        for (Usuario u : usuarios) {
-            if (u.getNome().equalsIgnoreCase(nome)) {
-                resultado.add(u);
-            }
-        }
-
-        return resultado;
-    }
-
     // ======================================================
     // DASHBOARD / ESTATÍSTICAS
     // ======================================================
 
     public int getTotalUsuarios() {
-        return usuarios.size();
+        return usuarioService.getTotalUsuarios();
     }
 
     public int getTotalEmprestimosEmAberto() {
@@ -720,7 +669,7 @@ public class BibliotecaService {
     // ======================================================
 
     public List<Usuario> listarUsuarios() {
-        return usuarios;
+        return usuarioService.listarUsuarios();
     }
 
     public List<Livro> listarLivros() {
@@ -744,7 +693,7 @@ public class BibliotecaService {
     }
 
     public List<Editora> listarEditoras() {
-        return editoras;
+        return editoraService.listarEditoras();
     }
 
     public List<Jogo> listarJogos() {
