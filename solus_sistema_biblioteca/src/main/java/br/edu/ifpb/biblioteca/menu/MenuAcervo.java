@@ -19,6 +19,7 @@ import br.edu.ifpb.biblioteca.model.Revista;
 import br.edu.ifpb.biblioteca.service.BibliotecaService;
 import br.edu.ifpb.biblioteca.util.Cores;
 
+
 public class MenuAcervo {
 
         public static void menuAcervo(Scanner sc, BibliotecaService service) {

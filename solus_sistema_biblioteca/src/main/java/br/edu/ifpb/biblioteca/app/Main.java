@@ -7,7 +7,6 @@ import br.edu.ifpb.biblioteca.menu.MenuCadastro;
 import br.edu.ifpb.biblioteca.menu.MenuConsulta;
 import br.edu.ifpb.biblioteca.menu.MenuEmprestimo;
 import br.edu.ifpb.biblioteca.menu.MenuVenda;
-import br.edu.ifpb.biblioteca.util.Cores;
 import br.edu.ifpb.biblioteca.util.DadosIniciais;
 import br.edu.ifpb.biblioteca.util.InterfaceUtils;
 

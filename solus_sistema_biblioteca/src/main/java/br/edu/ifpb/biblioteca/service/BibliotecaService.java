@@ -9,36 +9,17 @@ import br.edu.ifpb.biblioteca.model.Cd;
 import br.edu.ifpb.biblioteca.model.Dvd;
 import br.edu.ifpb.biblioteca.model.Editora;
 import br.edu.ifpb.biblioteca.model.Revista;
-import br.edu.ifpb.biblioteca.service.EditoraService;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.text.Normalizer;
-import java.time.LocalDate;
 
 public class BibliotecaService {
 
     private UsuarioService usuarioService = new UsuarioService();
-    private List<Livro> livros = new ArrayList<>();
-    private List<Emprestimo> emprestimos = new ArrayList<>();
-    private List<Cd> cds = new ArrayList<>();
-    private List<Dvd> dvds = new ArrayList<>();
-    private List<Revista> revistas = new ArrayList<>();
+    private AcervoService acervoService = new AcervoService();
     private EditoraService editoraService = new EditoraService();
-    private List<Jogo> jogos = new ArrayList<>();
-    private List<Venda> vendas = new ArrayList<>();
-
-    private String normalizarTexto(String texto) {
-
-        if (texto == null) {
-            return "";
-        }
-
-        return Normalizer.normalize(texto, Normalizer.Form.NFD)
-                .replaceAll("\\p{M}", "")
-                .toLowerCase()
-                .trim();
-    }
+    private VendaService vendaService = new VendaService();
+    private EmprestimoService emprestimoService = new EmprestimoService();
 
     // -----------------------------
     // ADICIONAR DADOS
@@ -48,59 +29,19 @@ public class BibliotecaService {
     }
 
     public boolean adicionarLivro(Livro livro) {
-        if (livro == null) {
-            return false;
-        }
-        for (Livro l : livros) {
-            if (l.getISBN().equals(livro.getISBN())) {
-                return false;
-            }
-        }
-        livros.add(livro);
-        return true;
+        return acervoService.adicionarLivro(livro);
     }
 
     public boolean adicionarCd(Cd cd) {
-        if (cd == null) {
-            return false;
-        }
-        for (Cd c : cds) {
-            if (c.getTitulo().equalsIgnoreCase(cd.getTitulo())) {
-                return false;
-            }
-        }
-        cds.add(cd);
-        return true;
+        return acervoService.adicionarCd(cd);
     }
 
     public boolean adicionarDvd(Dvd dvd) {
-
-        if (dvd == null) {
-            return false;
-        }
-
-        for (Dvd d : dvds) {
-
-            if (d.getTitulo().equalsIgnoreCase(dvd.getTitulo())) {
-                return false;
-            }
-        }
-
-        dvds.add(dvd);
-        return true;
+        return acervoService.getDvds().add(dvd);
     }
 
     public boolean adicionarRevista(Revista revista) {
-        if (revista == null) {
-            return false;
-        }
-
-        for (Revista r : revistas)
-            if (r.getISSN().equals(revista.getISSN())) {
-                return false;
-            }
-        revistas.add(revista);
-        return true;
+        return acervoService.getRevistas().add(revista);
     }
 
     public boolean adicionarEditora(Editora editora) {
@@ -108,21 +49,7 @@ public class BibliotecaService {
     }
 
     public boolean adicionarJogo(Jogo jogo) {
-
-        if (jogo == null) {
-            return false;
-        }
-
-        for (Jogo j : jogos) {
-
-            if (j.getId() == jogo.getId()) {
-                return false;
-            }
-        }
-
-        jogos.add(jogo);
-
-        return true;
+        return acervoService.getJogos().add(jogo);
     }
 
     // -----------------------------
@@ -143,11 +70,13 @@ public class BibliotecaService {
 
         List<Livro> resultado = new ArrayList<>();
 
-        for (Livro l : livros) {
+        for (Livro l : acervoService.getLivros()) {
 
             if (l.getEditora()
                     .getNome()
-                    .equalsIgnoreCase(nomeEditora)) {
+                    .replace(" ", "")
+                    .equalsIgnoreCase(
+                            nomeEditora.replace(" ", ""))) {
 
                 resultado.add(l);
             }
@@ -157,85 +86,39 @@ public class BibliotecaService {
     }
 
     public Livro buscarLivroPorISBN(String isbn) {
-        for (Livro l : livros) {
-            if (l.getISBN().equalsIgnoreCase(isbn)) {
-                return l;
-            }
-        }
-        return null;
+        return acervoService.buscarLivroPorISBN(isbn);
     }
 
     public Livro buscarLivroPorTitulo(String titulo) {
-
-        for (Livro l : livros) {
-
-            if (l.getTitulo().equalsIgnoreCase(titulo)) {
-                return l;
-            }
-        }
-
-        return null;
+        return acervoService.buscarLivroPorTitulo(titulo);
     }
 
     public List<Livro> buscarLivroPorAutor(String autor) {
-        List<Livro> resultado = new ArrayList<>();
-
-        for (Livro l : livros) {
-            if (l.getAutor().equalsIgnoreCase(autor)) {
-                resultado.add(l);
-            }
-        }
-
-        return resultado;
+        return acervoService.buscarLivroPorAutor(autor);
     }
 
     // -----------------------------
     // BUSCAR CD
     // -----------------------------
     public Cd buscarCdPorTitulo(String titulo) {
-
-        for (Cd cd : cds) {
-
-            if (cd.getTitulo().equalsIgnoreCase(titulo)) {
-                return cd;
-            }
-        }
-
-        return null;
+        return acervoService.buscarCdPorTitulo(titulo);
     }
 
     public List<Cd> buscarCdPorAutor(String autor) {
-
-        List<Cd> resultado = new ArrayList<>();
-
-        for (Cd cd : cds) {
-
-            if (cd.getAutor().equalsIgnoreCase(autor)) {
-                resultado.add(cd);
-            }
-        }
-
-        return resultado;
+        return acervoService.buscarCdPorAutor(autor);
     }
 
     // -----------------------------
     // BUSCAR DVD
     // -----------------------------
     public Dvd buscarDvd(String titulo) {
-
-        for (Dvd dvd : dvds) {
-
-            if (dvd.getTitulo().equalsIgnoreCase(titulo)) {
-                return dvd;
-            }
-        }
-
-        return null;
+        return acervoService.buscarDvd(titulo);
     }
 
     // ------------------------------
     // BUSCAR EDITORA
     // ------------------------------
+   
     public Editora buscarEditoraPorId(int id) {
         return editoraService.buscarEditoraPorId(id);
     }
@@ -243,74 +126,31 @@ public class BibliotecaService {
     public Editora buscarEditoraPorNome(String nome) {
         return editoraService.buscarEditoraPorNome(nome);
     }
-
+    
     // -----------------------------
     // BUSCAR REVISTA
     // -----------------------------
     public Revista buscarRevistaPorISSN(String issn) {
-
-        for (Revista revista : revistas) {
-
-            if (revista.getISSN().equalsIgnoreCase(issn)) {
-                return revista;
-            }
-        }
-
-        return null;
+        return acervoService.buscarRevistaPorISSN(issn);
     }
 
     public Revista buscarRevistaPorTitulo(String titulo) {
-
-        for (Revista revista : revistas) {
-
-            if (revista.getTitulo().equalsIgnoreCase(titulo)) {
-                return revista;
-            }
-        }
-
-        return null;
+        return acervoService.buscarRevistaPorTitulo(titulo);
     }
 
     public List<Revista> buscarRevistaPorVolume(int volume) {
-
-        List<Revista> resultado = new ArrayList<>();
-
-        for (Revista revista : revistas) {
-
-            if (revista.getVolume() == volume) {
-                resultado.add(revista);
-            }
-        }
-
-        return resultado;
+        return acervoService.buscarRevistaPorVolume(volume);
     }
-
     // -----------------------------
     // BUSCAR JOGO
     // -----------------------------
 
     public Jogo buscarJogoPorId(int id) {
-
-        for (Jogo j : jogos) {
-
-            if (j.getId() == id) {
-                return j;
-            }
-        }
-
-        return null;
+        return acervoService.buscarJogoPorId(id);
     }
 
     public Jogo buscarJogoPorNome(String nome) {
-
-        for (Jogo jogo : jogos) {
-
-            if (jogo.getNome().equalsIgnoreCase(nome)) {
-                return jogo;
-            }
-        }
-
-        return null;
+        return acervoService.buscarJogoPorNome(nome);
     }
 
     // -----------------------------
@@ -321,198 +161,41 @@ public class BibliotecaService {
 
         Jogo jogo = buscarJogoPorId(idJogo);
 
-        if (jogo == null) {
-            return false;
-        }
-
-        if (!jogo.getStatus().equalsIgnoreCase("DISPONIVEL")) {
-            return false;
-        }
-
-        Venda venda = new Venda(
-                vendas.size() + 1,
-                jogo,
-                jogo.getPreco(),
-                LocalDate.now());
-
-        vendas.add(venda);
-
-        jogo.setStatus("VENDIDO");
-
-        return true;
+        return vendaService.realizarVendaJogo(jogo);
     }
 
-    // -----------------------------
-    // REALIZAR EMPRÉSTIMO (UC3)
-    // -----------------------------
-    public boolean realizarEmprestimo(int idUsuario, String tituloLivro, String ISBN) {
+    // 6. Realizar empréstimo
+    public boolean realizarEmprestimoLivro(int idUsuario, String isbn) {
 
-        // 1. Buscar usuário
-        Usuario usuario = buscarUsuario(idUsuario);
+        Usuario usuario = usuarioService.buscarUsuario(idUsuario);
+        Livro livro = acervoService.buscarLivroPorISBN(isbn);
 
-        if (usuario == null) {
+        if (usuario == null || livro == null)
             return false;
-        }
 
-        // 2. Verificar se está bloqueado
-        if (usuario.isBloqueado() || usuario.isMultaPendente()) {
-            return false;
-        }
-
-        // 3. Verificar limite de empréstimos
-        int limite = usuario.getLimiteEmprestimos();
-
-        if (usuario.getEmprestimosAtivos() >= limite) {
-            return false;
-        }
-        // 4. Buscar livro
-        Livro livro = null;
-
-        if (ISBN != null && !ISBN.isBlank()) {
-            livro = buscarLivroPorISBN(ISBN);
-        } else {
-            livro = buscarLivroPorTitulo(tituloLivro);
-        }
-
-        if (livro == null) {
-            return false;
-        }
-
-        if (!livro.getStatus().equalsIgnoreCase("DISPONIVEL")) {
-            return false;
-        }
-
-        // 5. Definir prazo
-        EmprestimoService emprestimoService = new EmprestimoService();
-
-        int prazo = usuario.getPrazoEmprestimo();
-
-        LocalDate hoje = LocalDate.now();
-
-        Emprestimo e = new Emprestimo(
-                emprestimos.size() + 1,
-                usuario,
-                livro.getTitulo(),
-                hoje,
-                hoje.plusDays(prazo),
-                null,
-                0.0,
-                "EM_ABERTO");
-
-        // 6. Realizar empréstimo
-        boolean sucesso = emprestimoService.realizarEmprestimo(usuario, e);
-
-        if (sucesso) {
-            emprestimos.add(e);
-            livro.setStatus("EMPRESTADO");
-            return true;
-        }
-
-        return false;
+        return emprestimoService.realizarEmprestimoLivro(usuario, livro);
     }
 
-    public boolean realizarEmprestimoRevista(
-            int idUsuario,
-            String tituloRevista) {
+    public boolean realizarEmprestimoRevista(int idUsuario, String titulo) {
 
-        Usuario usuario = buscarUsuario(idUsuario);
+        Usuario usuario = usuarioService.buscarUsuario(idUsuario);
+        Revista revista = acervoService.buscarRevistaPorTitulo(titulo);
 
-        if (usuario == null) {
+        if (usuario == null || revista == null)
             return false;
-        }
 
-        if (usuario.isBloqueado() || usuario.isMultaPendente()) {
-            return false;
-        }
-
-        if (usuario.getEmprestimosAtivos() >= usuario.getLimiteEmprestimos()) {
-            return false;
-        }
-
-        Revista revista = buscarRevistaPorTitulo(tituloRevista);
-
-        if (revista == null) {
-            return false;
-        }
-
-        if (!revista.getStatus().equalsIgnoreCase("DISPONIVEL")) {
-            return false;
-        }
-
-        LocalDate hoje = LocalDate.now();
-
-        Emprestimo e = new Emprestimo(
-                emprestimos.size() + 1,
-                usuario,
-                revista.getTitulo(),
-                hoje,
-                hoje.plusDays(usuario.getPrazoEmprestimo()),
-                null,
-                0.0,
-                "EM_ABERTO");
-
-        EmprestimoService emprestimoService = new EmprestimoService();
-
-        boolean sucesso = emprestimoService.realizarEmprestimo(usuario, e);
-
-        if (sucesso) {
-            emprestimos.add(e);
-            revista.setStatus("EMPRESTADO");
-            return true;
-        }
-
-        return false;
+        return emprestimoService.realizarEmprestimoRevista(usuario, revista);
     }
 
     public boolean realizarEmprestimoJogo(int idUsuario, int idJogo) {
 
-        Usuario usuario = buscarUsuario(idUsuario);
+        Usuario usuario = usuarioService.buscarUsuario(idUsuario);
+        Jogo jogo = acervoService.buscarJogoPorId(idJogo);
 
-        if (usuario == null) {
+        if (usuario == null || jogo == null)
             return false;
-        }
 
-        if (usuario.isBloqueado() || usuario.isMultaPendente()) {
-            return false;
-        }
-
-        if (usuario.getEmprestimosAtivos() >= usuario.getLimiteEmprestimos()) {
-            return false;
-        }
-
-        Jogo jogo = buscarJogoPorId(idJogo);
-
-        if (jogo == null) {
-            return false;
-        }
-
-        if (!jogo.getStatus().equalsIgnoreCase("DISPONIVEL")) {
-            return false;
-        }
-
-        LocalDate hoje = LocalDate.now();
-
-        Emprestimo e = new Emprestimo(
-                emprestimos.size() + 1,
-                usuario,
-                jogo.getNome(),
-                hoje,
-                hoje.plusDays(usuario.getPrazoEmprestimo()),
-                null,
-                0.0,
-                "EM_ABERTO");
-
-        EmprestimoService emprestimoService = new EmprestimoService();
-
-        boolean sucesso = emprestimoService.realizarEmprestimo(usuario, e);
-
-        if (sucesso) {
-            emprestimos.add(e);
-            jogo.setStatus("EMPRESTADO");
-            return true;
-        }
-
-        return false;
+        return emprestimoService.realizarEmprestimoJogo(usuario, jogo);
     }
 
     // REGISTRAR DEVOLUÇÃO (UC4)
@@ -527,77 +210,56 @@ public class BibliotecaService {
             return null;
         }
 
-        for (Emprestimo e : emprestimos) {
+        Emprestimo e = emprestimoService.buscarEmprestimoAberto(
+                idUsuario,
+                tituloLivro);
 
-            if (e.getUsuario().getId() == idUsuario
-                    && normalizarTexto(e.getTituloItem())
-                            .equals(normalizarTexto(tituloLivro))
-                    && e.getStatus().equals("EM_ABERTO")) {
+        if (e == null) {
+            return null;
+        }
 
-                EmprestimoService emprestimoService = new EmprestimoService();
+        emprestimoService.realizarDevolucao(
+                e,
+                usuario);
 
-                emprestimoService.realizarDevolucao(e, usuario);
-                Livro livro = buscarLivroPorTitulo(
+        Livro livro = buscarLivroPorTitulo(
+                e.getTituloItem());
+
+        if (livro != null) {
+
+            livro.setStatus("DISPONIVEL");
+
+        } else {
+
+            Revista revista = buscarRevistaPorTitulo(
+                    e.getTituloItem());
+
+            if (revista != null) {
+
+                revista.setStatus("DISPONIVEL");
+
+            } else {
+
+                Jogo jogo = buscarJogoPorNome(
                         e.getTituloItem());
 
-                if (livro != null) {
+                if (jogo != null) {
 
-                    livro.setStatus("DISPONIVEL");
-
-                } else {
-
-                    Revista revista = buscarRevistaPorTitulo(
-                            e.getTituloItem());
-
-                    if (revista != null) {
-
-                        revista.setStatus("DISPONIVEL");
-
-                    } else {
-
-                        Jogo jogo = buscarJogoPorNome(
-                                e.getTituloItem());
-
-                        if (jogo != null) {
-
-                            jogo.setStatus("DISPONIVEL");
-                        }
-                    }
+                    jogo.setStatus("DISPONIVEL");
                 }
-
-                return e;
             }
         }
 
-        return null;
+        return e;
     }
 
     // CONSULTAR EMPRESTIMO
     public void listarEmprestimosEmAberto() {
-        for (Emprestimo e : emprestimos) {
-            if (e.getStatus().equals("EM_ABERTO")) {
-                System.out.println(e);
-            }
-        }
+        emprestimoService.listarEmprestimosEmAberto();
     }
 
     public void listarHistoricoUsuario(int idUsuario) {
-
-        boolean encontrou = false;
-
-        for (Emprestimo e : emprestimos) {
-
-            if (e.getUsuario().getId() == idUsuario) {
-
-                System.out.println(e);
-                encontrou = true;
-            }
-        }
-
-        if (!encontrou) {
-
-            System.out.println("Nenhum empréstimo encontrado para este usuário.");
-        }
+        emprestimoService.listarHistoricoUsuario(idUsuario);
     }
 
     // ======================================================
@@ -612,7 +274,7 @@ public class BibliotecaService {
 
         int total = 0;
 
-        for (Emprestimo e : emprestimos) {
+        for (Emprestimo e : emprestimoService.getEmprestimos()) {
 
             if (e.getStatus().equalsIgnoreCase("EM_ABERTO")) {
                 total++;
@@ -626,35 +288,35 @@ public class BibliotecaService {
 
         int total = 0;
 
-        for (Livro livro : livros) {
+        for (Livro livro : acervoService.getLivros()) {
 
             if (livro.getStatus().equalsIgnoreCase("DISPONIVEL")) {
                 total++;
             }
         }
 
-        for (Cd cd : cds) {
+        for (Cd cd : acervoService.getCds()) {
 
             if (cd.getStatus().equalsIgnoreCase("DISPONIVEL")) {
                 total++;
             }
         }
 
-        for (Dvd dvd : dvds) {
+        for (Dvd dvd : acervoService.getDvds()) {
 
             if (dvd.getStatus().equalsIgnoreCase("DISPONIVEL")) {
                 total++;
             }
         }
 
-        for (Revista revista : revistas) {
+        for (Revista revista : acervoService.getRevistas()) {
 
             if (revista.getStatus().equalsIgnoreCase("DISPONIVEL")) {
                 total++;
             }
         }
 
-        for (Jogo jogo : jogos) {
+        for (Jogo jogo : acervoService.getJogos()) {
 
             if (jogo.getStatus().equalsIgnoreCase("DISPONIVEL")) {
                 total++;
@@ -673,23 +335,23 @@ public class BibliotecaService {
     }
 
     public List<Livro> listarLivros() {
-        return livros;
+        return acervoService.getLivros();
     }
 
     public List<Cd> listarCds() {
-        return cds;
+        return acervoService.getCds();
     }
 
     public List<Dvd> listarDvds() {
-        return dvds;
+        return acervoService.getDvds();
     }
 
     public List<Revista> listarRevistas() {
-        return revistas;
+        return acervoService.getRevistas();
     }
 
     public List<Emprestimo> listarEmprestimos() {
-        return emprestimos;
+        return emprestimoService.getEmprestimos();
     }
 
     public List<Editora> listarEditoras() {
@@ -697,11 +359,11 @@ public class BibliotecaService {
     }
 
     public List<Jogo> listarJogos() {
-        return jogos;
+        return acervoService.getJogos();
     }
 
     public List<Venda> listarVendas() {
-        return vendas;
+        return vendaService.listarVendas();
     }
 
 }

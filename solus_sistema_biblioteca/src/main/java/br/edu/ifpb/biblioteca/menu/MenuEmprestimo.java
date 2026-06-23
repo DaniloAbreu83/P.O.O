@@ -47,15 +47,11 @@ public class MenuEmprestimo {
 
                         case 1:
 
-                            System.out.print("Título do livro: ");
-                            String tituloLivro = sc.nextLine();
-
                             System.out.print("ISBN: ");
                             String isbn = sc.nextLine();
 
-                            sucesso = service.realizarEmprestimo(
+                            sucesso = service.realizarEmprestimoLivro(
                                     idUsuario,
-                                    tituloLivro,
                                     isbn);
 
                             break;

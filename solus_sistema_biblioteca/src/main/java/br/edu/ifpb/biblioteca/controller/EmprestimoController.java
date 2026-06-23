@@ -3,6 +3,7 @@ package br.edu.ifpb.biblioteca.controller;
 import br.edu.ifpb.biblioteca.model.Emprestimo;
 import br.edu.ifpb.biblioteca.service.BibliotecaService;
 
+
 public class EmprestimoController {
 
     private BibliotecaService service;
@@ -11,16 +12,14 @@ public class EmprestimoController {
         this.service = service;
     }
 
-    public boolean realizarEmprestimo(
-            int idUsuario,
-            String tituloLivro,
-            String isbn) {
+    public boolean realizarEmprestimoLivro(
+        int idUsuario,
+        String isbn) {
 
-        return service.realizarEmprestimo(
-                idUsuario,
-                tituloLivro,
-                isbn);
-    }
+    return service.realizarEmprestimoLivro(
+            idUsuario,
+            isbn);
+}
 
     public Emprestimo registrarDevolucao(
             int idUsuario,
