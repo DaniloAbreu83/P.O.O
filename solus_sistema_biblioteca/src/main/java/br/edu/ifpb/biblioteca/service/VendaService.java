@@ -7,6 +7,10 @@ import java.util.List;
 import br.edu.ifpb.biblioteca.model.Jogo;
 import br.edu.ifpb.biblioteca.model.Venda;
 
+/**
+ * Responsável pelo registro e consulta das vendas
+ * realizadas no sistema.
+ */
 public class VendaService {
 
     private List<Venda> vendas = new ArrayList<>();

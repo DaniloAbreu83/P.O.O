@@ -13,6 +13,11 @@ import br.edu.ifpb.biblioteca.util.Cores;
 
 import java.util.List;
 
+/**
+ * Serviço principal do sistema.
+ * Centraliza e coordena as operações de usuários,
+ * acervo, editoras, empréstimos e vendas.
+ */
 public class BibliotecaService {
 
     private UsuarioService usuarioService = new UsuarioService();

@@ -10,6 +10,10 @@ import java.time.LocalDate;
 @Data
 @EqualsAndHashCode(callSuper = true)
 
+/**
+ * Representa uma revista do acervo,
+ * contendo informações como volume e número de páginas.
+ */
 public class Revista extends Item implements Emprestavel {
     private String ISSN;
     private int volume;

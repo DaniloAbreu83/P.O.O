@@ -8,6 +8,10 @@ import br.edu.ifpb.biblioteca.util.Cores;
 @Data
 @EqualsAndHashCode(callSuper = true)
 
+/**
+ * Representa um audiolivro,
+ * identificado pela duração em minutos.
+ */
 public class AudioLivro extends Livro implements Emprestavel {
 
     private int duracaoMinutos;

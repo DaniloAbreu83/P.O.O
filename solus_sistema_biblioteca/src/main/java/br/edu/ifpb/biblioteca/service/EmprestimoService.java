@@ -15,6 +15,11 @@ import java.util.List;
 import lombok.Data;
 
 @Data
+
+/**
+ * Responsável pelas regras de empréstimo e devolução
+ * dos itens permitidos pela biblioteca.
+ */
 public class EmprestimoService {
     private List<Emprestimo> emprestimos = new ArrayList<>();
 

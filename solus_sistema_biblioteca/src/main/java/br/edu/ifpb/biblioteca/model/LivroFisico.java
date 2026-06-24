@@ -8,6 +8,10 @@ import br.edu.ifpb.biblioteca.util.Cores;
 @Data
 @EqualsAndHashCode(callSuper = true)
 
+/**
+ * Representa um livro físico,
+ * identificado pela quantidade de páginas.
+ */
 public class LivroFisico extends Livro implements Emprestavel {
 
     public LivroFisico(

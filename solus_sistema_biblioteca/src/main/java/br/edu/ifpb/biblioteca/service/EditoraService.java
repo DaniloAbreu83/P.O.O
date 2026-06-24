@@ -5,6 +5,10 @@ import java.util.List;
 
 import br.edu.ifpb.biblioteca.model.Editora;
 
+/**
+ * Responsável pelo cadastro e consulta de editoras
+ * utilizadas pelos itens do acervo.
+ */
 public class EditoraService {
 
     private List<Editora> editoras = new ArrayList<>();

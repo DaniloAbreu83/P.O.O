@@ -10,6 +10,10 @@ import br.edu.ifpb.biblioteca.menu.MenuVenda;
 import br.edu.ifpb.biblioteca.util.DadosIniciais;
 import br.edu.ifpb.biblioteca.util.InterfaceUtils;
 
+/**
+ * Classe principal da aplicação.
+ * Responsável por iniciar e executar o sistema.
+ */
 public class Main {
 
     public static int lerInteiro(Scanner sc, String mensagem) {

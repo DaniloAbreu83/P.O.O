@@ -1,5 +1,10 @@
 package br.edu.ifpb.biblioteca.model;
 
+
+/**
+ * Representa um usuário do tipo administrativo,
+ * possuindo regras específicas de empréstimo e multa.
+ */
 public class Administrativo extends Usuario {
 
     public Administrativo(

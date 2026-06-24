@@ -1,5 +1,9 @@
 package br.edu.ifpb.biblioteca.model;
 
+/**
+ * Representa um usuário do tipo aluno,
+ * possuindo regras específicas de empréstimo e multa.
+ */
 public class AlunoGraduacao extends Usuario {
 
     public AlunoGraduacao(

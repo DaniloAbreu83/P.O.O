@@ -12,6 +12,10 @@ import lombok.AllArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 
+/**
+ * Representa um empréstimo realizado por um usuário,
+ * armazenando datas, status e informações de multa.
+ */
 public class Emprestimo {
 
     private int id;

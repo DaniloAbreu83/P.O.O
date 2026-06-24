@@ -6,6 +6,10 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 
+/**
+ * Representa uma editora responsável pela publicação
+ * dos livros cadastrados no sistema.
+ */
 public class Editora {
 
     private int id;

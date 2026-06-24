@@ -8,6 +8,9 @@ import lombok.EqualsAndHashCode;
 @Data
 @EqualsAndHashCode(callSuper = true)
 
+/**
+ * Representa um DVD disponível no acervo da biblioteca.
+ */
 public class Dvd extends Item{
        
     private int duracaoMinutos;

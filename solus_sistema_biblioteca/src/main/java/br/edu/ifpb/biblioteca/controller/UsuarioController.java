@@ -5,6 +5,10 @@ import java.util.List;
 import br.edu.ifpb.biblioteca.model.Usuario;
 import br.edu.ifpb.biblioteca.service.BibliotecaService;
 
+/**
+ * Controlador responsável por intermediar as operações
+ * relacionadas aos usuários do sistema.
+ */
 public class UsuarioController {
 
     private BibliotecaService service;

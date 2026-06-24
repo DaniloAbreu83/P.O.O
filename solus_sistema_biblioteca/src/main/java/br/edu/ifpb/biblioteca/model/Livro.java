@@ -7,6 +7,10 @@ import lombok.EqualsAndHashCode;
 @Data
 @EqualsAndHashCode(callSuper = true)
 
+/**
+ * Representa um livro do acervo da biblioteca.
+ * Possui autor, editora e demais características comuns.
+ */
 public class Livro extends Item {
     private String ISBN;
     private Editora editora;

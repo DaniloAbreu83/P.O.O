@@ -12,6 +12,11 @@ import br.edu.ifpb.biblioteca.model.Revista;
 import lombok.Data;
 
 @Data
+
+/**
+ * Responsável pelo gerenciamento do acervo da biblioteca,
+ * incluindo livros, revistas, CDs, DVDs e jogos.
+ */
 public class AcervoService {
 
     private List<Livro> livros = new ArrayList<>();

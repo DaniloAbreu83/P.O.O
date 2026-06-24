@@ -2,6 +2,10 @@ package br.edu.ifpb.biblioteca.model;
 
 import br.edu.ifpb.biblioteca.util.Cores;
 
+/**
+ * Representa um CD do acervo da biblioteca,
+ * contendo informações como quantidade de faixas.
+ */
 public class Cd extends Item {
 
    private String genero;

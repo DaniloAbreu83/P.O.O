@@ -10,6 +10,10 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 
+/**
+ * Representa um jogo cadastrado no sistema,
+ * podendo ser emprestado ou vendido.
+ */
 public class Jogo implements Emprestavel, Vendavel {
 
     private int id;

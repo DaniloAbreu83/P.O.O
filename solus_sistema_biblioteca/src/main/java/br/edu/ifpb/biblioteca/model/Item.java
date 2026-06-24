@@ -7,6 +7,10 @@ import lombok.Data;
 @Data
 @AllArgsConstructor
 
+/**
+ * Classe base dos itens do acervo da biblioteca.
+ * Reúne atributos comuns como id, título e autor.
+ */
 public abstract class Item {
 
     private int id;

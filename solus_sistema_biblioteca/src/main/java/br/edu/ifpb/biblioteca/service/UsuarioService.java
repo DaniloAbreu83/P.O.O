@@ -5,6 +5,10 @@ import java.util.List;
 
 import br.edu.ifpb.biblioteca.model.Usuario;
 
+/**
+ * Responsável pelo gerenciamento dos usuários,
+ * incluindo cadastro, consulta e regras relacionadas.
+ */
 public class UsuarioService {
 
     private List<Usuario> usuarios = new ArrayList<>();

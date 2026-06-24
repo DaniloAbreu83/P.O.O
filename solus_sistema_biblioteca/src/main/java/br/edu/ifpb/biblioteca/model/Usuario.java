@@ -7,6 +7,10 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 
+/**
+ * Representa um usuário do sistema de biblioteca,
+ * contendo informações e regras comuns a todos os tipos.
+ */
 public abstract class Usuario {
     private int id;
     private String nome;

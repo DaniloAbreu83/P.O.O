@@ -5,6 +5,10 @@ import java.util.List;
 import br.edu.ifpb.biblioteca.model.Editora;
 import br.edu.ifpb.biblioteca.service.BibliotecaService;
 
+/**
+ * Controlador responsável por intermediar as operações
+ * relacionadas às editoras cadastradas.
+ */
 public class EditoraController {
 
      private BibliotecaService service;

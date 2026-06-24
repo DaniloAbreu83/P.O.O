@@ -10,6 +10,10 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 
+/**
+ * Representa uma venda realizada pelo sistema,
+ * registrando item vendido, valor e data da operação.
+ */
 public class Venda {
     private int id;
     private Jogo jogo;
