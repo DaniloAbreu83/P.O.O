@@ -48,18 +48,19 @@ public class DadosIniciais {
                 Editora novatec = new Editora(
                                                 1,
                                                 "Novatec",
-                                                "11111111111111");
-
+                                                "111");
+                service.adicionarEditora(novatec);
+                         
                 Editora altaBooks = new Editora(
                                                 2,
                                                 "Alta Books",
-                                                "22222222222222");
-
+                                                "222");
+                service.adicionarEditora(altaBooks);
                 service.adicionarLivro( new LivroFisico(
                                                 1,
                                                 "Java Como Programar",
                                                 "Deitel",
-                                                "1111111111111",
+                                                "111",
                                                 novatec,
                                                 2023,
                                                 1200,

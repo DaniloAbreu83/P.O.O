@@ -5,6 +5,7 @@ import br.edu.ifpb.biblioteca.model.Jogo;
 import br.edu.ifpb.biblioteca.model.Livro;
 import br.edu.ifpb.biblioteca.model.Revista;
 import br.edu.ifpb.biblioteca.model.Usuario;
+import br.edu.ifpb.biblioteca.util.Cores;
 
 import java.text.Normalizer;
 import java.time.LocalDate;
@@ -32,12 +33,12 @@ public class EmprestimoService {
     public boolean realizarEmprestimo(Usuario usuario, Emprestimo emp) {
 
         if (usuario.isBloqueado() || usuario.isMultaPendente()) {
-            System.out.println("Erro: usuário possui pendências.");
+            Cores.erro("[ERRO] Usuário possui pendências.");
             return false;
         }
 
         if (usuario.getEmprestimosAtivos() >= usuario.getLimiteEmprestimos()) {
-            System.out.println("Erro: limite de empréstimos atingido.");
+            Cores.erro("[ERRO] Limite de empréstimos atingido.");
             return false;
         }
 
@@ -51,14 +52,27 @@ public class EmprestimoService {
 
     public boolean realizarEmprestimoLivro(Usuario usuario, Livro livro) {
 
-        if (usuario.isBloqueado() || usuario.isMultaPendente())
+        if (usuario.isBloqueado()) {
+            Cores.erro("[ERRO] Usuário bloqueado.");
             return false;
+        }
 
-        if (usuario.getEmprestimosAtivos() >= usuario.getLimiteEmprestimos())
+        if (usuario.isMultaPendente()) {
+            Cores.erro("[ERRO] Usuário possui multa pendente.");
             return false;
+        }
 
-        if (!livro.getStatus().equalsIgnoreCase("DISPONIVEL"))
+        if (usuario.getEmprestimosAtivos() >= usuario.getLimiteEmprestimos()) {
+
+            Cores.erro("[ERRO] Limite de empréstimos atingido.");
             return false;
+        }
+
+        if (!livro.getStatus().equalsIgnoreCase("DISPONIVEL")) {
+
+            Cores.erro("[ERRO] Livro indisponível.");
+            return false;
+        }
 
         LocalDate hoje = LocalDate.now();
 
@@ -85,14 +99,25 @@ public class EmprestimoService {
             Usuario usuario,
             Revista revista) {
 
-        if (usuario.isBloqueado() || usuario.isMultaPendente())
+        if (usuario.isBloqueado()) {
+            Cores.erro("[ERRO] Usuário bloqueado.");
             return false;
+        }
 
-        if (usuario.getEmprestimosAtivos() >= usuario.getLimiteEmprestimos())
+        if (usuario.isMultaPendente()) {
+            Cores.erro("[ERRO] Usuário possui multa pendente.");
             return false;
+        }
 
-        if (!revista.getStatus().equalsIgnoreCase("DISPONIVEL"))
+        if (usuario.getEmprestimosAtivos() >= usuario.getLimiteEmprestimos()) {
+            Cores.erro("[ERRO] Limite de empréstimos atingido.");
             return false;
+        }
+        
+        if (!revista.getStatus().equalsIgnoreCase("DISPONIVEL")) {
+            Cores.erro("[ERRO] Revista indisponível.");
+            return false;
+        }
 
         LocalDate hoje = LocalDate.now();
 
@@ -120,14 +145,25 @@ public class EmprestimoService {
             Usuario usuario,
             Jogo jogo) {
 
-        if (usuario.isBloqueado() || usuario.isMultaPendente())
+        if (usuario.isBloqueado()) {
+            Cores.erro("[ERRO] Usuário bloqueado.");
             return false;
+        }
 
-        if (usuario.getEmprestimosAtivos() >= usuario.getLimiteEmprestimos())
+        if (usuario.isMultaPendente()) {
+            Cores.erro("[ERRO] Usuário possui multa pendente.");
             return false;
+        }
 
-        if (!jogo.getStatus().equalsIgnoreCase("DISPONIVEL"))
+        if (usuario.getEmprestimosAtivos() >= usuario.getLimiteEmprestimos()) {
+            Cores.erro("[ERRO] Limite de empréstimos atingido.");
             return false;
+        }
+
+        if (!jogo.getStatus().equalsIgnoreCase("DISPONIVEL")) {
+            Cores.erro("[ERRO] Jogo indisponível.");
+            return false;
+        }
 
         LocalDate hoje = LocalDate.now();
 
@@ -172,6 +208,7 @@ public class EmprestimoService {
         emp.setMulta(multa);
 
         if (multa > 0) {
+            Cores.erro("[ERRO] Usuário possui multa pendente.");
             usuario.setMultaPendente(true);
             usuario.setBloqueado(true);
         }
@@ -185,7 +222,7 @@ public class EmprestimoService {
     public void listarEmprestimosEmAberto() {
         for (Emprestimo e : emprestimos) {
             if (e.getStatus().equals("EM_ABERTO")) {
-                System.out.println(e);
+                Cores.info("[INFO] " + e);
             }
         }
     }
@@ -205,8 +242,7 @@ public class EmprestimoService {
 
         if (!encontrou) {
 
-            System.out.println(
-                    "Nenhum empréstimo encontrado para este usuário.");
+            Cores.info("[INFO] Nenhum empréstimo encontrado para este usuário.");
         }
     }
 

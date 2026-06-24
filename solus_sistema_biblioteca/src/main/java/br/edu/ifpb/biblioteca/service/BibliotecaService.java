@@ -9,8 +9,8 @@ import br.edu.ifpb.biblioteca.model.Cd;
 import br.edu.ifpb.biblioteca.model.Dvd;
 import br.edu.ifpb.biblioteca.model.Editora;
 import br.edu.ifpb.biblioteca.model.Revista;
+import br.edu.ifpb.biblioteca.util.Cores;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class BibliotecaService {
@@ -37,19 +37,19 @@ public class BibliotecaService {
     }
 
     public boolean adicionarDvd(Dvd dvd) {
-        return acervoService.getDvds().add(dvd);
+        return acervoService.adicionarDvd(dvd);
     }
 
     public boolean adicionarRevista(Revista revista) {
-        return acervoService.getRevistas().add(revista);
+        return acervoService.adicionarRevista(revista);
+    }
+
+    public boolean adicionarJogo(Jogo jogo) {
+        return acervoService.adicionarJogo(jogo);
     }
 
     public boolean adicionarEditora(Editora editora) {
         return editoraService.adicionarEditora(editora);
-    }
-
-    public boolean adicionarJogo(Jogo jogo) {
-        return acervoService.getJogos().add(jogo);
     }
 
     // -----------------------------
@@ -67,22 +67,7 @@ public class BibliotecaService {
     // BUSCAR LIVRO
     // -----------------------------
     public List<Livro> buscarLivroPorEditora(String nomeEditora) {
-
-        List<Livro> resultado = new ArrayList<>();
-
-        for (Livro l : acervoService.getLivros()) {
-
-            if (l.getEditora()
-                    .getNome()
-                    .replace(" ", "")
-                    .equalsIgnoreCase(
-                            nomeEditora.replace(" ", ""))) {
-
-                resultado.add(l);
-            }
-        }
-
-        return resultado;
+        return acervoService.buscarLivroPorEditora(nomeEditora);
     }
 
     public Livro buscarLivroPorISBN(String isbn) {
@@ -118,7 +103,7 @@ public class BibliotecaService {
     // ------------------------------
     // BUSCAR EDITORA
     // ------------------------------
-   
+
     public Editora buscarEditoraPorId(int id) {
         return editoraService.buscarEditoraPorId(id);
     }
@@ -126,7 +111,7 @@ public class BibliotecaService {
     public Editora buscarEditoraPorNome(String nome) {
         return editoraService.buscarEditoraPorNome(nome);
     }
-    
+
     // -----------------------------
     // BUSCAR REVISTA
     // -----------------------------
@@ -176,15 +161,46 @@ public class BibliotecaService {
         return emprestimoService.realizarEmprestimoLivro(usuario, livro);
     }
 
+    public boolean realizarEmprestimoLivroPorTitulo(
+            int idUsuario,
+            String titulo) {
+
+        Usuario usuario = usuarioService.buscarUsuario(idUsuario);
+        if (usuario == null) {
+            Cores.info("[INFO] Usuário não encontrado.");
+            return false;
+        }
+
+        Livro livro = acervoService.buscarLivroPorTitulo(titulo);
+
+        if (livro == null) {
+            Cores.info("[INFO] Livro não encontrado.");
+            return false;
+        }
+
+        return emprestimoService.realizarEmprestimoLivro(
+                usuario,
+                livro);
+    }
+
     public boolean realizarEmprestimoRevista(int idUsuario, String titulo) {
 
         Usuario usuario = usuarioService.buscarUsuario(idUsuario);
         Revista revista = acervoService.buscarRevistaPorTitulo(titulo);
 
-        if (usuario == null || revista == null)
+        if (usuario == null) {
+            Cores.info("[INFO] Usuário não encontrado.");
             return false;
+        }
 
-        return emprestimoService.realizarEmprestimoRevista(usuario, revista);
+        if (revista == null) {
+            Cores.info("[INFO] Revista não encontrada.");
+            return false;
+        }
+
+        return emprestimoService.realizarEmprestimoRevista(
+                usuario,
+                revista);
     }
 
     public boolean realizarEmprestimoJogo(int idUsuario, int idJogo) {
@@ -192,10 +208,19 @@ public class BibliotecaService {
         Usuario usuario = usuarioService.buscarUsuario(idUsuario);
         Jogo jogo = acervoService.buscarJogoPorId(idJogo);
 
-        if (usuario == null || jogo == null)
+        if (usuario == null) {
+            Cores.info("[INFO] Usuário não encontrado.");
             return false;
+        }
 
-        return emprestimoService.realizarEmprestimoJogo(usuario, jogo);
+        if (jogo == null) {
+            Cores.info("[INFO] Jogo não encontrado.");
+            return false;
+        }
+
+        return emprestimoService.realizarEmprestimoJogo(
+                usuario,
+                jogo);
     }
 
     // REGISTRAR DEVOLUÇÃO (UC4)
@@ -207,6 +232,7 @@ public class BibliotecaService {
         Usuario usuario = buscarUsuario(idUsuario);
 
         if (usuario == null) {
+            Cores.info("[INFO] Usuário não encontrado.");
             return null;
         }
 
@@ -215,6 +241,7 @@ public class BibliotecaService {
                 tituloLivro);
 
         if (e == null) {
+            Cores.info("[INFO] Empréstimo não encontrado.");
             return null;
         }
 
@@ -285,45 +312,7 @@ public class BibliotecaService {
     }
 
     public int getTotalItensDisponiveis() {
-
-        int total = 0;
-
-        for (Livro livro : acervoService.getLivros()) {
-
-            if (livro.getStatus().equalsIgnoreCase("DISPONIVEL")) {
-                total++;
-            }
-        }
-
-        for (Cd cd : acervoService.getCds()) {
-
-            if (cd.getStatus().equalsIgnoreCase("DISPONIVEL")) {
-                total++;
-            }
-        }
-
-        for (Dvd dvd : acervoService.getDvds()) {
-
-            if (dvd.getStatus().equalsIgnoreCase("DISPONIVEL")) {
-                total++;
-            }
-        }
-
-        for (Revista revista : acervoService.getRevistas()) {
-
-            if (revista.getStatus().equalsIgnoreCase("DISPONIVEL")) {
-                total++;
-            }
-        }
-
-        for (Jogo jogo : acervoService.getJogos()) {
-
-            if (jogo.getStatus().equalsIgnoreCase("DISPONIVEL")) {
-                total++;
-            }
-        }
-
-        return total;
+        return acervoService.getTotalItensDisponiveis();
     }
 
     // ======================================================

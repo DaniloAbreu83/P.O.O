@@ -47,12 +47,38 @@ public class MenuEmprestimo {
 
                         case 1:
 
-                            System.out.print("ISBN: ");
-                            String isbn = sc.nextLine();
+                            System.out.println("Localizar livro por:");
+                            System.out.println("1. ISBN");
+                            System.out.println("2. Título");
 
-                            sucesso = service.realizarEmprestimoLivro(
-                                    idUsuario,
-                                    isbn);
+                            int opcaoBusca = MenuCadastro.lerInteiro(
+                                    sc,
+                                    "Escolha: ");
+
+                            if (opcaoBusca == 1) {
+
+                                String isbn = MenuCadastro.lerTexto(
+                                        sc,
+                                        "ISBN: ");
+
+                                sucesso = service.realizarEmprestimoLivro(
+                                        idUsuario,
+                                        isbn);
+
+                            } else if (opcaoBusca == 2) {
+
+                                String titulo = MenuCadastro.lerTexto(
+                                        sc,
+                                        "Título: ");
+
+                                sucesso = service.realizarEmprestimoLivroPorTitulo(
+                                        idUsuario,
+                                        titulo);
+
+                            } else {
+
+                                sucesso = false;
+                            }
 
                             break;
 
@@ -86,12 +112,7 @@ public class MenuEmprestimo {
                     if (sucesso) {
 
                         Cores.sucesso("Empréstimo realizado com sucesso!");
-
-                    } else {
-
-                        Cores.erro("Não foi possível realizar o empréstimo.");
-                        Cores.erro("item indisponível, tente outro item.");
-                    }
+                    } 
                     MenuCadastro.pausar(sc);
                     break;
 

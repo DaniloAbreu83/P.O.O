@@ -117,6 +117,24 @@ public class AcervoService {
     // -----------------------------
     // BUSCAR LIVRO
     // -----------------------------
+    public List<Livro> buscarLivroPorEditora(String nomeEditora) {
+
+        List<Livro> resultado = new ArrayList<>();
+
+        for (Livro l : livros) {
+
+            if (l.getEditora()
+                    .getNome()
+                    .replace(" ", "")
+                    .equalsIgnoreCase(
+                            nomeEditora.replace(" ", ""))) {
+
+                resultado.add(l);
+            }
+        }
+
+        return resultado;
+    }
 
     public Livro buscarLivroPorISBN(String isbn) {
 
@@ -293,6 +311,48 @@ public class AcervoService {
         }
 
         return null;
+    }
+
+    public int getTotalItensDisponiveis() {
+
+        int total = 0;
+
+        for (Livro livro : livros) {
+
+            if (livro.getStatus().equalsIgnoreCase("DISPONIVEL")) {
+                total++;
+            }
+        }
+
+        for (Cd cd : cds) {
+
+            if (cd.getStatus().equalsIgnoreCase("DISPONIVEL")) {
+                total++;
+            }
+        }
+
+        for (Dvd dvd : dvds) {
+
+            if (dvd.getStatus().equalsIgnoreCase("DISPONIVEL")) {
+                total++;
+            }
+        }
+
+        for (Revista revista : revistas) {
+
+            if (revista.getStatus().equalsIgnoreCase("DISPONIVEL")) {
+                total++;
+            }
+        }
+
+        for (Jogo jogo : jogos) {
+
+            if (jogo.getStatus().equalsIgnoreCase("DISPONIVEL")) {
+                total++;
+            }
+        }
+
+        return total;
     }
 
     public List<Livro> getLivros() {
